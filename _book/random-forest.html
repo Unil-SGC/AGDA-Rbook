@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 6 Random Forest | Advanced Geospatial Data Analysis in R: Environmental Application</title>
+<meta name="author" content="Marj Tonini, Haokun Liu">
+<meta name="description" content="6.1 Introduction In this application, we explore the capabilities of a stochastic approach based on a machine learning (ML) algorithm to elaborate landslides susceptibility mapping in Canton Vaud,...">
+<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta property="og:title" content="Chapter 6 Random Forest | Advanced Geospatial Data Analysis in R: Environmental Application">
+<meta property="og:type" content="book">
+<meta property="og:image" content="/images/UNIL_logo.png">
+<meta property="og:description" content="6.1 Introduction In this application, we explore the capabilities of a stochastic approach based on a machine learning (ML) algorithm to elaborate landslides susceptibility mapping in Canton Vaud,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 6 Random Forest | Advanced Geospatial Data Analysis in R: Environmental Application">
+<meta name="twitter:description" content="6.1 Introduction In this application, we explore the capabilities of a stochastic approach based on a machine learning (ML) algorithm to elaborate landslides susceptibility mapping in Canton Vaud,...">
+<meta name="twitter:image" content="/images/UNIL_logo.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Advanced Geospatial Data Analysis in R: Environmental Application</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="geographically-weighted-summary-statistics.html"><span class="header-section-number">2</span> Geographically Weighted Summary Statistics</a></li>
+<li><a class="" href="kernel-density-estimator.html"><span class="header-section-number">3</span> Kernel Density Estimator</a></li>
+<li><a class="" href="density-based-clustering-algorithm.html"><span class="header-section-number">4</span> Density-based Clustering Algorithm</a></li>
+<li><a class="" href="self-organizing-map.html"><span class="header-section-number">5</span> Self-organizing Map</a></li>
+<li><a class="active" href="random-forest.html"><span class="header-section-number">6</span> Random Forest</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="random-forest" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Random Forest<a class="anchor" aria-label="anchor" href="#random-forest"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-4" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-4"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this application, we explore the capabilities of a stochastic approach based on a machine learning (ML) algorithm to elaborate landslides susceptibility mapping in Canton Vaud, Switzerland.
+Generally speaking, ML includes a class of algorithms for the analysis, modelling, and visualization of environmental data and it performs particularly well to model environmental hazards, which naturally have a complex and non-linear behavior.
+Here we use Random Forest, an ensemble ML algorithm based on decision trees.</p>
+<p>The research framework that inspired this computational lab refers to a pioneering study in susceptibility mapping for wildfire eventy by <span class="citation">Marj Tonini et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-tonini_machine_2020"&gt;&lt;span&gt;“A Machine Learning-Based Approach for Wildfire Susceptibility Mapping. The Case Study of the Liguria Region in Italy,”&lt;/span&gt; &lt;em&gt;Geosciences&lt;/em&gt; 10, no. 3 (March 2020): 105, &lt;span&gt;https://doi.org/10.3390/geosciences10030105&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>13</sup></a></span> and further developed for the assessment of variable importance by <span class="citation">Andrea Trucchia et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-trucchia_machine-learning_2022"&gt;&lt;span&gt;“Machine-Learning Applications in Geosciences: Comparison of Different Algorithms and Vegetation Classes’ Importance Ranking in Wildfire Susceptibility,”&lt;/span&gt; &lt;em&gt;Geosciences&lt;/em&gt; 12, no. 11 (November 2022): 424, &lt;span&gt;https://doi.org/10.3390/geosciences12110424&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>14</sup></a></span></p>
+<div id="the-main-objective" class="section level3" number="6.1.1">
+<h3>
+<span class="header-section-number">6.1.1</span> The main objective<a class="anchor" aria-label="anchor" href="#the-main-objective"><i class="fas fa-link"></i></a>
+</h3>
+<p>Landslides are one of the major hazard occurring around the world.
+In Switzerland, landslides cause damages to infrastructures and sometimes threaten human lives.
+Shallow landslides are triggered by intense rainfalls.
+Such slope movements are generally very rapid and hardly predictable.
+Different quantitative approaches have been developed to assess the most susceptible areas.</p>
+<p>This project applies a data-driven methodology based on Random Forest (RF) (<span class="citation">Leo Breiman<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-breiman_random_2001"&gt;&lt;span&gt;“Random Forest,”&lt;/span&gt; &lt;em&gt;Machine Learning&lt;/em&gt; 45, no. 1 (2001): 5–32, &lt;span&gt;https://doi.org/10.1023/A:1010933404324&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>15</sup></a></span>) to elaborate the landslides susceptibility map of canton of Vaud, in Switzerland.
+RF is applied to a set of independent variables (i.e., the predictors) and dependent variables (the inventoried landslides and an equal number of locations for absences).
+The overall methodology is described in the following graphic ().</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:gen-met"></span>
+<img src="images/Methodology.png" alt="Basic elements of the generic methodology \label{Methodology}" width="80%" height="80%"><p class="caption">
+Figure 6.1: Basic elements of the generic methodology
+</p>
+</div>
+</div>
+<div id="load-the-libraries-4" class="section level3" number="6.1.2">
+<h3>
+<span class="header-section-number">6.1.2</span> Load the libraries<a class="anchor" aria-label="anchor" href="#load-the-libraries-4"><i class="fas fa-link"></i></a>
+</h3>
+<p>To perform the analysis, you have first to install the following libraries:</p>
+<ul>
+<li><p><strong>library(raster)</strong>: The raster package provides classes and functions to manipulate geographic (spatial) data in ‘raster’ format.</p></li>
+<li><p><strong>library(readr)</strong>: The goal of ‘readr’ is to provide a fast and friendly way to read rectangular data (like ‘csv’, ‘tsv’, and ‘fwf’).</p></li>
+<li><p><strong>library(randomForest)</strong>: Classification and regression based on a forest of trees using random inputs, based on <a href="https://link.springer.com/article/10.1023/A:1010933404324">Breiman (2001)</a>.</p></li>
+<li><p><strong>library(dplyr)</strong>: It is the next iteration of plyr, focused on tools for working with data frames (hence the d in the name).</p></li>
+<li>
+<p><strong>library(pROC)</strong>: Allowing to compute, analyze ROC curves, and</p>
+<ul>
+<li>
+<strong>library(plotROC)</strong> to display ROC curve</li>
+</ul>
+</li>
+<li><p><strong>(ggplot2)</strong>: Is a system for declaratively creating graphics.</p></li>
+<li><p><strong>library(sf)</strong>: Support for simple features, a standardized way to encode spatial vector data.</p></li>
+</ul>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster">raster</a></span><span class="op">)</span> </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span> </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.stat.berkeley.edu/~breiman/RandomForests/">randomForest</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span> </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://sachsmc.github.io/plotROC/">plotROC</a></span><span class="op">)</span> </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>  </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span> </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/classInt/">classInt</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/zpackages.html">.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "classInt"     "sf"           "plotROC"     </span></span>
+<span><span class="co">#&gt;  [4] "ggplot2"      "pROC"         "dplyr"       </span></span>
+<span><span class="co">#&gt;  [7] "randomForest" "readr"        "raster"      </span></span>
+<span><span class="co">#&gt; [10] "sp"           "stats"        "graphics"    </span></span>
+<span><span class="co">#&gt; [13] "grDevices"    "utils"        "datasets"    </span></span>
+<span><span class="co">#&gt; [16] "methods"      "base"</span></span></code></pre></div>
+<p><strong>List of the libraries</strong></p>
+</div>
+</div>
+<div id="import-the-data-1" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> Import the data<a class="anchor" aria-label="anchor" href="#import-the-data-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Import the <strong>landslides punctual dataset</strong> presences and pseudo-absences (LS_pa) and <em>predictors</em> (in raster format).
+This help the exploratory data analyses steps and to understand the input data structure.</p>
+<div id="landslides-dataset" class="section level3" number="6.2.1">
+<h3>
+<span class="header-section-number">6.2.1</span> Landslides dataset<a class="anchor" aria-label="anchor" href="#landslides-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <strong>landslide inventory</strong> has been provided by the environmental office of the canton of Vaud.
+Only <em>shallow landslides</em> are used for susceptibility modelling.
+One pixel per landslide-area (namely the one located at the highest elevation) has been extracted.
+Since the landslide scarp is located in the upper part of the polygon, it makes sense to consider the highest pixel to characterize each single event.</p>
+<p>Our model includes the implementation of the landslide <strong>pseudo-absences</strong>, which are the areas where the hazardous events did not took place (i.e. landslide location is known and the mapped footprint areas are available, but the non-landslide areas have to be defined).
+Indeed, to assure a good generalization of the model and to avoid the overestimation of the absence, pseudo-absences need to be generated in all the cases where they are not explicitly expressed.
+In this case study, an equal number of point as for presences has been randomly generated in the study area, except within landslides polygons, lakes and glaciers (that is what is called “validity domain”, where events could potentially occur).</p>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Import the landslides dataset (dependent variable)</span></span>
+<span><span class="va">LS_pa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Lab05/LS_pa.csv"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Convert the numeric values (0/1) as factor </span></span>
+<span><span class="co">##(i.e. categorical value)</span></span>
+<span><span class="va">LS_pa</span><span class="op">$</span><span class="va">LS</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">LS_pa</span><span class="op">$</span><span class="va">LS</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Display the structure (str) and result summaries (summary)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">LS_pa</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">LS_pa</span><span class="op">)</span></span>
+<span><span class="co"># Plot the events</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">LS_pa</span><span class="op">$</span><span class="va">X</span>,<span class="va">LS_pa</span><span class="op">$</span><span class="va">Y</span>, col<span class="op">=</span><span class="va">LS_pa</span><span class="op">$</span><span class="va">LS</span>, pch<span class="op">=</span><span class="fl">20</span>, cex<span class="op">=</span><span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/import-data-1.png" width="672"></div>
+</div>
+<div id="predictor-variables" class="section level3" number="6.2.2">
+<h3>
+<span class="header-section-number">6.2.2</span> Predictor variables<a class="anchor" aria-label="anchor" href="#predictor-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>Selecting predictor variables is a key stage on susceptibility ans risk modelling when using a data-driven approach.
+There is no consensus about the number of variables and which variables should be used for landslides assesment.
+In the present exercise we will use the following:</p>
+<ul>
+<li><p><strong>DEM (digital elevation model)</strong>: provided by the Swiss Federal Office of Topography.
+The elevation is not a direct conditioning factor for landslide; however, it can reflect differences in vegetation characteristics and soil.</p></li>
+<li><p><strong>Slope</strong>: is one of the most explicating factor in landslide susceptibility modelling.
+It is computing as:</p></li>
+</ul>
+<p><span class="math display">\[Slope = arctan(\sqrt{(dz/dx)^2 + (dz/dy)^2)} * (\pi/2)\]</span></p>
+<ul>
+<li><p><strong>Curvature</strong>: curvature is widely used in landslide susceptibility modelling.
+It allows assessing the water flow acceleration and sediment transport process (<em>profile curvature</em>) and the water flow propensity to converge and diverge (<em>plan curvature</em>).
+They were derived from DEM using the curvature tool in ArcGIS.</p></li>
+<li><p><strong>TWI (topographical water index)</strong>: topography plays a key role in the spatial distribution of soil hydrological conditions.
+Defining <span class="math inline">\(\alpha\)</span> as the upslope contributing area describing the propensity of a cell to receive water, and <span class="math inline">\(\beta\)</span> as the slope angle, TWI (compute by the formula below), reflects the propensity of a cell to evacuate water:</p></li>
+</ul>
+<p><span class="math display">\[TWI=ln(\alpha/tan(\beta))\]</span></p>
+<ul>
+<li><p><strong>Distance to roads</strong>: roads build in mountainous areas often cut the slope, weakening the cohesion of the soil.
+Moreover, roads surfaces are highly impermeable.
+This raster has been elaborated using the euclidean distance tool in ArcGIS, from the swissTLMRegio map where roads are represented by lines.</p></li>
+<li><p><strong>Land Cover</strong>: developed by the Swiss administration and based on aerial photographs and control points.
+It includes 27 categories distributed in the following 6 domains: human modified surfaces, herbaceous vegetation, shrubs vegetation, tree vegetation, surfaces without vegetation, water surfaces (glaciers included).</p></li>
+<li><p><strong>Geology</strong>: The use of the lithology increase the performance of the susceptibility landslide models.
+We use here the map elaborated by the Canton Vaud, defining the geotypes and reclassified in 10 classes in order to differentiate sedimentary rocks.</p></li>
+</ul>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">## Import raster (independent variables) 25 meter resolution</span></span>
+<span></span>
+<span><span class="va">landCover</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"data/Lab05/landCover.tif"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">geology</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"data/Lab05/geology.tif"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">planCurv</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"data/Lab05/plan_curvature.tif"</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span> <span class="co"># this because ArcGIS multiply </span></span>
+<span><span class="va">profCurv</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"data/Lab05/profil_curvature.tif"</span><span class="op">)</span><span class="op">/</span><span class="fl">100</span> <span class="co"># ....curvature values by 100</span></span>
+<span><span class="va">TWI</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"data/Lab05/TWI.tif"</span><span class="op">)</span></span>
+<span><span class="va">Slope</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"data/Lab05/Slope.tif"</span><span class="op">)</span></span>
+<span><span class="va">dem</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"data/Lab05/DEM.tif"</span><span class="op">)</span></span>
+<span><span class="va">dist</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"data/Lab05/dist_roads.tif"</span><span class="op">)</span></span></code></pre></div>
+<p>Than the predictor variables (features) have to be aggregated.
+We use here the function <strong>stack</strong> to create a collection of RasterLayer objects with the same spatial extent and resolution.</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#create a Raster stack</span></span>
+<span><span class="va">features</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html">stack</a></span><span class="op">(</span><span class="va">dist</span>, <span class="va">dem</span>, <span class="va">TWI</span>, <span class="va">planCurv</span>, <span class="va">profCurv</span>, <span class="va">Slope</span>, <span class="va">geology</span>, <span class="va">landCover</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Renames the variables</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">features</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"distRoad"</span>, <span class="st">"DEM"</span>, <span class="st">"TWI"</span>, <span class="st">"planCurv"</span>, <span class="st">"profCurv"</span>, </span>
+<span>                   <span class="st">"Slope"</span>, <span class="st">"Geology"</span>, <span class="st">"LandCover"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">features</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/stack-feature-1.png" width="672"></div>
+<div id="the-use-of-categorical-variables-in-machine-learning" class="section level4" number="6.2.2.1">
+<h4>
+<span class="header-section-number">6.2.2.1</span> The use of categorical variables in Machine Learning<a class="anchor" aria-label="anchor" href="#the-use-of-categorical-variables-in-machine-learning"><i class="fas fa-link"></i></a>
+</h4>
+<p>The majority of ML algorithms (e.g., support vector machines, artificial neural network, deep learning) makes predictions on the base of the proximity between the values of the predictors, computed in terms of euclidean distance.
+This means that these algorithms can not handle directly categorical values (i.e., qualitative descriptors).
+Thus, in most of the cases, categorical variables need to be transformed into a numerical format.
+One of the advantage of using Random Forest (as implemented in R) is that it can handle directly categorical variables, since the algorithm operate by constructing a multitude of decision trees at training time and the best split is chosen just by counting the proportion of each class observation.</p>
+<p>To understand the characteristics of the categorical variables, you can plot the tow rasters <strong>Land Cover</strong> and <strong>Geology</strong> by using their original classes.
+To visualize the data, you can use R as a GIS, but you need to perform few data manipulations.</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Create a random color palette </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">50</span></span>
+<span><span class="va">qual_col_pals</span> <span class="op">=</span> <span class="va">brewer.pal.info</span><span class="op">[</span><span class="va">brewer.pal.info</span><span class="op">$</span><span class="va">category</span> <span class="op">==</span> <span class="st">'qual'</span>,<span class="op">]</span></span>
+<span><span class="va">col_vector</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span><span class="op">(</span><span class="va">brewer.pal</span>, <span class="va">qual_col_pals</span><span class="op">$</span><span class="va">maxcolors</span>, </span>
+<span>                           <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">qual_col_pals</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load libraries for levelplot function, </span></span>
+<span><span class="co"># allowing to plot raster based of categorical data.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lattice.r-forge.r-project.org/">lattice</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://oscarperpinan.github.io/rastervis/">rasterVis</a></span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>
+<strong>Raster geology</strong>: extract the attribute table and plot the map based on the geological classes.</li>
+</ul>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># ensure that the raster attributes are read as type "factor"</span></span>
+<span><span class="va">geology</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"data/Lab05/geology.tif"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add a geological class column to the Raster Attribute Table</span></span>
+<span><span class="va">rat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">geology</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> </span>
+<span><span class="va">rat</span><span class="op">$</span><span class="va">Geology_classes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"glacial deposits"</span>, <span class="st">"carbonates"</span>, <span class="st">"marly-limestone"</span>,</span>
+<span>                         <span class="st">"alluvial deposits"</span>, <span class="st">"artificial materials"</span>, </span>
+<span>                         <span class="st">"slope deposits"</span>, <span class="st">"detrital rocks"</span>, <span class="st">"metamorphic rocks"</span>,</span>
+<span>                         <span class="st">"evaporitic rocks"</span>,<span class="st">"magmatic rocks"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">geology</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">rat</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">geology</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the raster based on the geological classes </span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/levelplot.html">levelplot</a></span><span class="op">(</span><span class="va">geology</span>, col.regions<span class="op">=</span><span class="va">col_vector</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/geology-map-1.png" width="672"></div>
+<ul>
+<li>
+<strong>Raster land cover</strong>: extract the attribute table and plot the map based on the land cover classes.</li>
+</ul>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">landCover</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span><span class="op">(</span><span class="st">"data/Lab05/landCover.tif"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ratLC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">landCover</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>  </span>
+<span></span>
+<span><span class="va">ratLC</span><span class="op">$</span><span class="va">LandCover_classes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"impermeable man-made"</span>,<span class="st">"permeable man-made"</span>,</span>
+<span>                             <span class="st">"herbaceous vegetation"</span>,<span class="st">"shrub vegetation"</span>,</span>
+<span>                             <span class="st">"forest"</span>,<span class="st">"no vegetation"</span>,<span class="st">"glacier and water body"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">landCover</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">ratLC</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">landCover</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the raster based on the land cover classes </span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/levelplot.html">levelplot</a></span><span class="op">(</span><span class="va">landCover</span>, col.regions<span class="op">=</span><span class="va">col_vector</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/landCover-map-1.png" width="672"></div>
+</div>
+</div>
+</div>
+<div id="create-the-input-dataset" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> Create the input dataset<a class="anchor" aria-label="anchor" href="#create-the-input-dataset"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this step, you will extract the values of the predictors at each location in the landslides (presences and absences) dataset.</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Shuffle the rows</span></span>
+<span><span class="va">LS_sh</span> <span class="op">&lt;-</span> <span class="va">LS_pa</span> <span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">LS_pa</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">LS_pa</span><span class="op">)</span><span class="op">)</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Convert to spatial point dataframe</span></span>
+<span><span class="va">LS_spdf</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPoints.html">SpatialPointsDataFrame</a></span><span class="op">(</span><span class="va">LS_sh</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X"</span>, <span class="st">"Y"</span><span class="op">)</span><span class="op">]</span>, <span class="va">LS_sh</span>, proj4string<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crs.html">crs</a></span><span class="op">(</span><span class="va">features</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">LS_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/extract.html">extract</a></span><span class="op">(</span><span class="va">features</span>, <span class="va">LS_spdf</span>, df<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add independent variable (LS) as additional column to the dataframe</span></span>
+<span><span class="va">LS_input</span><span class="op">$</span><span class="va">LS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">LS_spdf</span><span class="op">$</span><span class="va">LS</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert Land cover and Geology classes as factor</span></span>
+<span><span class="va">LS_input</span><span class="op">$</span><span class="va">LandCover</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">LS_input</span><span class="op">$</span><span class="va">LandCover</span><span class="op">)</span></span>
+<span><span class="va">LS_input</span><span class="op">$</span><span class="va">Geology</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">LS_input</span><span class="op">$</span><span class="va">Geology</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Remove extra column (ID)</span></span>
+<span><span class="va">LS_input</span> <span class="op">&lt;-</span> <span class="va">LS_input</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">LS_input</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">LS_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">LS_input</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Explore the newly created input dataset.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">LS_input</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">LS_input</span><span class="op">)</span></span></code></pre></div>
+<div id="split-the-input-dataset-into-training-80-and-testing-20" class="section level3" number="6.3.1">
+<h3>
+<span class="header-section-number">6.3.1</span> Split the input dataset into training (80%) and testing (20%)<a class="anchor" aria-label="anchor" href="#split-the-input-dataset-into-training-80-and-testing-20"><i class="fas fa-link"></i></a>
+</h3>
+<p>A well-established procedure in ML is to split the input dataset into training, validation, and testing.</p>
+<ul>
+<li><p>The <strong>training dataset</strong> is needed to calibrate the parameters of the model, which will be used to get predictions on new data.</p></li>
+<li><p>The purpose of the <strong>validation dataset</strong> is to optimize the hyperparameter of the model (<em>training phase</em>).
+<strong>NB</strong>: in Random Forest this subset is represented by the Out-Of-Bag (<strong>OOB</strong>)!</p></li>
+<li><p>To provide an unbiased evaluation of the final model and to assess its performance, results are then predicted over unused observations (<em>prediction phase</em>), defined as the <strong>testing dataset</strong>.</p></li>
+</ul>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Split the input dataset into training (80%) and testing (20%)</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span> <span class="op">(</span><span class="va">LS_input</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">n_train</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">0.80</span> <span class="op">*</span> <span class="va">n</span><span class="op">)</span> </span>
+<span><span class="va">train_indices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span>, <span class="va">n_train</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create indices</span></span>
+<span><span class="va">LS_input_train</span> <span class="op">&lt;-</span> <span class="va">LS_input</span><span class="op">[</span><span class="va">train_indices</span>, <span class="op">]</span>  </span>
+<span><span class="va">LS_input_test</span> <span class="op">&lt;-</span> <span class="va">LS_input</span><span class="op">[</span><span class="op">-</span><span class="va">train_indices</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Count the number of elements in the two subset: training and testing</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">LS_input_train</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">LS_input_test</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="run-random-forest" class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> Run Random Forest<a class="anchor" aria-label="anchor" href="#run-random-forest"><i class="fas fa-link"></i></a>
+</h2>
+<p>Computationally, a subset of the training dataset is generated by bootstrapping (i.e. random sampling with replacement).
+For each subset a decision tree is grown and, at each split, the algorithm randomly selects a number of variables (<em>mtry</em>) and it computes the Gini index to identify the best one.
+The process stops when each node contains less than a fixed number of data points.
+The fundamental hyperparameters that needs to be defined in RF are <em>mtry</em> and the total number of trees (<em>ntrees</em>).</p>
+<p>The prediction error on the training dataset is finally assessed by evaluating predictions on those observations that were not used in the subset, defined as “out-of-bag” (<strong>OOB</strong>).
+This values is used the optimize the values of the hyperparameters, by a trial and error process (that is, trying to minimize the OOB estimate of error rate).</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>  </span>
+<span><span class="co"># Set the seed of R‘s random number generator, </span></span>
+<span><span class="co">## this is useful for creating simulations that can be reproduced.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Run RF model</span></span>
+<span><span class="va">RF_LS</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">LS_input_train</span><span class="op">$</span><span class="va">LS</span>, x<span class="op">=</span><span class="va">LS_input_train</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>,data<span class="op">=</span><span class="va">LS_input_train</span>,</span>
+<span>                    ntree<span class="op">=</span><span class="fl">200</span>, mtry<span class="op">=</span><span class="fl">3</span>,importance<span class="op">=</span><span class="cn">TRUE</span>, do.trace<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div id="rf-main-outputs" class="section level3" number="6.4.1">
+<h3>
+<span class="header-section-number">6.4.1</span> RF main outputs<a class="anchor" aria-label="anchor" href="#rf-main-outputs"><i class="fas fa-link"></i></a>
+</h3>
+<p>Printing the results of RF allows you to gain insight into the outputs of the implemented model, namelly the following: - a summary of the model hyperparameters - the OOB estimate of error rate - the confusion matrix; in this case a 2x2 matrix used for evaluating the performance of the classification model (1-presence vs 0-absence).</p>
+<p>The plotting the of the error rate is useful to estimate the decreasing values on the OOB and on the predictions (presence (1) / absence (0)) over increasing number of treees.</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">RF_LS</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt;  randomForest(x = LS_input_train[1:8], y = LS_input_train$LS,      ntree = 200, mtry = 3, importance = TRUE, do.trace = TRUE,      data = LS_input_train) </span></span>
+<span><span class="co">#&gt;                Type of random forest: classification</span></span>
+<span><span class="co">#&gt;                      Number of trees: 200</span></span>
+<span><span class="co">#&gt; No. of variables tried at each split: 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;         OOB estimate of  error rate: 15.67%</span></span>
+<span><span class="co">#&gt; Confusion matrix:</span></span>
+<span><span class="co">#&gt;      0    1 class.error</span></span>
+<span><span class="co">#&gt; 0 1711  381   0.1821224</span></span>
+<span><span class="co">#&gt; 1  269 1787   0.1308366</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">RF_LS</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"topright"</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"perd 0"</span>, <span class="st">"pred 1"</span>, <span class="st">"OOB error"</span><span class="op">)</span>, </span>
+<span> col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"black"</span><span class="op">)</span>, lty<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, cex<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/RF-outputs-1.png" width="672"></div>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Show the predicted probability values</span></span>
+<span><span class="va">RF.predict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">RF_LS</span>,type<span class="op">=</span><span class="st">"prob"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">RF.predict</span><span class="op">)</span> <span class="co"># 0==abstece ; 1== presence</span></span>
+<span><span class="co">#&gt;              0          1</span></span>
+<span><span class="co">#&gt; 2464 1.0000000 0.00000000</span></span>
+<span><span class="co">#&gt; 2512 0.3846154 0.61538462</span></span>
+<span><span class="co">#&gt; 2228 0.7500000 0.25000000</span></span>
+<span><span class="co">#&gt; 526  0.9259259 0.07407407</span></span>
+<span><span class="co">#&gt; 4293 1.0000000 0.00000000</span></span>
+<span><span class="co">#&gt; 2987 0.2923077 0.70769231</span></span></code></pre></div>
+</div>
+<div id="model-evaluation" class="section level3" number="6.4.2">
+<h3>
+<span class="header-section-number">6.4.2</span> Model evaluation<a class="anchor" aria-label="anchor" href="#model-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<p>The prediction capability of the implemented RF model can be evaluated by predicting the results over previously unseen data, that is the testing dataset.
+The <em>Area Under the “Receiver Operating Characteristic (ROC)” Curve</em> (<strong>AUC</strong>) represents the evaluation score used here as indicator of the goodness of the model in classifying areas more susceptible to landslides.
+ROC curve is a graphical technique based on the plot of the percentage of correct classification (the true positives rate) against the false positives rate (occurring when an outcome is incorrectly predicted as belonging to the class “1” when it actually belongs to the class “0”), evaluates for many thresholds.
+The AUC value lies between 0.5, denoting a bad classifier, and 1, denoting an excellent classifier.</p>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Make predictions on the testing dataset</span></span>
+<span><span class="va">RFpred_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">RF_LS</span>, newdata <span class="op">=</span> <span class="va">LS_input_test</span>, type<span class="op">=</span><span class="st">"prob"</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="va">roc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">LS_input_test</span><span class="op">$</span><span class="va">LS</span>,<span class="va">RFpred_test</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">roc</span><span class="op">$</span><span class="va">specificities</span>,<span class="va">roc</span><span class="op">$</span><span class="va">sensitivities</span>, type <span class="op">=</span> <span class="st">'l'</span>, col <span class="op">=</span> <span class="st">'blue'</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"False positive rate"</span>, ylab <span class="op">=</span> <span class="st">"True positive rate"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/RF-val-1.png" width="672"></div>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">roc</span> </span></code></pre></div>
+</div>
+</div>
+<div id="susceptibility-map" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> Susceptibility map<a class="anchor" aria-label="anchor" href="#susceptibility-map"><i class="fas fa-link"></i></a>
+</h2>
+<p>You have now all the elements to elaborate the final landslide susceptibility map.
+This will be achieved by making predictions (of presence only) based on the values of the predictors, which are stored into the RasterStack named *features*, created above.</p>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Index=2 indicate the prediction of presence (1) </span></span>
+<span><span class="va">Scp_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">features</span>, <span class="va">RF_LS</span>,type<span class="op">=</span><span class="st">"prob"</span>, index<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Summary statistics</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Scp_pred</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">Scp_pred</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/Scp-map-1.png" width="672"></div>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Export ratster</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/writeRaster.html">writeRaster</a></span><span class="op">(</span><span class="va">Scp_pred</span>,<span class="st">"Scp_map25.tif"</span>, overwrite<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot the output susceptibility map</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"RColorBrewer"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">Scp_pred</span>, xlab <span class="op">=</span> <span class="st">"East [m]"</span>, ylab <span class="op">=</span> <span class="st">"North [m]"</span>, </span>
+<span>     main <span class="op">=</span> <span class="st">"Landslides susceptibility map"</span>, </span>
+<span>     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">terrain.colors</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/Scp-map-2.png" width="672"></div>
+<div id="class-intervals-for-decision-maker" class="section level3" number="6.5.1">
+<h3>
+<span class="header-section-number">6.5.1</span> Class intervals for decision maker<a class="anchor" aria-label="anchor" href="#class-intervals-for-decision-maker"><i class="fas fa-link"></i></a>
+</h3>
+<p>What can you say by looking at the map?
+Actually a risk heat map is a data visualization tool for communicating the level for a specific risk to occur.
+These maps helps authorities to identify and prioritize the risks associated with a given hazard.</p>
+<p>Normally an authority (i.e., a decision maker) prioritize its efforts based on the available resources it has.
+So, it can be more useful to detect the areas with the highest probability of burning based given intervals (i.e., breaks).
+The authority can thus concentrate its resources for preventive actions on a given percentage (such as 5%, 10%, or 20%) of the area with the highest probability of burning, instead of concentrate on the areas with a “stochastic” output probability value of 0.8 (for example).</p>
+<ul>
+<li>Breaks chosen based on the <strong>summary statics</strong>: these values corresponds to 0-25%-50%-75%-100% of the p-value distribution.</li>
+</ul>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">brk</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.03</span>, <span class="fl">0.14</span>, <span class="fl">0.4</span>, <span class="fl">1</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">Scp_pred</span>, xlab <span class="op">=</span> <span class="st">"East [m]"</span>, ylab <span class="op">=</span> <span class="st">"North [m]"</span>, </span>
+<span>     main <span class="op">=</span> <span class="st">"Landslides susceptibility map"</span>, </span>
+<span>     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"brown"</span>, <span class="st">"orange"</span>, <span class="st">"yellow"</span>, <span class="st">"grey"</span><span class="op">)</span><span class="op">)</span>, breaks<span class="op">=</span><span class="va">brk</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/quantile-map-1.png" width="672"></div>
+<ul>
+<li>Breaks chosen based on well-estabished <strong>percentile classes</strong>
+</li>
+</ul>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Output predicted values are transformed to a vector</span></span>
+<span><span class="va">pred.vect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">Scp_pred</span><span class="op">@</span><span class="va">data</span><span class="op">@</span><span class="va">values</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The function "quantile" is used to fix classes</span></span>
+<span><span class="va">qtl.pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">pred.vect</span>,probs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>,<span class="fl">0.85</span>,<span class="fl">0.95</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># and then extract the corresponding values</span></span>
+<span><span class="va">qtl.int</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.03</span>,<span class="fl">0.14</span>,<span class="fl">0.42</span>,<span class="fl">0.6</span>,<span class="fl">0.82</span>,<span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">Scp_pred</span>, xlab <span class="op">=</span> <span class="st">"East [m]"</span>, ylab <span class="op">=</span> <span class="st">"North [m]"</span>, </span>
+<span>     main <span class="op">=</span> <span class="st">"Landslides susceptibility map"</span>, </span>
+<span>     col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"brown"</span>, <span class="st">"red"</span>, <span class="st">"orange"</span>,<span class="st">"yellow"</span>, <span class="st">"green"</span>, <span class="st">"grey"</span><span class="op">)</span><span class="op">)</span>, breaks<span class="op">=</span><span class="va">qtl.int</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/percentile-map-1.png" width="672"></div>
+</div>
+</div>
+<div id="variable-importance-plot" class="section level2" number="6.6">
+<h2>
+<span class="header-section-number">6.6</span> Variable importance plot<a class="anchor" aria-label="anchor" href="#variable-importance-plot"><i class="fas fa-link"></i></a>
+</h2>
+<p>Although machine learning algorithms are often considered as a black box, RF provides two metrics allowing to assess the importance of each variables in the model: the mean decrease in accuracy (MDA), and the mean decrease in Gini index.
+The higher values indicate the most important variables.
+In addition, it is possible to plot a sample tree (selected randomly) to analyse its structure.</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="http://party.R-forge.R-project.org">"party"</a></span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/party/man/ctree.html">ctree</a></span><span class="op">(</span><span class="va">LS</span><span class="op">~</span><span class="va">.</span>, data<span class="op">=</span><span class="va">LS_input_train</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">x</span>, type<span class="op">=</span><span class="st">"simple"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Display the plot with the relative importance of each variable</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/importance.html">importance</a></span><span class="op">(</span><span class="va">RF_LS</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/varImpPlot.html">varImpPlot</a></span><span class="op">(</span><span class="va">RF_LS</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/var-imp-1.png" width="672"></div>
+<div id="partial-dependence-plot" class="section level3" number="6.6.1">
+<h3>
+<span class="header-section-number">6.6.1</span> Partial dependence plot<a class="anchor" aria-label="anchor" href="#partial-dependence-plot"><i class="fas fa-link"></i></a>
+</h3>
+<p>In addition, the partial dependent plot allows to estimate, for each single variable, the relative probability of prediction success over different ranges of values.
+It gives a graphical depiction of the marginal effect of each variable on the class probability over different ranges of continuous or discrete values.
+Positive values are associated with the probability of occurrence of the phenomena (i.e., landslides presence), while negative vales indicate its absence.</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Slope</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/partialPlot.html">partialPlot</a></span><span class="op">(</span><span class="va">RF_LS</span>, <span class="va">LS_input_train</span>, x.var <span class="op">=</span> <span class="va">Slope</span>, rug <span class="op">=</span> <span class="cn">TRUE</span>, which.class <span class="op">=</span> <span class="va">RF_LS</span><span class="op">$</span><span class="va">classes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>            xlab<span class="op">=</span> <span class="st">"Slope [Â°]"</span>, main <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Partial dependence"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/par-plot-1.png" width="672"></div>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Elevation</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/partialPlot.html">partialPlot</a></span><span class="op">(</span><span class="va">RF_LS</span>, <span class="va">LS_input_train</span>, x.var <span class="op">=</span> <span class="va">DEM</span>, rug <span class="op">=</span> <span class="cn">TRUE</span>, which.class <span class="op">=</span> <span class="va">RF_LS</span><span class="op">$</span><span class="va">classes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>            xlab<span class="op">=</span> <span class="st">"Elevation [m]"</span>, main <span class="op">=</span> <span class="st">""</span>,ylab <span class="op">=</span> <span class="st">"Partial dependence"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/par-plot-2.png" width="672"></div>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Profile curvature</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/partialPlot.html">partialPlot</a></span><span class="op">(</span><span class="va">RF_LS</span>, <span class="va">LS_input_train</span>, x.var <span class="op">=</span> <span class="va">profCurv</span>, rug <span class="op">=</span> <span class="cn">TRUE</span>, which.class <span class="op">=</span> <span class="va">RF_LS</span><span class="op">$</span><span class="va">classes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>            xlab<span class="op">=</span> <span class="st">"Profile curvature [1/m]"</span>, main <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Partial dependence"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.04</span>,<span class="fl">0.04</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/par-plot-3.png" width="672"></div>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Plan Curvature</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/partialPlot.html">partialPlot</a></span><span class="op">(</span><span class="va">RF_LS</span>, <span class="va">LS_input_train</span>, x.var <span class="op">=</span> <span class="va">planCurv</span>, rug <span class="op">=</span> <span class="cn">TRUE</span>, which.class <span class="op">=</span> <span class="va">RF_LS</span><span class="op">$</span><span class="va">classes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>            xlab<span class="op">=</span> <span class="st">"Plan curvature [1/m]"</span>, main <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Partial dependence"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.04</span>,<span class="fl">0.04</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/par-plot-4.png" width="672"></div>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Distance to roard</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/partialPlot.html">partialPlot</a></span><span class="op">(</span><span class="va">RF_LS</span>, <span class="va">LS_input_train</span>, x.var <span class="op">=</span> <span class="va">distRoad</span>, rug <span class="op">=</span> <span class="cn">TRUE</span>, which.class <span class="op">=</span> <span class="va">RF_LS</span><span class="op">$</span><span class="va">classes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>            xlab<span class="op">=</span> <span class="st">"Distance to road [m]"</span>, main <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Partial dependence"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/par-plot-5.png" width="672"></div>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Topographic wetness index</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/partialPlot.html">partialPlot</a></span><span class="op">(</span><span class="va">RF_LS</span>, <span class="va">LS_input_train</span>, x.var <span class="op">=</span> <span class="va">TWI</span>, rug <span class="op">=</span> <span class="cn">TRUE</span>, which.class <span class="op">=</span> <span class="va">RF_LS</span><span class="op">$</span><span class="va">classes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>            xlab<span class="op">=</span> <span class="st">"TWI [-]"</span>, main <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Partial dependence"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/par-plot-6.png" width="672"></div>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Geology</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/partialPlot.html">partialPlot</a></span><span class="op">(</span><span class="va">RF_LS</span>, <span class="va">LS_input_train</span>, x.var <span class="op">=</span> <span class="va">Geology</span>, rug <span class="op">=</span> <span class="cn">TRUE</span>, which.class <span class="op">=</span> <span class="va">RF_LS</span><span class="op">$</span><span class="va">classes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>            xlab<span class="op">=</span> <span class="st">"Geology"</span>, main <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Partial dependence"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/par-plot-7.png" width="672"></div>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Land Cover</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/partialPlot.html">partialPlot</a></span><span class="op">(</span><span class="va">RF_LS</span>, <span class="va">LS_input_train</span>, x.var <span class="op">=</span> <span class="va">LandCover</span>, rug <span class="op">=</span> <span class="cn">TRUE</span>, which.class <span class="op">=</span> <span class="va">RF_LS</span><span class="op">$</span><span class="va">classes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>            xlab<span class="op">=</span> <span class="st">"Land Cover"</span>, main <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Partial dependence"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-RF_files/figure-html/par-plot-8.png" width="672"></div>
+</div>
+</div>
+<div id="conclusions-and-further-analyses-3" class="section level2" number="6.7">
+<h2>
+<span class="header-section-number">6.7</span> Conclusions and further analyses<a class="anchor" aria-label="anchor" href="#conclusions-and-further-analyses-3"><i class="fas fa-link"></i></a>
+</h2>
+<p>This exercise allowed you to familiarize with Random Forest, by the proposed application about landslides susceptibility mapping and variables importance assessment.</p>
+<p>To be sure that everything is perfectly clear for you, we propose you to <strong>answer the following questions</strong> and to discuss your answers with the other participants to the course or directly with the teacher.</p>
+<ol style="list-style-type: decimal">
+<li><p>Why is it important to implement the pseudo-absence, other that the presences (i.e., the observations) in a data-driven modelization?</p></li>
+<li><p>What is the difference between a numerical and a categorical variable?
+Give some examples of both types.</p></li>
+<li><p>Which is the values of the OOB estimate error rate of your model?
+Which parameters you can change to try to reduce it?
+Be brave and do it (i.e., change the values for <em>ntree</em> and <em>mtry,</em> than analyse which values for the AUC you obtain and which model perform better.</p></li>
+<li><p>Which are the three most important variables of your model (based on the MDA)?</p></li>
+<li><p>What is the slope value (or range of values) that gives the highest probability of landslides occurrence?
+And for the geology, which are the most important classes?</p></li>
+<li><p>In a model seeking to estimate the vulnerability to wildfire, which is the dependent variable and which can be the independent variables?
+The reading of the paper @tonini_evolution_2017, which inspired this lab, can help you in in this task.</p></li>
+</ol>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="self-organizing-map.html"><span class="header-section-number">5</span> Self-organizing Map</a></div>
+<div class="next"><a href="references.html">References</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#random-forest"><span class="header-section-number">6</span> Random Forest</a></li>
+<li>
+<a class="nav-link" href="#introduction-4"><span class="header-section-number">6.1</span> Introduction</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-main-objective"><span class="header-section-number">6.1.1</span> The main objective</a></li>
+<li><a class="nav-link" href="#load-the-libraries-4"><span class="header-section-number">6.1.2</span> Load the libraries</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#import-the-data-1"><span class="header-section-number">6.2</span> Import the data</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#landslides-dataset"><span class="header-section-number">6.2.1</span> Landslides dataset</a></li>
+<li><a class="nav-link" href="#predictor-variables"><span class="header-section-number">6.2.2</span> Predictor variables</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#create-the-input-dataset"><span class="header-section-number">6.3</span> Create the input dataset</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#split-the-input-dataset-into-training-80-and-testing-20"><span class="header-section-number">6.3.1</span> Split the input dataset into training (80%) and testing (20%)</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#run-random-forest"><span class="header-section-number">6.4</span> Run Random Forest</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#rf-main-outputs"><span class="header-section-number">6.4.1</span> RF main outputs</a></li>
+<li><a class="nav-link" href="#model-evaluation"><span class="header-section-number">6.4.2</span> Model evaluation</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#susceptibility-map"><span class="header-section-number">6.5</span> Susceptibility map</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#class-intervals-for-decision-maker"><span class="header-section-number">6.5.1</span> Class intervals for decision maker</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#variable-importance-plot"><span class="header-section-number">6.6</span> Variable importance plot</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#partial-dependence-plot"><span class="header-section-number">6.6.1</span> Partial dependence plot</a></li></ul>
+</li>
+<li><a class="nav-link" href="#conclusions-and-further-analyses-3"><span class="header-section-number">6.7</span> Conclusions and further analyses</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/06-RF.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/06-RF.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Advanced Geospatial Data Analysis in R: Environmental Application</strong>" was written by Marj Tonini, Haokun Liu. It was last built on 2023-11-23.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+h1:self-organizing-map Self-organizing Map
+h2:introduction Introduction
+h2:material-and-method Material and method
+h3:the-geo-demographic-context The geo-demographic context
+h3:som SOM
+h3:swiss-census-data Swiss census data
+h2:variables-inspection Variables inspection
+h3:import-the-data Import the data
+fig:variables Variables description \\label{Variables}
+h3:inspect-the-data Inspect the data
+h3:data-transformation Data transformation
+h2:running-som Running SOM
+h3:load-the-libraries Load the libraries
+h3:compute-som Compute SOM
+h2:soms-main-outputs SOM’s main outputs
+fig:jpg1 Heatmaps \\label{Heatmaps}
+h2:hierarchical-clustering Hierarchical clustering
+fig:jpg2 Spatial pattern distribution of Swiss poputaion census \\label{Clusters_7}
+h3:clusters-characterization Clusters characterization
+fig:boxplot-clsM-PhisicalSpace Physical space
+fig:boxplot-clsM-Deographic Demographics
+fig:boxplot-clsM-SocioEconomic Socio-economics
+h2:conclusions Conclusions
+h2:further-analyses Further analyses
+

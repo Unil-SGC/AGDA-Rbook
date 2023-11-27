@@ -1,0 +1,807 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Advanced Geospatial Data Analysis in R: Environmental Application},
+  pdfauthor={Marj Tonini, Haokun Liu},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Advanced Geospatial Data Analysis in R: Environmental Application}
+\author{Marj Tonini, Haokun Liu}
+\date{2023-11-21}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{conjecture}{Conjecture}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{definition}
+\newtheorem{hypothesis}{Hypothesis}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{about}{%
+\chapter{About}\label{about}}
+
+This is a \emph{sample} book written in \textbf{Markdown}. You can use anything that Pandoc's Markdown supports; for example, a math equation \(a^2 + b^2 = c^2\).
+
+\hypertarget{usage}{%
+\section{Usage}\label{usage}}
+
+Each \textbf{bookdown} chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter \emph{must} start with a first-level heading: \texttt{\#\ A\ good\ chapter}, and can contain one (and only one) first-level heading.
+
+Use second-level and higher headings within chapters like: \texttt{\#\#\ A\ short\ section} or \texttt{\#\#\#\ An\ even\ shorter\ section}.
+
+The \texttt{index.Rmd} file is required, and is also your first book chapter. It will be the homepage when you render the book.
+
+\hypertarget{render-book}{%
+\section{Render book}\label{render-book}}
+
+You can render the HTML version of this example book without changing anything:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Find the \textbf{Build} pane in the RStudio IDE, and
+\item
+  Click on \textbf{Build Book}, then select your output format, or select ``All formats'' if you'd like to use multiple formats from the same book source files.
+\end{enumerate}
+
+Or build the book from the R console:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bookdown}\SpecialCharTok{::}\FunctionTok{render\_book}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+To render this example to PDF as a \texttt{bookdown::pdf\_book}, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): \url{https://yihui.org/tinytex/}.
+
+\hypertarget{preview-book}{%
+\section{Preview book}\label{preview-book}}
+
+As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in ``Preview book'', or from the R console:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bookdown}\SpecialCharTok{::}\FunctionTok{serve\_book}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{introduction-to-r}{%
+\chapter{Introduction to R}\label{introduction-to-r}}
+
+\hypertarget{r-language}{%
+\section{R Language}\label{r-language}}
+
+R is a complete programming language and software environment for statistical computing and graphical representation.
+As part of the GNU Project (free software, mass collaboration project), the source code is free available.
+Its functionalists can be expanded by importing packages.
+For more details on R see \url{https://www.r-project.org/}.
+
+\hypertarget{r-packages}{%
+\subsection{R Packages}\label{r-packages}}
+
+A package is a file generally composed of R scripts (e.g., functions).
+On all operation systems the function ``install.packages()'' can be used to download and install a package automatically.
+Once a package has been installed, it can be loaded in a session by using the command \textcolor{red}{library(package)}.
+To check the list of the installed libraries, the function \textcolor{red}{library()} can be used.
+When you open an \textbf{R Markdown} document (.Rmd) the program propose you automatically to install the libraries listed there.
+
+\hypertarget{some-tips}{%
+\subsection{Some tips}\label{some-tips}}
+
+\begin{itemize}
+\tightlist
+\item
+  R is case sensitive!
+\item
+  Previously used command can be recalled in the console by using the \emph{up arrow} on the keyboard.
+\item
+  The working directory by default is ``\emph{C:/user/\ldots/Documents}''.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It can be found using the command \textcolor{red}{getwd()}
+  \item
+    It can be changed using the command line \textcolor{red}{setwd("C:/Your/own/path")}
+  \end{itemize}
+\item
+  In \textbf{R Markdown}: the working directory when evaluating R code chunks is the directory of the input document by default.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    To access to a specific file in a sub-folder use ``. /subfolder/file.ext''
+  \item
+    To access to a specific file in a up-folder use ``. . /upfolder/file.ext''
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{r-commands-online-resources}{%
+\subsection{R Commands (online resources)}\label{r-commands-online-resources}}
+
+Many table resuming the main R commands can be found online.
+Here some useful links:
+
+\begin{itemize}
+\item
+  \href{https://www.maths.usyd.edu.au/u/jchan/Rcommands.pdf}{A short list of the most useful R commands}
+\item
+  \href{https://sites.calvin.edu/scofield/courses/m143/materials/RcmdsFromClass.pdf}{Table of Useful R commands}
+\item
+  \href{https://rpubs.com/ssammut/ResearchStats}{Basic Commands to Get Started with R}
+\end{itemize}
+
+\hypertarget{r-markdown}{%
+\section{R Markdown}\label{r-markdown}}
+
+This is an R Markdown document :-)
+
+Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents.
+It is a simple and easy to use \textbf{plain text language} used to combine R code, results from your data analysis (including plots and tables), and written commentary into a single nicely formatted and reproducible document (like a report, publication, thesis chapter or a web pages).
+
+Code lines are organized as code block, seeking to solve e specified task, and referred to as \textbf{``code chunk''}.
+For more details on using R Markdown see \url{http://rmarkdown.rstudio.com}.
+
+All what you have to do during the computing labs is to read each explanatory paragraph before running each individual R code chunk, one by one, and to interpret the results.
+Finally, to create a personal document (usually PDF) from rmarkdown, you need to \textbf{Knit} the document.
+Knitting a document simply means taking all the text and code and creating a nicely formatted document.
+
+\hypertarget{data-type-in-computational-analysis}{%
+\section{Data type in computational analysis}\label{data-type-in-computational-analysis}}
+
+\hypertarget{variables}{%
+\subsection{Variables}\label{variables}}
+
+Variables are used to store values in a computer program.
+Values can be numbers (real and complex), words (string), matrices, and even tables.
+
+The fundamental or atomic data in R Programming can be:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{integer}: number without decimals
+\item
+  \textbf{numeric}: number with decimals (float or double depending on the precision)
+\item
+  \textbf{character}: string, label
+\item
+  \textbf{factors}: a label with a limited number of categories
+\item
+  \textbf{logical}: true/false
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth,height=0.8\textheight]{images/Rvariablesdata} 
+
+}
+
+\caption{Data Types in R \label{data_Type}}\label{fig:img1}
+\end{figure}
+
+\newpage
+
+\hypertarget{data-structure-in-r}{%
+\subsection{Data structure in R}\label{data-structure-in-r}}
+
+R's base data structures can be organised by their dimensionality (1d, 2d, or nd) and whether they are homogeneous (all contents must be of the same type) or heterogeneous (the contents can be of different types).
+
+This gives rise to the four data structures most often used in data analysis:
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth,height=0.6\textheight]{images/data_type} 
+
+}
+
+\caption{Data structures in R \label{data_str}}\label{fig:img2}
+\end{figure}
+
+A \textbf{Vector} is a one-dimensional structure winch can contain object of one type only: numerical (integer and double), character, and logical.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Investigate vector\textquotesingle{}s types:}
+
+\NormalTok{v1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.7}\NormalTok{); v1; }\FunctionTok{typeof}\NormalTok{(v1)}
+\CommentTok{\#\textgreater{} [1] 0.5 0.7}
+\CommentTok{\#\textgreater{} [1] "double"}
+
+\NormalTok{v2 }\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{); v2; }\FunctionTok{typeof}\NormalTok{(v2)}
+\CommentTok{\#\textgreater{}  [1]  1  2  3  4  5  6  7  8  9 10}
+\CommentTok{\#\textgreater{} [1] "integer"}
+
+\NormalTok{v3 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{); v3; }\FunctionTok{typeof}\NormalTok{(v3)}
+\CommentTok{\#\textgreater{} [1]  TRUE FALSE}
+\CommentTok{\#\textgreater{} [1] "logical"}
+
+\NormalTok{v4 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Swiss"}\NormalTok{, }\StringTok{"Itay"}\NormalTok{, }\StringTok{"France"}\NormalTok{, }\StringTok{"Germany"}\NormalTok{); v4; }\FunctionTok{typeof}\NormalTok{(v4)}
+\CommentTok{\#\textgreater{} [1] "Swiss"   "Itay"    "France"  "Germany"}
+\CommentTok{\#\textgreater{} [1] "character"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Create a sequence from 0 to 5 with a step of 0.5:}
+
+\NormalTok{v5 }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\AttributeTok{by=}\FloatTok{0.5}\NormalTok{); v5; }\FunctionTok{typeof}\NormalTok{(v5)}
+\CommentTok{\#\textgreater{} [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0}
+\CommentTok{\#\textgreater{} [1] "double"}
+
+\FunctionTok{length}\NormalTok{(v5)}
+\CommentTok{\#\textgreater{} [1] 9}
+
+\FunctionTok{summary}\NormalTok{(v5)}
+\CommentTok{\#\textgreater{}    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. }
+\CommentTok{\#\textgreater{}       1       2       3       3       4       5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Extract the third element of the vector}
+\NormalTok{v5[}\DecValTok{3}\NormalTok{]}
+\CommentTok{\#\textgreater{} [1] 2}
+
+\CommentTok{\#Exclude the third element from the vector and save as new vector}
+\NormalTok{v5[}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{]}
+\CommentTok{\#\textgreater{} [1] 1.0 1.5 2.5 3.0 3.5 4.0 4.5 5.0}
+\NormalTok{w5}\OtherTok{\textless{}{-}}\NormalTok{v5[}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{]; w5}
+\CommentTok{\#\textgreater{} [1] 1.0 1.5 2.5 3.0 3.5 4.0 4.5 5.0}
+\end{Highlighting}
+\end{Shaded}
+
+A \textbf{Matrix} is a two-dimensional structure winch can contain object of one type only.
+The function \textcolor{red}{matrix()} can be used to construct matrices with specific dimensions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\# Matrix of elements equal to "zero" and dimension 2x5 }
+\NormalTok{m1}\OtherTok{\textless{}{-}}\FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{); m1  }\CommentTok{\#(two rows by five columns)}
+\CommentTok{\#\textgreater{}      [,1] [,2] [,3] [,4] [,5]}
+\CommentTok{\#\textgreater{} [1,]    0    0    0    0    0}
+\CommentTok{\#\textgreater{} [2,]    0    0    0    0    0}
+
+\CommentTok{\# Matrix of integer elements (1 to 12, 3x4) }
+\NormalTok{m2}\OtherTok{\textless{}{-}}\FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{12}\NormalTok{, }\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{); m2 }
+\CommentTok{\#\textgreater{}      [,1] [,2] [,3] [,4]}
+\CommentTok{\#\textgreater{} [1,]    1    4    7   10}
+\CommentTok{\#\textgreater{} [2,]    2    5    8   11}
+\CommentTok{\#\textgreater{} [3,]    3    6    9   12}
+
+\CommentTok{\# Extract the second row}
+\NormalTok{m2[}\DecValTok{2}\NormalTok{, ]}
+\CommentTok{\#\textgreater{} [1]  2  5  8 11}
+\CommentTok{\# Extract the third column}
+\NormalTok{m2[,}\DecValTok{3}\NormalTok{]}
+\CommentTok{\#\textgreater{} [1] 7 8 9}
+\CommentTok{\# Extract the the second element of the third column}
+\NormalTok{m2[}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{]}
+\CommentTok{\#\textgreater{} [1] 8}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data-frame}{%
+\subsection{Data Frame}\label{data-frame}}
+
+A \textbf{data frame} allows to collect data of different type.
+All elements must have the same length.
+
+A \textbf{list} is a more flexible structure since it can contain variables of different types and lengths.
+Nevertheless, the preferred structure for statistical analyses and computation is the data frame.
+
+It is a good practice to explore the data frame before performing further computation on the data.
+This can be simply accomplished by using the commands \textcolor{red}{str} to explore the structure of the data and \textcolor{red}{summary} to display the summary statistics and quickly summarize the data.
+For numerical vectors the command \textcolor{red}{hist()} can be used to plot the basic histogram of the given values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create the vectors with the variables}
+
+\NormalTok{cities }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Berlin"}\NormalTok{, }\StringTok{"New York"}\NormalTok{, }\StringTok{"Paris"}\NormalTok{, }\StringTok{"Tokyo"}\NormalTok{)}
+\NormalTok{area }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{892}\NormalTok{, }\DecValTok{1214}\NormalTok{, }\DecValTok{105}\NormalTok{, }\DecValTok{2188}\NormalTok{)}
+\NormalTok{population }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{3.4}\NormalTok{, }\FloatTok{8.1}\NormalTok{, }\FloatTok{2.1}\NormalTok{, }\FloatTok{12.9}\NormalTok{)}
+\NormalTok{continent }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Europe"}\NormalTok{, }\StringTok{"Norh America"}\NormalTok{, }\StringTok{"Europe"}\NormalTok{, }\StringTok{"Asia"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Concatenate the vectors into a new data frame}
+\NormalTok{df1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(cities, area, population, continent)}
+\NormalTok{df1}
+\CommentTok{\#\textgreater{}     cities area population    continent}
+\CommentTok{\#\textgreater{} 1   Berlin  892        3.4       Europe}
+\CommentTok{\#\textgreater{} 2 New York 1214        8.1 Norh America}
+\CommentTok{\#\textgreater{} 3    Paris  105        2.1       Europe}
+\CommentTok{\#\textgreater{} 4    Tokyo 2188       12.9         Asia}
+
+\CommentTok{\#Add a column (e.g., language spoken) using the command "cbind"}
+\NormalTok{df2 }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{ (df1, }\StringTok{"Language"} \OtherTok{=} \FunctionTok{c}\NormalTok{ (}\StringTok{"German"}\NormalTok{, }\StringTok{"English"}\NormalTok{, }\StringTok{"Freanch"}\NormalTok{, }\StringTok{"Japanese"}\NormalTok{))}
+\NormalTok{df2}
+\CommentTok{\#\textgreater{}     cities area population    continent Language}
+\CommentTok{\#\textgreater{} 1   Berlin  892        3.4       Europe   German}
+\CommentTok{\#\textgreater{} 2 New York 1214        8.1 Norh America  English}
+\CommentTok{\#\textgreater{} 3    Paris  105        2.1       Europe  Freanch}
+\CommentTok{\#\textgreater{} 4    Tokyo 2188       12.9         Asia Japanese}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Explore the data frame}
+\FunctionTok{str}\NormalTok{(df2) }\CommentTok{\# see the structure}
+\CommentTok{\#\textgreater{} \textquotesingle{}data.frame\textquotesingle{}:    4 obs. of  5 variables:}
+\CommentTok{\#\textgreater{}  $ cities    : chr  "Berlin" "New York" "Paris" "Tokyo"}
+\CommentTok{\#\textgreater{}  $ area      : num  892 1214 105 2188}
+\CommentTok{\#\textgreater{}  $ population: num  3.4 8.1 2.1 12.9}
+\CommentTok{\#\textgreater{}  $ continent : chr  "Europe" "Norh America" "Europe" "Asia"}
+\CommentTok{\#\textgreater{}  $ Language  : chr  "German" "English" "Freanch" "Japanese"}
+\FunctionTok{summary}\NormalTok{(df2) }\CommentTok{\# compute basic statistics}
+\CommentTok{\#\textgreater{}     cities               area          population    }
+\CommentTok{\#\textgreater{}  Length:4           Min.   : 105.0   Min.   : 2.100  }
+\CommentTok{\#\textgreater{}  Class :character   1st Qu.: 695.2   1st Qu.: 3.075  }
+\CommentTok{\#\textgreater{}  Mode  :character   Median :1053.0   Median : 5.750  }
+\CommentTok{\#\textgreater{}                     Mean   :1099.8   Mean   : 6.625  }
+\CommentTok{\#\textgreater{}                     3rd Qu.:1457.5   3rd Qu.: 9.300  }
+\CommentTok{\#\textgreater{}                     Max.   :2188.0   Max.   :12.900  }
+\CommentTok{\#\textgreater{}   continent           Language        }
+\CommentTok{\#\textgreater{}  Length:4           Length:4          }
+\CommentTok{\#\textgreater{}  Class :character   Class :character  }
+\CommentTok{\#\textgreater{}  Mode  :character   Mode  :character  }
+\CommentTok{\#\textgreater{}                                       }
+\CommentTok{\#\textgreater{}                                       }
+\CommentTok{\#\textgreater{} }
+
+\CommentTok{\# Use the symbol "$" to address a particular column}
+\NormalTok{pop}\OtherTok{\textless{}{-}}\NormalTok{(df2}\SpecialCharTok{$}\NormalTok{population)}
+\NormalTok{pop}
+\CommentTok{\#\textgreater{} [1]  3.4  8.1  2.1 12.9}
+\FunctionTok{hist}\NormalTok{(pop) }\CommentTok{\# plot the histogram}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-IntrotoR_files/figure-latex/data-frame3-1.pdf}
+
+\hypertarget{geographically-weighed-summary-statistics}{%
+\chapter{Geographically Weighed Summary Statistics}\label{geographically-weighed-summary-statistics}}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+In fire management, it is crucial to investigate where fires occurred more frequently and to distinguish between \textbf{small} and \textbf{large fires}.
+This is key information to understand the ignition factors and planning strategies to reduce forest fires, control and manage ignition sources, and identify areas at risk.
+
+Despite the availability of forest fires spatio-temporal inventories, it is not evident to extract information about their pattern distribution simply by looking at the original arrangement of the mapped burnt areas.
+To this end, \textbf{Geographically Weighed Summary Statistics (GWSS)} can be computed, under the assumption that burned areas generally follow a geographic trend.
+
+We compute here the GW local means, the GW local standard deviation and the GW localized skewness of burned areas in continental Portugal, registered in the period 1990-2013.
+This application is inspired by the work of \citep{tonini_evolution_2017}
+
+\hypertarget{the-overall-methodology}{%
+\section{The overall methodology}\label{the-overall-methodology}}
+
+\textbf{Summary statistics} include a number of measures that can be used to summarize a set of observations, the most important of which are measures of \emph{central tendency} (arithmetic mean, median and mode) and measures of \emph{dispersion around the mean} (variance and standard deviation).
+In addition, measures of \emph{skewness} and \emph{kurtosis} are descriptors of the shape of the probability distribution function, the former indicating the asymmetry and the latter the peakedness/tailedness of the curve.
+
+In the case of \textbf{spatial data}, these global statistical descriptors may vary from one region to another, as their values may be affected by local environmental and socio-economic factors.
+In this case, an appropriately localized calibration can provide a better description of the observed values.
+One way to achieve this goal is to \emph{weight} the above statistical measures for a given quantitative variable based on their geographical location.
+
+We introduce here the method proposed by \citep{brunsdon_geographically_2002} and implemented in the \textbf{function GWSS} presented in the \textcolor{red} {R package GWmodel} \citep{lu_gwmodel_2014, brunsdon_rpubs_2019}.
+The evaluation of geographically weighted summary statistics is obtained by computing a summary for a small area around each geolocalized punctual observation, by using the \emph{kernel density estimation} technique (KDE) \citep{brunsdon_estimating_1995}.
+KDE is estimated at each point, taking into account the influence of the points falling within an area, with increasing weight towards the center, corresponding to the point location.
+A surface summary statistic is thus obtained.
+
+\hypertarget{forest-fires-dataset}{%
+\section{Forest fires dataset}\label{forest-fires-dataset}}
+
+Forest fires inventories indicating the location, the starting date and other related variables, such as the cause of ignition and the size of the area burned, are broadly available with a different degree of accuracy in different countries.
+
+In the present study, we consider the \textbf{Portuguese National Mapping Burnt Areas (NMBA 2016)}, freely available from the website of the Institute for the Conservation of Nature and Forests (ICNF).
+This is a long spatio-temporal dataset (from 1975) resulting from the processing of satellite images acquired once a year at the end of the summer season.
+Row data consist of records of observed fire scars.
+The burned areas were estimated by using image classification techniques, then compared with ground data to resolve the discrepancies.
+Polygons have been converted into point shapefile, where each point represent the centroid of the burned areas, while the size of the burned areas and the starting date of the fires events are given as attributes.
+In this work, for consistency reasons, we consider only fires occurred between 1990 and 2013 and with a burned area above 5 hectares.
+\autoref{Histo_FF}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth,height=0.7\textheight]{images/Histo_FF} 
+
+}
+
+\caption{Total annual number of forest fire events, expressed in thousands of square metres \label{Histo_FF}}\label{fig:jpg}
+\end{figure}
+
+\hypertarget{load-the-libraries}{%
+\subsection{Load the libraries}\label{load-the-libraries}}
+
+First you have to load the following libraries:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{splancs}: for display and analysis of spatial point pattern data
+\item
+  \textbf{GWmodel}: techniques from a particular branch of spatial statistics, termed geographically-weighted (GW) models
+\item
+  \textbf{sf}: support for simple features, a standardized way to encode spatial vector data
+\item
+  \textbf{ggplot2}: a system for `declaratively' creating graphics
+\item
+  \textbf{sp}: classes and methods for spatial data
+\end{itemize}
+
+\begin{verbatim}
+#>  [1] "ggplot2"    "sf"         "GWmodel"    "Rcpp"      
+#>  [5] "robustbase" "splancs"    "sp"         "stats"     
+#>  [9] "graphics"   "grDevices"  "utils"      "datasets"  
+#> [13] "methods"    "base"
+\end{verbatim}
+
+\hypertarget{import-the-portuguese-forest-fire-dataset}{%
+\subsection{Import the Portuguese forest fire dataset}\label{import-the-portuguese-forest-fire-dataset}}
+
+In this section you will load the geodata representing the dataset of forest fires occurred in the continental Portuguese area in the period 1990-2013.
+You will also load the boundaries of the study area.
+You will start by exploring the datasets using mainly visual tools (plotting and histogram).
+
+You can explore the dataset by using different tools for \textbf{exploratory data analyses}.
+You will start by visualizing the databases.
+In the GIS environment, this correspond to the attribute table of a vector punctual feature.
+
+Than you can \textbf{plot the histogram} of events distribution based on the variable \emph{``Area\_ha''} (the size in hectares of the burned area).
+Since this is a power low distribution, for a better understanding it's recommended to transform the data using a logarithmic scale.
+Using Log10 you can easily evaluate the frequency distribution of the burned areas.
+
+\begin{center}\includegraphics{02-GWSS_files/figure-latex/histo_FF-1} \end{center}
+
+\begin{center}\includegraphics{02-GWSS_files/figure-latex/histo_FF-2} \end{center}
+
+\hypertarget{forest-fires-spatial-distribution}{%
+\subsection{Forest fires spatial distribution}\label{forest-fires-spatial-distribution}}
+
+For a better understanding of the phenomenon, you can group the events according to the size of the burned area.
+Based on the frequency distribution of the burned areas, the following three classes can be defined:
+
+\begin{itemize}
+\item
+  \textbf{Small fires}: less than 15 ha
+\item
+  \textbf{Medium fires}: between 15 ha and 100 ha
+\item
+  \textbf{Large fires}: bigger than 100 ha
+\end{itemize}
+
+Plotting the forest fires events using different colors, based on the size of the burned areas, can simplify the understanding of their \textbf{pattern distribution}, knowing that fires of different size have normally different drivers.
+
+\begin{center}\includegraphics{02-GWSS_files/figure-latex/plot-all-fires-1} \end{center}
+
+\hypertarget{compute-the-geographically-whited-statistics}{%
+\section{Compute the geographically whited statistics}\label{compute-the-geographically-whited-statistics}}
+
+From the exploratory data analysis performed above, it seems that a simple plotting of the forest fires events based on their spatial distribution, even if classified based on their size, can not really help to understand their behaviors.
+This is because we face to a huge number of events and the variable that we are using to characterize them (i.e., the size of the burned area) is very heterogeneous.
+To this aim, we can compute basic and robust \textbf{GWSS} and plot the data accordingly.
+
+GWSS includes \emph{geographically weighted means}, \emph{standard deviations} and the \emph{skweness}.
+As you can see from the R Documentation (command: \textcolor{red}{help(gwss)}, same data manipulations are necessary to transform the forest fires dataset in a compatible data frame format.
+
+\textbf{GWSS parameters}:
+
+\begin{itemize}
+\item
+  We summarize the data based on the size of the burned area (\emph{vars}).
+\item
+  We use here an adaptive kernel where the bandwidth (\emph{bw}) corresponds to the number (100 in this case) of nearest neighbors (i.e.~adaptive distance).
+\item
+  We keep the default values for the other parameters.
+\end{itemize}
+
+\hypertarget{look-at-the-results}{%
+\subsection{Look at the results}\label{look-at-the-results}}
+
+The resulting object (\textbf{FFgwss}) has a number of components.
+The most important one is the spatial data frame containing the results of local summary statistics for each data point location, stored in \emph{FFgwss\$SDF} (that is a spatial DataFrame).
+
+\hypertarget{gwss-maps}{%
+\subsection{GWSS maps}\label{gwss-maps}}
+
+To produce a map of the local geographically weighted summary statistic of your choice, firstly we need to enter a small R function definition.
+This is just a short R program to draw a map: you can think of it as a command that tells R how to draw a map (see {[}Geographically Weighted Summary Statistics{]} (\url{https://rpubs.com/chrisbrunsdon/99667}) for more details).
+The advantage of defining a function is that the entire map can now be drawn using a single command for each variable, rather than having to repeat those steps each time.
+To define the intervals for the classification we used Jenks natural breaks classification method (textcolor\{red\}\{style=``fisher''\}).
+
+Finally the function is called by entering:
+
+\begin{verbatim}
+quick.map(gwss.object,variable.name,legend.title,main.map.title)
+\end{verbatim}
+
+\begin{center}\includegraphics{02-GWSS_files/figure-latex/gwss-maps-1} \end{center}
+
+\hypertarget{conclusions-and-further-analyses}{%
+\section{Conclusions and further analyses}\label{conclusions-and-further-analyses}}
+
+This practical computer lab allowed you to familiarize with GWSS, by the proposed application about geographically weighted summary statistics.
+This method allowed us to explore how the average burned area vary locally through Continental Portugal in the period 1990-2013.
+
+The global Geographically Weighted (GW) means informs you about the local average value of the burned area, based of the neighboring events occurred in a given period.
+Similarly, you may compute a GW standard deviation to see the extent to which the size of the burned area spread around this mean.
+Finally you can compute the GW skewness to measure the symmetry of distribution: a positively skewed distribution means that there is a higher number of data points having low values, with mean value lower that the median; and the contrary for a negatively skewed distribution.
+
+To be sure that everything is perfectly clear for you, we propose you to \textbf{answer the following questions} and to discuss your answers with the other participants to the course or directly with the teacher.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  What is the pattern distribution of the GW-means for burned area in Portugal during the investigated periods?
+\item
+  Does the GW-standard deviation follows the same pattern?
+  How can you interpret the two pattern in terms of burned area and their characterization?
+\item
+  GW-skewness has positive values everywhere: what does it means?
+  What do these values suggest to be the distribution of the burned areas, in terms of their size, around the local means?
+\item
+  Which can be other applications of GWSS for geo-environmental data?
+  In other words, can you imagine other geo-environmental dataset that can be analysed using GWSS?
+\item
+  You can finally play with the code and try to run it using a different numbers of nearest neighbors (bw=x) and comparing the results.
+
+  \textbf{NB:} You have to rename the original pdf to avoid overwriting it.
+  In addition, if a pdf with the same name saved in the same destination folder is open, you will receive an error message, so close it before Knitting.
+\end{enumerate}
+
+\hypertarget{parts}{%
+\chapter{Parts}\label{parts}}
+
+You can add parts to organize one or more book chapters together. Parts can be inserted at the top of an .Rmd file, before the first-level chapter heading in that same file.
+
+Add a numbered part: \texttt{\#\ (PART)\ Act\ one\ \{-\}} (followed by \texttt{\#\ A\ chapter})
+
+Add an unnumbered part: \texttt{\#\ (PART\textbackslash{}*)\ Act\ one\ \{-\}} (followed by \texttt{\#\ A\ chapter})
+
+Add an appendix as a special kind of un-numbered part: \texttt{\#\ (APPENDIX)\ Other\ stuff\ \{-\}} (followed by \texttt{\#\ A\ chapter}). Chapters in an appendix are prepended with letters instead of numbers.
+
+\hypertarget{footnotes-and-citations}{%
+\chapter{Footnotes and citations}\label{footnotes-and-citations}}
+
+\hypertarget{footnotes}{%
+\section{Footnotes}\label{footnotes}}
+
+Footnotes are put inside the square brackets after a caret \texttt{\^{}{[}{]}}. Like this one \footnote{This is a footnote.}.
+
+\hypertarget{citations}{%
+\section{Citations}\label{citations}}
+
+Reference items in your bibliography file(s) using \texttt{@key}.
+
+For example, we are using the \textbf{bookdown} package \citep{R-bookdown} (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and \textbf{knitr} \citep{xie_dynamic_2015} (this citation was added manually in an external file book.bib). Note that the \texttt{.bib} files need to be listed in the index.Rmd with the YAML \texttt{bibliography} key.
+
+The \texttt{bs4\_book} theme makes footnotes appear inline when you click on them. In this example book, we added \texttt{csl:\ chicago-fullnote-bibliography.csl} to the \texttt{index.Rmd} YAML, and include the \texttt{.csl} file. To download a new style, we recommend: \url{https://www.zotero.org/styles/}
+
+The RStudio Visual Markdown Editor can also make it easier to insert citations: \url{https://rstudio.github.io/visual-markdown-editing/\#/citations}
+
+\hypertarget{blocks}{%
+\chapter{Blocks}\label{blocks}}
+
+\hypertarget{equations}{%
+\section{Equations}\label{equations}}
+
+Here is an equation.
+
+\begin{equation} 
+  f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k}
+  \label{eq:binom}
+\end{equation}
+
+You may refer to using \texttt{\textbackslash{}@ref(eq:binom)}, like see Equation \eqref{eq:binom}.
+
+\hypertarget{theorems-and-proofs}{%
+\section{Theorems and proofs}\label{theorems-and-proofs}}
+
+Labeled theorems can be referenced in text using \texttt{\textbackslash{}@ref(thm:tri)}, for example, check out this smart theorem \ref{thm:tri}.
+
+\begin{theorem}
+\protect\hypertarget{thm:tri}{}\label{thm:tri}For a right triangle, if \(c\) denotes the \emph{length} of the hypotenuse
+and \(a\) and \(b\) denote the lengths of the \textbf{other} two sides, we have
+\[a^2 + b^2 = c^2\]
+\end{theorem}
+
+Read more here \url{https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html}.
+
+\hypertarget{callout-blocks}{%
+\section{Callout blocks}\label{callout-blocks}}
+
+The \texttt{bs4\_book} theme also includes special callout blocks, like this \texttt{.rmdnote}.
+
+You can use \textbf{markdown} inside a block.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(beaver1, }\AttributeTok{n =} \DecValTok{5}\NormalTok{)}
+\CommentTok{\#\textgreater{}   day time  temp activ}
+\CommentTok{\#\textgreater{} 1 346  840 36.33     0}
+\CommentTok{\#\textgreater{} 2 346  850 36.34     0}
+\CommentTok{\#\textgreater{} 3 346  900 36.35     0}
+\CommentTok{\#\textgreater{} 4 346  910 36.42     0}
+\CommentTok{\#\textgreater{} 5 346  920 36.55     0}
+\end{Highlighting}
+\end{Shaded}
+
+It is up to the user to define the appearance of these blocks for LaTeX output.
+
+You may also use: \texttt{.rmdcaution}, \texttt{.rmdimportant}, \texttt{.rmdtip}, or \texttt{.rmdwarning} as the block name.
+
+The R Markdown Cookbook provides more help on how to use custom blocks to design your own callouts: \url{https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html}
+
+\hypertarget{sharing-your-book}{%
+\chapter{Sharing your book}\label{sharing-your-book}}
+
+\hypertarget{publishing}{%
+\section{Publishing}\label{publishing}}
+
+HTML books can be published online, see: \url{https://bookdown.org/yihui/bookdown/publishing.html}
+
+\hypertarget{pages}{%
+\section{404 pages}\label{pages}}
+
+By default, users will be directed to a 404 page if they try to access a webpage that cannot be found. If you'd like to customize your 404 page instead of using the default, you may add either a \texttt{\_404.Rmd} or \texttt{\_404.md} file to your project root and use code and/or Markdown syntax.
+
+\hypertarget{metadata-for-sharing}{%
+\section{Metadata for sharing}\label{metadata-for-sharing}}
+
+Bookdown HTML books will provide HTML metadata for social sharing on platforms like Twitter, Facebook, and LinkedIn, using information you provide in the \texttt{index.Rmd} YAML. To setup, set the \texttt{url} for your book and the path to your \texttt{cover-image} file. Your book's \texttt{title} and \texttt{description} are also used.
+
+This \texttt{bs4\_book} provides enhanced metadata for social sharing, so that each chapter shared will have a unique description, auto-generated based on the content.
+
+Specify your book's source repository on GitHub as the \texttt{repo} in the \texttt{\_output.yml} file, which allows users to view each chapter's source file or suggest an edit. Read more about the features of this output format here:
+
+\url{https://pkgs.rstudio.com/bookdown/reference/bs4_book.html}
+
+Or use:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?bookdown}\SpecialCharTok{::}\NormalTok{bs4\_book}
+\end{Highlighting}
+\end{Shaded}
+
+
+  \bibliography{book.bib}
+
+\end{document}

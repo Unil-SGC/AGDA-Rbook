@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 8 4) Import the Portuguese forest fire dataset | Advanced Geospatial Data Analysis in R: Environmental Application</title>
+<meta name="author" content="Marj Tonini, Haokun Liu">
+<meta name="description" content="In this section you will load the geodata representing the dataset of the Forest Fires (FF) occurred in the continental Portuguese area in the period 1990-2013. You will also load the boundaries...">
+<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta property="og:title" content="Chapter 8 4) Import the Portuguese forest fire dataset | Advanced Geospatial Data Analysis in R: Environmental Application">
+<meta property="og:type" content="book">
+<meta property="og:description" content="In this section you will load the geodata representing the dataset of the Forest Fires (FF) occurred in the continental Portuguese area in the period 1990-2013. You will also load the boundaries...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 8 4) Import the Portuguese forest fire dataset | Advanced Geospatial Data Analysis in R: Environmental Application">
+<meta name="twitter:description" content="In this section you will load the geodata representing the dataset of the Forest Fires (FF) occurred in the continental Portuguese area in the period 1990-2013. You will also load the boundaries...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Advanced Geospatial Data Analysis in R: Environmental Application</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> About</a></li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li><a class="" href="geographically-weighed-summary-statistics.html"><span class="header-section-number">3</span> Geographically Weighed Summary Statistics</a></li>
+<li><a class="" href="kernel-density-estimator.html"><span class="header-section-number">4</span> Kernel density estimator</a></li>
+<li><a class="" href="introduction-1.html"><span class="header-section-number">5</span> 1) Introduction</a></li>
+<li><a class="" href="method.html"><span class="header-section-number">6</span> 2) Method</a></li>
+<li><a class="" href="load-the-libraries-1.html"><span class="header-section-number">7</span> 3) Load the libraries</a></li>
+<li><a class="active" href="import-the-portuguese-forest-fire-dataset-1.html"><span class="header-section-number">8</span> 4) Import the Portuguese forest fire dataset</a></li>
+<li><a class="" href="the-space-time-k-function.html"><span class="header-section-number">9</span> 5) The space-time K-function</a></li>
+<li><a class="" href="conclusions-and-further-analyses-1.html"><span class="header-section-number">10</span> 6) Conclusions and further analyses</a></li>
+<li><a class="" href="footnotes-and-citations.html"><span class="header-section-number">11</span> Footnotes and citations</a></li>
+<li><a class="" href="blocks.html"><span class="header-section-number">12</span> Blocks</a></li>
+<li><a class="" href="sharing-your-book.html"><span class="header-section-number">13</span> Sharing your book</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="import-the-portuguese-forest-fire-dataset-1" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> 4) Import the Portuguese forest fire dataset<a class="anchor" aria-label="anchor" href="#import-the-portuguese-forest-fire-dataset-1"><i class="fas fa-link"></i></a>
+</h1>
+<p>In this section you will load the geodata representing the dataset of the Forest Fires (<strong>FF</strong>) occurred in the continental Portuguese area in the period 1990-2013.
+You will also load the boundaries of the study area.
+You will start by exploring the datasets using mainly visual tools (plotting and histogram).</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Import Portugal boundary </span></span>
+<span><span class="va">Portugal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/Lab02/Portugal.shp"</span><span class="op">)</span> <span class="co"># entire area</span></span>
+<span></span>
+<span><span class="va">PortN</span><span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/Lab02/Porto_North.shp"</span><span class="op">)</span> <span class="co"># northern area </span></span>
+<span><span class="va">PortS</span><span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/Lab02/Porto_South.shp"</span><span class="op">)</span> <span class="co"># southern</span></span>
+<span></span>
+<span><span class="co"># Import the forest fires dataset</span></span>
+<span></span>
+<span><span class="va">FF</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/Lab02/ForestFires.shp"</span><span class="op">)</span> <span class="co"># entire area</span></span>
+<span><span class="va">FFN</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/Lab02/FF_North.shp"</span><span class="op">)</span> <span class="co">#entire area</span></span>
+<span><span class="va">FFS</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/Lab02/FF_South.shp"</span><span class="op">)</span> <span class="co"># Northern area</span></span>
+<span></span>
+<span><span class="co"># Import the shapefile of the Tagus river</span></span>
+<span><span class="va">river</span><span class="op">&lt;-</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/Lab02/Rio_Tajo.shp"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">FF</span><span class="op">$</span><span class="va">Area_ha</span><span class="op">)</span><span class="co"># summary statistics</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">FF</span><span class="op">$</span><span class="va">Area_ha</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-KDE_files/figure-html/import-data-1.png" width="672"></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">FF</span><span class="op">$</span><span class="va">Area_ha</span><span class="op">)</span><span class="op">)</span> <span class="co"># see the lab GWSS for more details </span></span></code></pre></div>
+<div class="inline-figure"><img src="03-KDE_files/figure-html/import-data-2.png" width="672"></div>
+<p>For a better understanding of the phenomenon, we can group the events according to the size of the burnt area and to their incidence in the northern and in the southern part of continental Portugal.</p>
+<div id="ff-subsets-based-on-the-burned-areas-size" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> 4.1) FF-subsets based on the burned areas’ size<a class="anchor" aria-label="anchor" href="#ff-subsets-based-on-the-burned-areas-size"><i class="fas fa-link"></i></a>
+</h2>
+<p>Remember that fires of different size can have been induced by different drivers.
+Thus, in the following, we will investigate all the global cluster behavior of forest fires in Portugal considering the three subset separately.
+As you have seen in the lab GWSS, based on the frequency distribution of the burned areas, the following three classes can be defined:</p>
+<p>* Small fires: less than 15 ha</p>
+<p>* Medium fires: between 15 ha and 100 ha</p>
+<p>* Large fires: bigger than 100 ha</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">SF</span><span class="op">=</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">FF</span>, <span class="va">Area_ha</span> <span class="op">&lt;=</span><span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="co">#create a sub-set including only small fires. </span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">SF</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       Year         Area_ha             X         </span></span>
+<span><span class="co">#&gt;  Min.   :1990   Min.   : 5.000   Min.   : 82761  </span></span>
+<span><span class="co">#&gt;  1st Qu.:1997   1st Qu.: 6.624   1st Qu.:182972  </span></span>
+<span><span class="co">#&gt;  Median :2001   Median : 8.569   Median :213159  </span></span>
+<span><span class="co">#&gt;  Mean   :2002   Mean   : 9.041   Mean   :219789  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:2008   3rd Qu.:11.219   3rd Qu.:259054  </span></span>
+<span><span class="co">#&gt;  Max.   :2013   Max.   :15.000   Max.   :361492  </span></span>
+<span><span class="co">#&gt;        Y                   geometry    </span></span>
+<span><span class="co">#&gt;  Min.   :  7772   POINT        :10902  </span></span>
+<span><span class="co">#&gt;  1st Qu.:403849   epsg:NA      :    0  </span></span>
+<span><span class="co">#&gt;  Median :472892   +proj=tmer...:    0  </span></span>
+<span><span class="co">#&gt;  Mean   :440692                        </span></span>
+<span><span class="co">#&gt;  3rd Qu.:518384                        </span></span>
+<span><span class="co">#&gt;  Max.   :573192</span></span>
+<span></span>
+<span><span class="co"># This is to save the plot </span></span>
+<span><span class="va">pSF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span> <span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">Portugal</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">SF</span>, size<span class="op">=</span><span class="fl">0.5</span>, col<span class="op">=</span><span class="st">"yellow"</span><span class="op">)</span><span class="op">+</span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Small fires"</span><span class="op">)</span> <span class="op">+</span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">MF</span><span class="op">=</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">FF</span>, <span class="va">Area_ha</span> <span class="op">&gt;</span><span class="fl">15</span> <span class="op">&amp;</span> <span class="va">Area_ha</span> <span class="op">&lt;=</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="co">#create a sub-set including only medium fires. </span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">MF</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       Year         Area_ha            X         </span></span>
+<span><span class="co">#&gt;  Min.   :1990   Min.   :15.00   Min.   : 82127  </span></span>
+<span><span class="co">#&gt;  1st Qu.:1997   1st Qu.:21.18   1st Qu.:186031  </span></span>
+<span><span class="co">#&gt;  Median :2001   Median :30.89   Median :219459  </span></span>
+<span><span class="co">#&gt;  Mean   :2002   Mean   :38.55   Mean   :223915  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:2007   3rd Qu.:51.06   3rd Qu.:264349  </span></span>
+<span><span class="co">#&gt;  Max.   :2013   Max.   :99.98   Max.   :359535  </span></span>
+<span><span class="co">#&gt;        Y                   geometry    </span></span>
+<span><span class="co">#&gt;  Min.   :  7084   POINT        :12070  </span></span>
+<span><span class="co">#&gt;  1st Qu.:403864   epsg:NA      :    0  </span></span>
+<span><span class="co">#&gt;  Median :468503   +proj=tmer...:    0  </span></span>
+<span><span class="co">#&gt;  Mean   :439442                        </span></span>
+<span><span class="co">#&gt;  3rd Qu.:518248                        </span></span>
+<span><span class="co">#&gt;  Max.   :572488</span></span>
+<span></span>
+<span><span class="co"># This is to save the plot </span></span>
+<span><span class="va">pMF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span> <span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">Portugal</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">MF</span>, size<span class="op">=</span><span class="fl">0.5</span>, col<span class="op">=</span><span class="st">"orange"</span><span class="op">)</span><span class="op">+</span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Midium fires"</span><span class="op">)</span> <span class="op">+</span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">LF</span><span class="op">=</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">FF</span>, <span class="va">Area_ha</span> <span class="op">&gt;</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="co">#create a sub-set including only large fires.</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span> <span class="op">(</span><span class="va">LF</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       Year         Area_ha              X         </span></span>
+<span><span class="co">#&gt;  Min.   :1990   Min.   :  100.0   Min.   : 83472  </span></span>
+<span><span class="co">#&gt;  1st Qu.:1996   1st Qu.:  139.6   1st Qu.:193831  </span></span>
+<span><span class="co">#&gt;  Median :2002   Median :  220.7   Median :228709  </span></span>
+<span><span class="co">#&gt;  Mean   :2001   Mean   :  548.3   Mean   :229278  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:2006   3rd Qu.:  447.9   3rd Qu.:266146  </span></span>
+<span><span class="co">#&gt;  Max.   :2013   Max.   :66070.6   Max.   :357933  </span></span>
+<span><span class="co">#&gt;        Y                   geometry   </span></span>
+<span><span class="co">#&gt;  Min.   :  8840   POINT        :4301  </span></span>
+<span><span class="co">#&gt;  1st Qu.:383164   epsg:NA      :   0  </span></span>
+<span><span class="co">#&gt;  Median :445272   +proj=tmer...:   0  </span></span>
+<span><span class="co">#&gt;  Mean   :423441                       </span></span>
+<span><span class="co">#&gt;  3rd Qu.:500321                       </span></span>
+<span><span class="co">#&gt;  Max.   :571984</span></span>
+<span></span>
+<span><span class="co"># This is to save the plot </span></span>
+<span><span class="va">pLF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span> <span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">Portugal</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">LF</span>, size<span class="op">=</span><span class="fl">0.5</span>, col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span><span class="op">+</span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Large fires"</span><span class="op">)</span> <span class="op">+</span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Arrange the three spatial maps side by side</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'patchwork'</span>, repos <span class="op">=</span> <span class="st">"http://cran.us.r-project.org"</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The downloaded binary packages are in</span></span>
+<span><span class="co">#&gt;  /var/folders/hf/q_2qq0tn1dngf4r3nzfhj3xh0000gn/T//RtmpdvazhX/downloaded_packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span> <span class="co"># Allow to  combine separate ggplots into the same graphic</span></span>
+<span></span>
+<span><span class="va">pSF</span><span class="op">+</span><span class="va">pMF</span><span class="op">+</span><span class="va">pLF</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-KDE_files/figure-html/plot-FFsubsets-1.png" width="672"></div>
+</div>
+<div id="ff-subsets-based-on-their-geographical-distribution" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> 4.2) FF-subsets based on their geographical distribution<a class="anchor" aria-label="anchor" href="#ff-subsets-based-on-their-geographical-distribution"><i class="fas fa-link"></i></a>
+</h2>
+<p>In continental Portugal, the <strong>northern half</strong> of the country (above the Tagus River) is characterized by the predominance of forest and semi-natural areas, and by the development of the main cities with their sub-urban ares intermingled with wild land, which the Northern area highly prone to forest fires.
+On the other hand, the <strong>southern half</strong> of the country is dominated by agricultural areas with mixed and broad-leaved forest concentrated near the south-west coast, which makes this are less affected by forest fires.
+For this reason we will consider these two areas separately.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Plot the map with all the objects</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span> <span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">Portugal</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">river</span>, col<span class="op">=</span><span class="st">"blue"</span>, size<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">FFN</span>, size<span class="op">=</span><span class="fl">0.3</span>, col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">FFS</span>, size<span class="op">=</span><span class="fl">0.3</span>, col<span class="op">=</span><span class="st">"orange"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Forest foirest in the northern and souther area"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="03-KDE_files/figure-html/import-NS-FF-1.png" width="672"></div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="load-the-libraries-1.html"><span class="header-section-number">7</span> 3) Load the libraries</a></div>
+<div class="next"><a href="the-space-time-k-function.html"><span class="header-section-number">9</span> 5) The space-time K-function</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#import-the-portuguese-forest-fire-dataset-1"><span class="header-section-number">8</span> 4) Import the Portuguese forest fire dataset</a></li>
+<li><a class="nav-link" href="#ff-subsets-based-on-the-burned-areas-size"><span class="header-section-number">8.1</span> 4.1) FF-subsets based on the burned areas’ size</a></li>
+<li><a class="nav-link" href="#ff-subsets-based-on-their-geographical-distribution"><span class="header-section-number">8.2</span> 4.2) FF-subsets based on their geographical distribution</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/03-KDE.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/03-KDE.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Advanced Geospatial Data Analysis in R: Environmental Application</strong>" was written by Marj Tonini, Haokun Liu. It was last built on 2023-11-21.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

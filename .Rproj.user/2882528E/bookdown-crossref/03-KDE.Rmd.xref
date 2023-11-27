@@ -1,0 +1,18 @@
+h1:kernel-density-estimator Kernel Density Estimator
+h2:introduction Introduction
+h2:method Method
+h3:ripleys-k-function Ripley’s K-function
+h4:spatio-temporal-interaction Spatio-temporal interaction
+h3:kernel-density-estimator-1 Kernel density estimator
+h2:load-the-libraries Load the libraries
+h2:import-the-portuguese-forest-fire-dataset Import the Portuguese forest fire dataset
+h3:ff-subsets-based-on-the-burned-areas-size FF-subsets based on the burned areas’ size
+h3:ff-subsets-based-on-their-geographical-distribution FF-subsets based on their geographical distribution
+h2:the-space-time-k-function The space-time K-function
+h3:extract-time-and-pts-object Extract Time and PTS object
+h3:compute-the-space-time-k-function Compute the space-time K-function
+h3:assess-the-space-time-clustering-behavior Assess the space-time clustering behavior
+h4:plot-the-stkhat-outputs Plot the  outputs
+h4:run-the-space-time-kernel-density-estimator Run the space-time kernel density estimator
+h2:conclusions-and-further-analyses Conclusions and further analyses
+

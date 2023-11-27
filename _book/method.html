@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 6 2) Method | Advanced Geospatial Data Analysis in R: Environmental Application</title>
+<meta name="author" content="Marj Tonini, Haokun Liu">
+<meta name="description" content="To detect spatio-temporal clusters of forest fires, we will use the following statistical methods: The Ripley’s K- function, to test the space–time interaction and the spatial attraction/in...">
+<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta property="og:title" content="Chapter 6 2) Method | Advanced Geospatial Data Analysis in R: Environmental Application">
+<meta property="og:type" content="book">
+<meta property="og:description" content="To detect spatio-temporal clusters of forest fires, we will use the following statistical methods: The Ripley’s K- function, to test the space–time interaction and the spatial attraction/in...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 6 2) Method | Advanced Geospatial Data Analysis in R: Environmental Application">
+<meta name="twitter:description" content="To detect spatio-temporal clusters of forest fires, we will use the following statistical methods: The Ripley’s K- function, to test the space–time interaction and the spatial attraction/in...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Advanced Geospatial Data Analysis in R: Environmental Application</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> About</a></li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li><a class="" href="geographically-weighed-summary-statistics.html"><span class="header-section-number">3</span> Geographically Weighed Summary Statistics</a></li>
+<li><a class="" href="kernel-density-estimator.html"><span class="header-section-number">4</span> Kernel density estimator</a></li>
+<li><a class="" href="introduction-1.html"><span class="header-section-number">5</span> 1) Introduction</a></li>
+<li><a class="active" href="method.html"><span class="header-section-number">6</span> 2) Method</a></li>
+<li><a class="" href="load-the-libraries-1.html"><span class="header-section-number">7</span> 3) Load the libraries</a></li>
+<li><a class="" href="import-the-portuguese-forest-fire-dataset-1.html"><span class="header-section-number">8</span> 4) Import the Portuguese forest fire dataset</a></li>
+<li><a class="" href="the-space-time-k-function.html"><span class="header-section-number">9</span> 5) The space-time K-function</a></li>
+<li><a class="" href="conclusions-and-further-analyses-1.html"><span class="header-section-number">10</span> 6) Conclusions and further analyses</a></li>
+<li><a class="" href="footnotes-and-citations.html"><span class="header-section-number">11</span> Footnotes and citations</a></li>
+<li><a class="" href="blocks.html"><span class="header-section-number">12</span> Blocks</a></li>
+<li><a class="" href="sharing-your-book.html"><span class="header-section-number">13</span> Sharing your book</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rstudio/bookdown-demo">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="method" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> 2) Method<a class="anchor" aria-label="anchor" href="#method"><i class="fas fa-link"></i></a>
+</h1>
+<p>To detect spatio-temporal clusters of forest fires, we will use the following statistical methods:</p>
+<ol style="list-style-type: decimal">
+<li><p>The <strong>Ripley’s K- function</strong>, to test the space–time interaction and the spatial attraction/in dependency between fires of different size.</p></li>
+<li><p>The <strong>kernel density estimator</strong>, allowing elaborating smoothed density surfaces representing fires over-densities.</p></li>
+</ol>
+<p>We provide below a short description for both these methods.
+More details can be found in <span class="citation">Tonini et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-tonini_evolution_2017"&gt;&lt;span&gt;“Evolution of Forest Fires in Portugal”&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>5</sup></a></span></p>
+<div id="ripleys-k-function" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> 2.1) Ripley’s K-function<a class="anchor" aria-label="anchor" href="#ripleys-k-function"><i class="fas fa-link"></i></a>
+</h2>
+<p>The Ripley’s K-function allows inferring about the spatial randomness of mapped punctual events.
+It is largely applied in environmental studies to analyse the pattern distribution of a spatial point process.
+The original spatial univariate K-function <span class="math inline">\(K(s)\)</span> is defined as the ratio between the expected number <span class="math inline">\(E\)</span> of point events falling at a certain distance <span class="math inline">\(r\)</span> from an arbitrary event and the intensity <span class="math inline">\(\lambda\)</span> of the spatial point process, this last corresponding to the average number of points per unit area.</p>
+<p>Under complete spatial randomness, which assumes the independence among the events, <span class="math inline">\(K(s)\)</span> is equal to the area of the circle around the target event for each distance’s value.
+It follows that events are spatially clustered within the range of distances at which <span class="math inline">\(K(s)\)</span> assumes vales higher than this area, while they are spatially dispersed for lower values.
+The temporal K-function <span class="math inline">\(K(t)\)</span> is defined in the same way as for the spatial case, with the time-based intensity and the time length replacing the spatial parameters.</p>
+<p>The <strong>spatio-temporal K-function,</strong> <span class="math inline">\(K(s,t)\)</span> can be considered as a bivariate function where space and time represent the two variables of the equation.
+It is defined as the number of further events occurring within a distance <span class="math inline">\(r\)</span> and time <span class="math inline">\(t\)</span> from an arbitrary event.</p>
+<div id="spatio-temporal-interaction" class="section level3" number="6.1.1">
+<h3>
+<span class="header-section-number">6.1.1</span> 2.1.1) Spatio-temporal interaction<a class="anchor" aria-label="anchor" href="#spatio-temporal-interaction"><i class="fas fa-link"></i></a>
+</h3>
+<p>If there is no space–time interaction, <span class="math inline">\(K(s,t)\)</span> is equal to the product of the purely spatial and purely temporal K-function.
+Inversely, if space and time interact generating clusters, the difference between these two values is positive [<span class="math inline">\(D(s,t)=K(s,t)-K(s)*K(t)\)</span>].</p>
+<p>Thus, we can use the perspective 3D-plot of the function <span class="math inline">\(D(s,t)\)</span> to obtain a first diagnostic of space–time clustering: positive values indicate an interaction between these two variables at a well-detectable spatio-temporal scale.</p>
+</div>
+</div>
+<div id="kernel-density-estimator-1" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> 2.2) Kernel density estimator<a class="anchor" aria-label="anchor" href="#kernel-density-estimator-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>The Kernel Density Estimator (KDE) is a non-parametric descriptor tool widely applied in GIS-science to elaborate smoothed density surfaces from spatial variables.
+A kernel function <span class="math inline">\(K\)</span> allows weighing up the contribution of each event, based on the relative distance of neighbouring to the target.
+The parameter <span class="math inline">\(h\)</span>, called bandwidth, controls the smoothness of the estimated kernel density.
+Finally, the kernel density function <span class="math inline">\(f_h(x)\)</span> is estimated by summing all the kernel functions <span class="math inline">\(K\)</span> computed at each point location <span class="math inline">\(x\)</span> and dividing the result by the total number of events (<span class="math inline">\(n\)</span>): <span class="math display">\[f_h(x) = \frac{1}{nh}\sum_{i=j}^{n}K(\frac{x-x_i}{h})\]</span></p>
+<p>The time extension of the kernel density estimator (<span class="citation">Tomoki Nakaya and Keiji Yano<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-nakaya_visualising_2010"&gt;&lt;span&gt;“Visualising Crime Clusters in a Space-Time Cube: An Exploratory Data-Analysis Approach Using Space-Time Kernel Density Estimation and Scan Statistics,”&lt;/span&gt; &lt;em&gt;Transactions in &lt;span&gt;GIS&lt;/span&gt;&lt;/em&gt; 14, no. 3 (2010): 223–39, &lt;span&gt;https://doi.org/10.1111/j.1467-9671.2010.01194.x&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>6</sup></a></span>) allows to compute the <strong>three-dimensional kernel density estimator</strong> which includes the spatio-temporal dimensions.</p>
+<p>In the present case study we apply a quadratic weighting kernel function, which is an approximation to the Gaussian kernel.
+Regarding the bandwidth’s value, we prose to consider the results of the spatio-temporal K-function as an indicator.
+Indeed, the distance values showing a maximum cluster behavior over the displayed perspective <span class="math inline">\(D(s,t)\)</span> plot can be attributed to the <span class="math inline">\(h\)</span>-value, minimizing the problem of under- or over-smoothing due to an arbitrary choice of the bandwidth.</p>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="introduction-1.html"><span class="header-section-number">5</span> 1) Introduction</a></div>
+<div class="next"><a href="load-the-libraries-1.html"><span class="header-section-number">7</span> 3) Load the libraries</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#method"><span class="header-section-number">6</span> 2) Method</a></li>
+<li>
+<a class="nav-link" href="#ripleys-k-function"><span class="header-section-number">6.1</span> 2.1) Ripley’s K-function</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#spatio-temporal-interaction"><span class="header-section-number">6.1.1</span> 2.1.1) Spatio-temporal interaction</a></li></ul>
+</li>
+<li><a class="nav-link" href="#kernel-density-estimator-1"><span class="header-section-number">6.2</span> 2.2) Kernel density estimator</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rstudio/bookdown-demo/blob/master/03-KDE.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rstudio/bookdown-demo/edit/master/03-KDE.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Advanced Geospatial Data Analysis in R: Environmental Application</strong>" was written by Marj Tonini, Haokun Liu. It was last built on 2023-11-21.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

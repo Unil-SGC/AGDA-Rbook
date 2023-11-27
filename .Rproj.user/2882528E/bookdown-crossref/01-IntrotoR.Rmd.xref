@@ -1,0 +1,13 @@
+h1:introduction-to-r Introduction to R
+h2:r-language R Language
+h3:r-packages R Packages
+h3:some-tips Some tips
+h3:r-commands-online-resources R Commands (online resources)
+h2:r-markdown R Markdown
+h2:data-type-in-computational-analysis Data type in computational analysis
+h3:variables Variables
+fig:img1 Data Types in R \\label{data_Type}
+h3:data-structure-in-r Data structure in R
+fig:img2 Data structures in R \\label{data_str}
+h3:data-frame Data Frame
+
