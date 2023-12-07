@@ -23,6 +23,11 @@ Earth surface environmental processes exhibit distinctive characteristics, encom
 This eBook seeks to provide the audience with: i) a good understanding of main practical concepts and applied aspects of advanced geospatial data analysis; ii) advanced tools designed to proficiently navigate various techniques for analysing spatial datasets in geosciences.
 In particular, the proposed methodological approaches will enable the audience to master a range of algorithms designed for the analysis of complex geo-environmental datasets, allowing to extract useful information and to transfom them into decisions. These include: exploratory data analyses and visualization of geographical variations in the statistical data distribution (Geographically Weighted Summary Statistics); cluster detection and mapping (namelly, Ripley’s K-function, Kernel Density Estimator, DBSCAN); Self-Organizing Maps - as an example of unsupervised machine learning approach to data clustering and visualization; Random Forest - as an example of a supervised machine learning algorithm, applied here for classification.
 
+## Prerequisites  {.unnumbered}
+- Knowledge of basic statistics: methods of descriptive statistics (measures of central tendency and dispersion); how to assess relationships between variables; concepts of correlation and regression.
+- Basic knowledge in geomatics (GIS): basic operations with raster and vector datasets. 
+- R programming basics and RStudio.
+
 ## Acknowledgements {.unnumbered}
 
 We would like to thank for all the software developers who make geospatial data analysis in R possible.
