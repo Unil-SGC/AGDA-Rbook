@@ -1,4 +1,40 @@
-# Introduction to R 
+# Introduction 
+
+## Who this book is for {.unnumbered}
+
+This book is for people who want to analyze, visualize and model geographic data with open source software.
+It is based on R, a statistical programming language that has powerful data processing, visualization and geospatial capabilities.
+The book covers a wide range of topics and will be of interest to a wide range of people from many different backgrounds, especially:
+
+-   People who have learned spatial analysis skills using a desktop Geographic Information System (GIS), such as [QGIS](https://qgis.org/en/site/), and [ArcGIS](http://desktop.arcgis.com/en/arcmap/), who want access to a powerful (geo)statistical and visualization programming language and the benefits of a command-line approach [@sherman_desktop_2008]:
+
+    > With the advent of 'modern' GIS software, most people want to point and click their way through life.
+    > That's good, but there is a tremendous amount of flexibility and power waiting for you with the command line.
+
+-   Graduate students and researchers from fields specializing in geographic data including Geography, Remote Sensing, Planning, GIS and Spatial Data Science
+
+-   Academics and post-graduate students working with geographic data --- in fields such as Geology, Regional Science, Biology and Ecology, Agricultural Sciences, Archaeology, Epidemiology, Transport Modeling, and broadly defined Data Science --- who require the power and flexibility of R for their research
+
+-   Applied researchers and analysts in public, private or third-sector organizations who need the reproducibility, speed and flexibility of a command-line language such as R in applications dealing with spatial data as diverse as Urban and Transport Planning, Logistics, Geo-marketing (store location analysis) and Emergency Planning
+
+The book is designed for intermediate-to-advanced R users interested in geocomputation and R beginners who have prior experience with geographic data.
+If you are new to both R and geographic data, do not be discouraged: we provide links to further materials and describe the nature of spatial data from a beginner's perspective in further chapters.
+
+## Why R? {.unnumbered}
+
+Although R has a steep learning curve, the command-line approach advocated in this book can quickly pay off.
+As you'll learn in subsequent chapters, R is an effective tool for tackling a wide range of geographic data challenges.
+We expect that, with practice, R will become the program of choice in your geospatial toolbox for many applications.
+Typing and executing commands at the command-line is, in many cases, faster than pointing-and-clicking around the graphical user interface (GUI) of a desktop GIS.
+For some applications such as Spatial Statistics and modeling R may be the *only* realistic way to get the work done.
+
+There are many reasons for using R for geocomputation: R is well-suited to the interactive use required in many geographic data analysis workflows compared with other languages.
+R excels in the rapidly growing fields of Data Science (which includes data carpentry, statistical learning techniques and data visualization) and Big Data (via efficient interfaces to databases and distributed computing systems).
+Furthermore R enables a reproducible workflow: sharing scripts underlying your analysis will allow others to build-on your work.
+
+Other languages such as Python, Java and C++ can be used for geocomputation and there are excellent resources for learning geocomputation *without R*.
+None of these provide the unique combination of package ecosystem, statistical capabilities, visualization options, powerful IDEs offered by the R community.
+Furthermore, by teaching how to use one language (R) in depth, this book will equip you with the concepts and confidence needed to do geocomputation in other languages.
 
 ## R Language
 
