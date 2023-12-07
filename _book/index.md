@@ -23,12 +23,14 @@ Earth surface environmental processes exhibit distinctive characteristics, encom
 Defined for the first time by Naur as *“The science of dealing with data”*, the term **Data Science** evolved over time around the original concept of *“…converting data into information and knowledge”* (IASC, 1977). In the disciplines like environmental and earth sciences, physical geography, humanities and social sciences, the use of Data Science procedures is emerging only recently, proving to be extremely efficient to deal with the complexity of the investigated process and the heterogeneity of the underlying data sources. This leads to a cultural shift, moving scientists away from individual working within their own research domain. Indeed, disciplinary boundaries are more and more permeable, pushing scientists to be more open to collaborate among them and with decision makers on the investigation and understanding of real-world problems. Modern earth and environmental scientists need to interact with other disciplines, apparently far from their domain. This openness is increasingly important as society struggles to respond to the implications of anthropogenic pressures on different issues, such as natural hazards and climate change, or the harmful impacts of human activities on biodiversity, water and air quality, human health.
 
 **This eBook seeks to provide the audience with**: 
-- a good understanding of main practical concepts and applied aspects in GDA;
-- advanced tools designed to proficiently navigate various techniques for analysing spatial datasets in geosciences.
+- A good understanding of main practical concepts and applied aspects in GDA;
+- Advanced tools designed to proficiently navigate various techniques for analysing spatial datasets in geosciences.
   
-In particular, the proposed methodological approaches will enable the audience to master a range of algorithms designed for the analysis of complex geo-environmental datasets, allowing to extract useful information and to transfom them into decisions. These include: 
-- exploratory data analyses and visualization of geographical variations in the statistical data distribution (Geographically Weighted Summary Statistics);
-- cluster detection and mapping (namelly, Ripley’s K-function, Kernel Density Estimator, DBSCAN);
+In particular, the proposed methodological approaches will enable the audience to master a range of algorithms designed for the analysis of complex geo-environmental datasets, allowing to extract useful information and to transfom them into decisions. 
+
+These include: 
+- Exploratory data analyses and visualization of geographical variations in the statistical data distribution (Geographically Weighted Summary Statistics);
+- Cluster detection and mapping (namelly, Ripley’s K-function, Kernel Density Estimator, DBSCAN);
 - Self-Organizing Maps - as an example of unsupervised machine learning approach to data clustering and visualization;
 - Random Forest - as an example of a supervised machine learning algorithm, applied here for classification.
 
