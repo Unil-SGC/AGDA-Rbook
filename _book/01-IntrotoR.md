@@ -22,6 +22,11 @@ If you are new to both R and geographic data, do not be discouraged: we provide 
 
 ## Why R? {.unnumbered}
 
+R is a complete programming language and software environment for statistical computing and graphical representation.
+As part of the GNU Project (free software, mass collaboration project), the source code is free available.
+Its functionalists can be expanded by importing packages.
+For more details on R see <https://www.r-project.org/>.
+
 Although R has a steep learning curve, the command-line approach advocated in this book can quickly pay off.
 As you'll learn in subsequent chapters, R is an effective tool for tackling a wide range of geographic data challenges.
 We expect that, with practice, R will become the program of choice in your geospatial toolbox for many applications.
@@ -35,13 +40,6 @@ Furthermore R enables a reproducible workflow: sharing scripts underlying your a
 Other languages such as Python, Java and C++ can be used for geocomputation and there are excellent resources for learning geocomputation *without R*.
 None of these provide the unique combination of package ecosystem, statistical capabilities, visualization options, powerful IDEs offered by the R community.
 Furthermore, by teaching how to use one language (R) in depth, this book will equip you with the concepts and confidence needed to do geocomputation in other languages.
-
-## R Language
-
-R is a complete programming language and software environment for statistical computing and graphical representation.
-As part of the GNU Project (free software, mass collaboration project), the source code is free available.
-Its functionalists can be expanded by importing packages.
-For more details on R see <https://www.r-project.org/>.
 
 ### R Packages
 
