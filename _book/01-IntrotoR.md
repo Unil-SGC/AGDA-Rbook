@@ -1,10 +1,5 @@
 # Introduction 
 
-## Who this book is for {.unnumbered}
-
-The book is designed for intermediate-to-advanced R users interested in geocomputation and R beginners who have prior experience with geographic data.
-If you are new to both R and geographic data, do not be discouraged: we provide links to further materials and describe the nature of spatial data from a beginner's perspective in further chapters.
-
 ## Why R? {.unnumbered}
 
 R is a complete programming language and software environment for statistical computing and graphical representation.
