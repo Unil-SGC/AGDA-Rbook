@@ -1,11 +1,25 @@
-# Introduction to R 
+# Introduction 
 
-## R Language
+## Why R? {.unnumbered}
 
 R is a complete programming language and software environment for statistical computing and graphical representation.
 As part of the GNU Project (free software, mass collaboration project), the source code is free available.
 Its functionalists can be expanded by importing packages.
 For more details on R see <https://www.r-project.org/>.
+
+Although R has a steep learning curve, the command-line approach advocated in this book can quickly pay off.
+As you'll learn in subsequent chapters, R is an effective tool for tackling a wide range of geographic data challenges.
+We expect that, with practice, R will become the program of choice in your geospatial toolbox for many applications.
+Typing and executing commands at the command-line is, in many cases, faster than pointing-and-clicking around the graphical user interface (GUI) of a desktop GIS.
+For some applications such as Spatial Statistics and modeling R may be the *only* realistic way to get the work done.
+
+There are many reasons for using R for geocomputation: R is well-suited to the interactive use required in many geographic data analysis workflows compared with other languages.
+R excels in the rapidly growing fields of Data Science (which includes data carpentry, statistical learning techniques and data visualization) and Big Data (via efficient interfaces to databases and distributed computing systems).
+Furthermore R enables a reproducible workflow: sharing scripts underlying your analysis will allow others to build-on your work.
+
+Other languages such as Python, Java and C++ can be used for geocomputation and there are excellent resources for learning geocomputation *without R*.
+None of these provide the unique combination of package ecosystem, statistical capabilities, visualization options, powerful IDEs offered by the R community.
+Furthermore, by teaching how to use one language (R) in depth, this book will equip you with the concepts and confidence needed to do geocomputation in other languages.
 
 ### R Packages
 

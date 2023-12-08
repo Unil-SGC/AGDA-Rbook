@@ -23,28 +23,6 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<style type="text/css">
-    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-        }
-    .hanging div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }
-  </style>
 <link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
@@ -66,16 +44,7 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="active" href="index.html">Preface</a></li>
-<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
-<li><a class="" href="geographically-weighted-summary-statistics.html"><span class="header-section-number">2</span> Geographically Weighted Summary Statistics</a></li>
-<li><a class="" href="kernel-density-estimator.html"><span class="header-section-number">3</span> Kernel Density Estimator</a></li>
-<li><a class="" href="density-based-clustering-algorithm.html"><span class="header-section-number">4</span> Density-based Clustering Algorithm</a></li>
-<li><a class="" href="self-organizing-map.html"><span class="header-section-number">5</span> Self-organizing Map</a></li>
-<li><a class="" href="random-forest.html"><span class="header-section-number">6</span> Random Forest</a></li>
-<li><a class="" href="references.html">References</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="active" href="index.html">Preface</a></li></ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/EugeneGIS/Rbook">View book source <i class="fab fa-github"></i></a></p>
@@ -86,7 +55,6 @@
 <h1>Preface<a class="anchor" aria-label="anchor" href="#preface"><i class="fas fa-link"></i></a>
 </h1>
 <p>Earth surface environmental processes exhibit distinctive characteristics, encompassing both spatial and temporal dimensions, along with various attributes and predictive variables. Furthermore, in the era of Data Science, the wealth of available data and the rapid development of analytical models have emerged as distinctive aspects in the realm of <strong>Geospatial Data Analysis (GDA)</strong>. Coupled with uncertainty and complexity issues, they make this research field highly challenging. GDA encompasses data exploration, manipulation, and modelling, from the acquisition phase up to the visualization and interpretation of the results. Mapping where events are located and how they relate to each other provides a better understanding of the process being studied. Finally, as an increasing volume of geo-environmental data becomes more and more accessible, the demand for experts in this field is growing rapidly, both in public research institutions and in private companies.</p>
-<p>Defined for the first time by Naur as <em>“The science of dealing with data”</em>, the term <strong>Data Science</strong> evolved over time around the original concept of <em>“…converting data into information and knowledge”</em> (IASC, 1977). In the disciplines like environmental and earth sciences, physical geography, humanities and social sciences, the use of Data Science procedures is emerging only recently, proving to be extremely efficient to deal with the complexity of the investigated process and the heterogeneity of the underlying data sources. This leads to a cultural shift, moving scientists away from individual working within their own research domain. Indeed, disciplinary boundaries are more and more permeable, pushing scientists to be more open to collaborate among them and with decision makers on the investigation and understanding of real-world problems. Modern earth and environmental scientists need to interact with other disciplines, apparently far from their domain. This openness is increasingly important as society struggles to respond to the implications of anthropogenic pressures on different issues, such as natural hazards and climate change, or the harmful impacts of human activities on biodiversity, water and air quality, human health.</p>
 <p><strong>The target audience of this eBook</strong> are master and graduate (PhD) students in earth/environmental sciences, biology and spatial ecology, physical geography, and equivalent disciplines. We aim to lead students to learn theoretical concepts and practical approaches in a way that allows them to develop problem-solving strategies. The main topic covered here deals with the application of method developed in Data Science to Earth surface environmental processes. The scientific approaches related to this emerging discipline, ranging from statistics, mathematics, geomatics and computer science, are often hard to be acquired. Without omitting the importance of assuring a rigorous mathematical and statistical formalism in the methods taught, in the present eBook we put more emphasis in the practical applications in the specific domain of Geosciences.</p>
 <p>The book is addressed to intermediate to advanced R users with some experience on geospatial data and a great interest in geo-computing. If you have some very basic knowledge in these fields, we encourage you to explore links provided in each chapter, which redirect you to further useful documentation.</p>
 <p><strong>This eBook seeks to provide the audience with</strong>:
@@ -117,7 +85,7 @@ Edzer Pebesma (who created the <strong>sf</strong> package), Robert Hijmans (who
 </div>
   <div class="chapter-nav">
 <div class="empty"></div>
-<div class="next"><a href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -128,8 +96,7 @@ Edzer Pebesma (who created the <strong>sf</strong> package), Robert Hijmans (who
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/EugeneGIS/Rbook/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/EugeneGIS/Rbook/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>
@@ -149,34 +116,6 @@ Edzer Pebesma (who created the <strong>sf</strong> package), Robert Hijmans (who
   </div>
 
 </div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
-for (let popover of popovers) {
-  const div = document.createElement('div');
-  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
-  div.innerHTML = popover.getAttribute('data-content');
-
-  var has_math = div.querySelector("span.math");
-  if (has_math) {
-    document.body.appendChild(div);
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
-    MathJax.Hub.Queue(function() {
-      popover.setAttribute('data-content', div.innerHTML);
-      document.body.removeChild(div);
-    })
-  }
-}
-</script>
+</footer>
 </body>
 </html>
