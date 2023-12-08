@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Geographically Weighted Summary Statistics | Advanced Geospatial Data Analysis in R: Environmental Application</title>
+<meta name="author" content="Marj Tonini, Haokun Liu">
+<meta name="description" content="2.1 Introduction In fire management, it is crucial to investigate where fires occurred more frequently and to distinguish between small and large fires. This is key information to understand the...">
+<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Geographically Weighted Summary Statistics | Advanced Geospatial Data Analysis in R: Environmental Application">
+<meta property="og:type" content="book">
+<meta property="og:image" content="/images/UNIL_logo.png">
+<meta property="og:description" content="2.1 Introduction In fire management, it is crucial to investigate where fires occurred more frequently and to distinguish between small and large fires. This is key information to understand the...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Geographically Weighted Summary Statistics | Advanced Geospatial Data Analysis in R: Environmental Application">
+<meta name="twitter:description" content="2.1 Introduction In fire management, it is crucial to investigate where fires occurred more frequently and to distinguish between small and large fires. This is key information to understand the...">
+<meta name="twitter:image" content="/images/UNIL_logo.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Advanced Geospatial Data Analysis in R: Environmental Application</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="active" href="geographically-weighted-summary-statistics.html"><span class="header-section-number">2</span> Geographically Weighted Summary Statistics</a></li>
+<li><a class="" href="kernel-density-estimator.html"><span class="header-section-number">3</span> Kernel Density Estimator</a></li>
+<li><a class="" href="density-based-clustering-algorithm.html"><span class="header-section-number">4</span> Density-based Clustering Algorithm</a></li>
+<li><a class="" href="self-organizing-map.html"><span class="header-section-number">5</span> Self-organizing Map</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">6</span> Random Forest</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/EugeneGIS/Rbook">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="geographically-weighted-summary-statistics" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Geographically Weighted Summary Statistics<a class="anchor" aria-label="anchor" href="#geographically-weighted-summary-statistics"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction"><i class="fas fa-link"></i></a>
+</h2>
+<p>In fire management, it is crucial to investigate where fires occurred more frequently and to distinguish between <strong>small</strong> and <strong>large fires</strong>.
+This is key information to understand the ignition factors and planning strategies to reduce forest fires, control and manage ignition sources, and identify areas at risk.</p>
+<p>Despite the availability of forest fires spatio-temporal inventories, it is not evident to extract information about their pattern distribution simply by looking at the original arrangement of the mapped burnt areas.
+To this end, <strong>Geographically Weighed Summary Statistics (GWSS)</strong> can be computed, under the assumption that burned areas generally follow a geographic trend.</p>
+<p>We compute here the GW local means, the GW local standard deviation and the GW localized skewness of burned areas in continental Portugal, registered in the period 1990-2013.
+This application is inspired by the work of<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-tonini_evolution_2017"&gt;Marj Tonini et al., &lt;span&gt;“Evolution of Forest Fires in Portugal: From Spatio-Temporal Point Events to Smoothed Density Maps,”&lt;/span&gt; &lt;em&gt;Natural Hazards&lt;/em&gt; 85, no. 3 (February 1, 2017): 1489–1510, &lt;span&gt;https://doi.org/10.1007/s11069-016-2637-x&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a></span></p>
+</div>
+<div id="the-overall-methodology" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> The overall methodology<a class="anchor" aria-label="anchor" href="#the-overall-methodology"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Summary statistics</strong> include a number of measures that can be used to summarize a set of observations, the most important of which are measures of <em>central tendency</em> (arithmetic mean, median and mode) and measures of <em>dispersion around the mean</em> (variance and standard deviation).
+In addition, measures of <em>skewness</em> and <em>kurtosis</em> are descriptors of the shape of the probability distribution function, the former indicating the asymmetry and the latter the peakedness/tailedness of the curve.</p>
+<p>In the case of <strong>spatial data</strong>, these global statistical descriptors may vary from one region to another, as their values may be affected by local environmental and socio-economic factors.
+In this case, an appropriately localized calibration can provide a better description of the observed values.
+One way to achieve this goal is to <em>weight</em> the above statistical measures for a given quantitative variable based on their geographical location.</p>
+<p>We introduce here the method proposed by<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-brunsdon_geographically_2002"&gt;C. Brunsdon, A. S. Fotheringham, and M. Charlton, &lt;span&gt;“Geographically Weighted Summary Statistics - a Framework for Localised Exploratory Data Analysis,”&lt;/span&gt; &lt;em&gt;Computers, Environment and Urban Systems&lt;/em&gt; 26, no. 6 (November 2002): 501–24, &lt;span&gt;https://doi.org/10.1016/s0198-9715(01)00009-6&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>2</sup></a></span> and implemented in the <strong>function GWSS</strong> presented in the .<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-lu_gwmodel_2014"&gt;Binbin Lu et al., &lt;span&gt;“The &lt;span&gt;GWmodel&lt;/span&gt; r Package: Further Topics for Exploring Spatial Heterogeneity Using Geographically Weighted Models,”&lt;/span&gt; &lt;em&gt;Geo-Spatial Information Science&lt;/em&gt; 17, no. 2 (April 3, 2014): 85–101, &lt;span&gt;https://doi.org/10.1080/10095020.2014.917453&lt;/span&gt;&lt;/a&gt;; &lt;a href="references.html#ref-brunsdon_rpubs_2019"&gt;Chris Brunsdon, &lt;span&gt;“&lt;span&gt;RPubs&lt;/span&gt; - &lt;span&gt;GWSS&lt;/span&gt; - (7th Channel Network Conference),”&lt;/span&gt; July 2019, &lt;span&gt;https://rpubs.com/chrisbrunsdon/503649&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>3</sup></a></span>
+The evaluation of geographically weighted summary statistics is obtained by computing a summary for a small area around each geolocalized punctual observation, by using the <em>kernel density estimation</em> technique (KDE).<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-brunsdon_estimating_1995"&gt;Chris Brunsdon, &lt;span&gt;“Estimating Probability Surfaces for Geographical Point Data: An Adaptive Kernel Algorithm,”&lt;/span&gt; &lt;em&gt;Computers &amp;amp; Geosciences&lt;/em&gt; 21, no. 7 (August 1995): 877–94, &lt;span&gt;https://doi.org/10.1016/0098-3004(95)00020-9&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>4</sup></a></span>
+KDE is estimated at each point, taking into account the influence of the points falling within an area, with increasing weight towards the center, corresponding to the point location.
+A surface summary statistic is thus obtained.</p>
+</div>
+<div id="forest-fires-dataset" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Forest fires dataset<a class="anchor" aria-label="anchor" href="#forest-fires-dataset"><i class="fas fa-link"></i></a>
+</h2>
+<p>Forest fires inventories indicating the location, the starting date and other related variables, such as the cause of ignition and the size of the area burned, are broadly available with a different degree of accuracy in different countries.</p>
+<p>In the present study, we consider the <strong>Portuguese National Mapping Burnt Areas (NMBA 2016)</strong>, freely available from the website of the Institute for the Conservation of Nature and Forests (ICNF).
+This is a long spatio-temporal dataset (from 1975) resulting from the processing of satellite images acquired once a year at the end of the summer season.
+Row data consist of records of observed fire scars.
+The burned areas were estimated by using image classification techniques, then compared with ground data to resolve the discrepancies.
+Polygons have been converted into point shapefile, where each point represent the centroid of the burned areas, while the size of the burned areas and the starting date of the fires events are given as attributes.
+In this work, for consistency reasons, we consider only fires occurred between 1990 and 2013 and with a burned area above 5 hectares.
+.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:jpg"></span>
+<img src="images/Histo_FF.jpg" alt="Total annual number of forest fire events, expressed in thousands of square metres \label{Histo_FF}" width="70%" height="70%"><p class="caption">
+Figure 2.1: Total annual number of forest fire events, expressed in thousands of square metres
+</p>
+</div>
+<div id="load-the-libraries" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> Load the libraries<a class="anchor" aria-label="anchor" href="#load-the-libraries"><i class="fas fa-link"></i></a>
+</h3>
+<p>First you have to load the following libraries:</p>
+<ul>
+<li>
+<strong>splancs</strong>: for display and analysis of spatial point pattern data</li>
+<li>
+<strong>GWmodel</strong>: techniques from a particular branch of spatial statistics, termed geographically-weighted (GW) models</li>
+<li>
+<strong>sf</strong>: support for simple features, a standardized way to encode spatial vector data</li>
+<li>
+<strong>ggplot2</strong>: a system for ‘declaratively’ creating graphics</li>
+<li>
+<strong>sp</strong>: classes and methods for spatial data</li>
+</ul>
+<pre><code>#&gt;  [1] "ggplot2"    "sf"         "GWmodel"    "Rcpp"      
+#&gt;  [5] "robustbase" "splancs"    "sp"         "stats"     
+#&gt;  [9] "graphics"   "grDevices"  "utils"      "datasets"  
+#&gt; [13] "methods"    "base"</code></pre>
+</div>
+<div id="import-the-portuguese-forest-fire-dataset" class="section level3" number="2.3.2">
+<h3>
+<span class="header-section-number">2.3.2</span> Import the Portuguese forest fire dataset<a class="anchor" aria-label="anchor" href="#import-the-portuguese-forest-fire-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>In this section you will load the geodata representing the dataset of forest fires occurred in the continental Portuguese area in the period 1990-2013.
+You will also load the boundaries of the study area.
+You will start by exploring the datasets using mainly visual tools (plotting and histogram).</p>
+<p>You can explore the dataset by using different tools for <strong>exploratory data analyses</strong>.
+You will start by visualizing the databases.
+In the GIS environment, this correspond to the attribute table of a vector punctual feature.</p>
+<p>Than you can <strong>plot the histogram</strong> of events distribution based on the variable <em>“Area_ha”</em> (the size in hectares of the burned area).
+Since this is a power low distribution, for a better understanding it’s recommended to transform the data using a logarithmic scale.
+Using Log10 you can easily evaluate the frequency distribution of the burned areas.</p>
+<p><img src="02-GWSS_files/figure-html/histo_FF-1.png" width="672" style="display: block; margin: auto;"><img src="02-GWSS_files/figure-html/histo_FF-2.png" width="672" style="display: block; margin: auto;"></p>
+</div>
+<div id="forest-fires-spatial-distribution" class="section level3" number="2.3.3">
+<h3>
+<span class="header-section-number">2.3.3</span> Forest fires spatial distribution<a class="anchor" aria-label="anchor" href="#forest-fires-spatial-distribution"><i class="fas fa-link"></i></a>
+</h3>
+<p>For a better understanding of the phenomenon, you can group the events according to the size of the burned area.
+Based on the frequency distribution of the burned areas, the following three classes can be defined:</p>
+<ul>
+<li><p><strong>Small fires</strong>: less than 15 ha</p></li>
+<li><p><strong>Medium fires</strong>: between 15 ha and 100 ha</p></li>
+<li><p><strong>Large fires</strong>: bigger than 100 ha</p></li>
+</ul>
+<p>Plotting the forest fires events using different colors, based on the size of the burned areas, can simplify the understanding of their <strong>pattern distribution</strong>, knowing that fires of different size have normally different drivers.</p>
+<div class="inline-figure"><img src="02-GWSS_files/figure-html/plot-all-fires-1.png" width="672" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="compute-the-geographically-whited-statistics" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Compute the geographically whited statistics<a class="anchor" aria-label="anchor" href="#compute-the-geographically-whited-statistics"><i class="fas fa-link"></i></a>
+</h2>
+<p>From the exploratory data analysis performed above, it seems that a simple plotting of the forest fires events based on their spatial distribution, even if classified based on their size, can not really help to understand their behaviors.
+This is because we face to a huge number of events and the variable that we are using to characterize them (i.e., the size of the burned area) is very heterogeneous.
+To this aim, we can compute basic and robust <strong>GWSS</strong> and plot the data accordingly.</p>
+<p>GWSS includes <em>geographically weighted means</em>, <em>standard deviations</em> and the <em>skweness</em>.
+As you can see from the R Documentation (command: , same data manipulations are necessary to transform the forest fires dataset in a compatible data frame format.</p>
+<p><strong>GWSS parameters</strong>:</p>
+<ul>
+<li><p>We summarize the data based on the size of the burned area (<em>vars</em>).</p></li>
+<li><p>We use here an adaptive kernel where the bandwidth (<em>bw</em>) corresponds to the number (100 in this case) of nearest neighbors (i.e. adaptive distance).</p></li>
+<li><p>We keep the default values for the other parameters.</p></li>
+</ul>
+<div id="look-at-the-results" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> Look at the results<a class="anchor" aria-label="anchor" href="#look-at-the-results"><i class="fas fa-link"></i></a>
+</h3>
+<p>The resulting object (<strong>FFgwss</strong>) has a number of components.
+The most important one is the spatial data frame containing the results of local summary statistics for each data point location, stored in <em>FFgwss$SDF</em> (that is a spatial DataFrame).</p>
+</div>
+<div id="gwss-maps" class="section level3" number="2.4.2">
+<h3>
+<span class="header-section-number">2.4.2</span> GWSS maps<a class="anchor" aria-label="anchor" href="#gwss-maps"><i class="fas fa-link"></i></a>
+</h3>
+<p>To produce a map of the local geographically weighted summary statistic of your choice, firstly we need to enter a small R function definition.
+This is just a short R program to draw a map: you can think of it as a command that tells R how to draw a map (see <a href="geographically-weighted-summary-statistics.html#geographically-weighted-summary-statistics">Geographically Weighted Summary Statistics</a> (<a href="https://rpubs.com/chrisbrunsdon/99667" class="uri">https://rpubs.com/chrisbrunsdon/99667</a>) for more details).
+The advantage of defining a function is that the entire map can now be drawn using a single command for each variable, rather than having to repeat those steps each time.
+To define the intervals for the classification we used Jenks natural breaks classification method (textcolor{red}{style=“fisher”}).</p>
+<p>Finally the function is called by entering:</p>
+<pre><code>quick.map(gwss.object,variable.name,legend.title,main.map.title)</code></pre>
+<div class="inline-figure"><img src="02-GWSS_files/figure-html/gwss-maps-1.png" width="672" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="conclusions-and-further-analyses" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Conclusions and further analyses<a class="anchor" aria-label="anchor" href="#conclusions-and-further-analyses"><i class="fas fa-link"></i></a>
+</h2>
+<p>This practical computer lab allowed you to familiarize with GWSS, by the proposed application about geographically weighted summary statistics.
+This method allowed us to explore how the average burned area vary locally through Continental Portugal in the period 1990-2013.</p>
+<p>The global Geographically Weighted (GW) means informs you about the local average value of the burned area, based of the neighboring events occurred in a given period.
+Similarly, you may compute a GW standard deviation to see the extent to which the size of the burned area spread around this mean.
+Finally you can compute the GW skewness to measure the symmetry of distribution: a positively skewed distribution means that there is a higher number of data points having low values, with mean value lower that the median; and the contrary for a negatively skewed distribution.</p>
+<p>To be sure that everything is perfectly clear for you, we propose you to <strong>answer the following questions</strong> and to discuss your answers with the other participants to the course or directly with the teacher.</p>
+<ol style="list-style-type: decimal">
+<li><p>What is the pattern distribution of the GW-means for burned area in Portugal during the investigated periods?</p></li>
+<li><p>Does the GW-standard deviation follows the same pattern?
+How can you interpret the two pattern in terms of burned area and their characterization?</p></li>
+<li><p>GW-skewness has positive values everywhere: what does it means?
+What do these values suggest to be the distribution of the burned areas, in terms of their size, around the local means?</p></li>
+<li><p>Which can be other applications of GWSS for geo-environmental data?
+In other words, can you imagine other geo-environmental dataset that can be analysed using GWSS?</p></li>
+<li>
+<p>You can finally play with the code and try to run it using a different numbers of nearest neighbors (bw=x) and comparing the results.</p>
+<p><strong>NB:</strong> You have to rename the original pdf to avoid overwriting it.
+In addition, if a pdf with the same name saved in the same destination folder is open, you will receive an error message, so close it before Knitting.</p>
+</li>
+</ol>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></div>
+<div class="next"><a href="kernel-density-estimator.html"><span class="header-section-number">3</span> Kernel Density Estimator</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#geographically-weighted-summary-statistics"><span class="header-section-number">2</span> Geographically Weighted Summary Statistics</a></li>
+<li><a class="nav-link" href="#introduction"><span class="header-section-number">2.1</span> Introduction</a></li>
+<li><a class="nav-link" href="#the-overall-methodology"><span class="header-section-number">2.2</span> The overall methodology</a></li>
+<li>
+<a class="nav-link" href="#forest-fires-dataset"><span class="header-section-number">2.3</span> Forest fires dataset</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#load-the-libraries"><span class="header-section-number">2.3.1</span> Load the libraries</a></li>
+<li><a class="nav-link" href="#import-the-portuguese-forest-fire-dataset"><span class="header-section-number">2.3.2</span> Import the Portuguese forest fire dataset</a></li>
+<li><a class="nav-link" href="#forest-fires-spatial-distribution"><span class="header-section-number">2.3.3</span> Forest fires spatial distribution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#compute-the-geographically-whited-statistics"><span class="header-section-number">2.4</span> Compute the geographically whited statistics</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#look-at-the-results"><span class="header-section-number">2.4.1</span> Look at the results</a></li>
+<li><a class="nav-link" href="#gwss-maps"><span class="header-section-number">2.4.2</span> GWSS maps</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#conclusions-and-further-analyses"><span class="header-section-number">2.5</span> Conclusions and further analyses</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/EugeneGIS/Rbook/blob/master/02-GWSS.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/EugeneGIS/Rbook/edit/master/02-GWSS.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Advanced Geospatial Data Analysis in R: Environmental Application</strong>" was written by Marj Tonini, Haokun Liu. It was last built on 2023-12-08.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

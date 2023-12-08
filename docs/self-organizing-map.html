@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 5 Self-organizing Map | Advanced Geospatial Data Analysis in R: Environmental Application</title>
+<meta name="author" content="Marj Tonini, Haokun Liu">
+<meta name="description" content="5.1 Introduction The increasing availability of multivariate datatets stimulates researches to develop new techniques that differ from those utilized in earlier scientific paradigms. In the field...">
+<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta property="og:title" content="Chapter 5 Self-organizing Map | Advanced Geospatial Data Analysis in R: Environmental Application">
+<meta property="og:type" content="book">
+<meta property="og:image" content="/images/UNIL_logo.png">
+<meta property="og:description" content="5.1 Introduction The increasing availability of multivariate datatets stimulates researches to develop new techniques that differ from those utilized in earlier scientific paradigms. In the field...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 5 Self-organizing Map | Advanced Geospatial Data Analysis in R: Environmental Application">
+<meta name="twitter:description" content="5.1 Introduction The increasing availability of multivariate datatets stimulates researches to develop new techniques that differ from those utilized in earlier scientific paradigms. In the field...">
+<meta name="twitter:image" content="/images/UNIL_logo.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Advanced Geospatial Data Analysis in R: Environmental Application</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="geographically-weighted-summary-statistics.html"><span class="header-section-number">2</span> Geographically Weighted Summary Statistics</a></li>
+<li><a class="" href="kernel-density-estimator.html"><span class="header-section-number">3</span> Kernel Density Estimator</a></li>
+<li><a class="" href="density-based-clustering-algorithm.html"><span class="header-section-number">4</span> Density-based Clustering Algorithm</a></li>
+<li><a class="active" href="self-organizing-map.html"><span class="header-section-number">5</span> Self-organizing Map</a></li>
+<li><a class="" href="random-forest.html"><span class="header-section-number">6</span> Random Forest</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/EugeneGIS/Rbook">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="self-organizing-map" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Self-organizing Map<a class="anchor" aria-label="anchor" href="#self-organizing-map"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-3" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-3"><i class="fas fa-link"></i></a>
+</h2>
+<p>The increasing availability of multivariate datatets stimulates researches to develop new techniques that differ from those utilized in earlier scientific paradigms.
+In the field of social and economic science, geo-demographic segmentation defines a technique used to classify a population based on input data describing administrative units and people living there.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="references.html#ref-spielman_social_2008"&gt;Seth E. Spielman and Jean-Claude Thill, &lt;span&gt;“Social Area Analysis, Data Mining, and &lt;span&gt;GIS&lt;/span&gt;,”&lt;/span&gt; &lt;em&gt;Computers, Environment and Urban Systems&lt;/em&gt; 32, no. 2 (March 1, 2008): 110–22, &lt;span&gt;https://doi.org/10.1016/j.compenvurbsys.2007.11.004&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>9</sup></a></span>
+Small areas can thus be classified into discrete categories using demographic input data, by means of data reduction techniques (such as the <em>Principal component analysis</em>).
+The main limitation of these approaches is the problem of communicating the multidimensional complexity characterizing the different output classes.</p>
+<p><strong>Machine learning</strong> techniques can help in this context, as they are designed to extract useful formation and insight from the interaction of the variables describing the complex structure of a given phenomenon.
+In the present computing lab we introduce an unsupervised learning procedure based on <em>Self-Organizing Map (SOM)</em>,<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;See &lt;a href="references.html#ref-kohonen_self-organized_1982"&gt;Teuvo Kohonen, &lt;span&gt;“Self-Organized Formation of Topologically Correct Feature Maps,”&lt;/span&gt; &lt;em&gt;Biological Cybernetics&lt;/em&gt; 43, no. 1 (January 1, 1982): 59–69, &lt;span&gt;https://doi.org/10.1007/BF00337288&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>10</sup></a></span> allowing detecting clusters and characterizing the pattern of population dynamic in Switzerland in the recent period.
+This lab is inspired by the work of <span class="citation">Marj Tonini et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-marj_tonini_unsupervised_2023"&gt;&lt;span&gt;“An Unsupervised Learning Approach to Explore Geodemographic Clusters in Switzerland,”&lt;/span&gt; in &lt;em&gt;&lt;span&gt;ECTQG&lt;/span&gt; 2023 Proceedings&lt;/em&gt; (23rd european colloquium on theoretical and quantitative geography, Braga, Portugal, 2023), &lt;span&gt;https://ucpages.uc.pt/site/assets/files/1249198/ectqg_2023_proceedings_final.pdf&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>11</sup></a></span></p>
+</div>
+<div id="material-and-method" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Material and method<a class="anchor" aria-label="anchor" href="#material-and-method"><i class="fas fa-link"></i></a>
+</h2>
+<div id="the-geo-demographic-context" class="section level3" number="5.2.1">
+<h3>
+<span class="header-section-number">5.2.1</span> The geo-demographic context<a class="anchor" aria-label="anchor" href="#the-geo-demographic-context"><i class="fas fa-link"></i></a>
+</h3>
+<p>Switzerland has the highest life expectancy in the world.
+It counts about 8,5 million inhabitants (official census data 2020), twice as much as at the beginning of the 20th century, mainly because of the high level of immigration.
+The number of foreigners that currently reside in the country corresponds to about one quarter of the total population.
+Most of the population (85%) lives in cities.
+Population aging increased over the course of the 20th century, with one in five person of retirement age today.
+In the present study, we developed a machine learning based approach to understand and describe the population patterns in different geographic areas.</p>
+</div>
+<div id="som" class="section level3" number="5.2.2">
+<h3>
+<span class="header-section-number">5.2.2</span> SOM<a class="anchor" aria-label="anchor" href="#som"><i class="fas fa-link"></i></a>
+</h3>
+<p>We use <strong>SOM</strong>, an <em>unsupervised competitive learning neural network</em> allowing representing a high-dimensional feature space (defined by the multivariate input dataset), as two-dimensional discretized pattern (the SOM grid of neurons).
+In SOM the proximity of the units in the output grid reflects the similarity of the corresponding input observations, which guarantees the preservation of the topological structure of the input data.</p>
+<p>Compared to other approaches, SOM is very efficient for data visualization.
+Indeed it provides additional outputs such as the heatmaps, representing the distribution of each input feature across the SOM grid, extremely useful to visually explore the relationship between the input variables.</p>
+</div>
+<div id="swiss-census-data" class="section level3" number="5.2.3">
+<h3>
+<span class="header-section-number">5.2.3</span> Swiss census data<a class="anchor" aria-label="anchor" href="#swiss-census-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>Input data come from the national population census, provided by the <a href="https://www.bfs.admin.ch/bfs/en/home.html">Swiss Federal Statistical Office</a>, and including information on the socio-economic status of the population and surveyed land use and land cover.
+This information has been aggregated to the municipality level for the purpose of the present investigation.
+Census data 2020 have been considered to analyse the current pattern, while the former census surveys can be considered to assess transitions and evaluate population dynamics.</p>
+</div>
+</div>
+<div id="variables-inspection" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Variables inspection<a class="anchor" aria-label="anchor" href="#variables-inspection"><i class="fas fa-link"></i></a>
+</h2>
+<div id="import-the-data" class="section level3" number="5.3.1">
+<h3>
+<span class="header-section-number">5.3.1</span> Import the data<a class="anchor" aria-label="anchor" href="#import-the-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>Fist, you have to import the Swiss census dataset for the year 2020, referred to the municipality administrative units.
+As you can see from the description of the selected variables , some of them can be discarded from the analysis.
+So, in the following step, we extract a subset of the most meaningful variables for the purpose of the present study.</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>               </span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"images/Variables1.jpg"</span>, <span class="st">"images/Variables2.jpg"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:variables-1"></span>
+<img src="images/Variables1.jpg" alt="Variables description \label{Variables}" width="100%" height="100%"><p class="caption">
+Figure 5.1: Variables description
+</p>
+</div>
+<div class="figure">
+<span style="display:block;" id="fig:variables-2"></span>
+<img src="images/Variables2.jpg" alt="Variables description \label{Variables}" width="100%" height="100%"><p class="caption">
+Figure 5.2: Variables description
+</p>
+</div>
+</div>
+<div id="inspect-the-data" class="section level3" number="5.3.2">
+<h3>
+<span class="header-section-number">5.3.2</span> Inspect the data<a class="anchor" aria-label="anchor" href="#inspect-the-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>Plotting the histogram of the variables distribution allows to detect outliers, see if they have comparable range of values, and evaluate if a data transformation is necessary.</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot variables' frequency distribution</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">3</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">subset2020</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>      </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="op">(</span><span class="va">subset2020</span><span class="op">[</span> , <span class="va">i</span><span class="op">]</span><span class="op">)</span>,  main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">subset2020</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="data-transformation" class="section level3" number="5.3.3">
+<h3>
+<span class="header-section-number">5.3.3</span> Data transformation<a class="anchor" aria-label="anchor" href="#data-transformation"><i class="fas fa-link"></i></a>
+</h3>
+<p>Data transformation seeks the make the variables range comparable.
+This process ensure the data entries to look similar across all fields and records, making information easier to find, group and analyze.</p>
+<p>With <strong>Min-Max Scaling</strong>, the data values are scaled in a range between 0 and 1.
+As a consequence, the effect of outliers suppresses to a certain extent.
+Moreover, it helps us to have a smaller value of the standard deviation of the data scaled.</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Custom function to implement min max scaling</span></span>
+<span><span class="va">minMax</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Apply max-min to the data</span></span>
+<span><span class="va">dfnorm2020</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="op">(</span><span class="va">subset2020</span><span class="op">[</span> , <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="va">minMax</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dfnorm2020</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot the histograms of the transformed data </span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">dfnorm2020</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>      </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="op">(</span><span class="va">dfnorm2020</span><span class="op">[</span> , <span class="va">i</span><span class="op">]</span><span class="op">)</span>,  main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dfnorm2020</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+</div>
+<div id="running-som" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> Running SOM<a class="anchor" aria-label="anchor" href="#running-som"><i class="fas fa-link"></i></a>
+</h2>
+<div id="load-the-libraries-3" class="section level3" number="5.4.1">
+<h3>
+<span class="header-section-number">5.4.1</span> Load the libraries<a class="anchor" aria-label="anchor" href="#load-the-libraries-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>Fist you have to load the following libraries:</p>
+<ul>
+<li><p><strong>kohonen</strong>: Supervised and Unsupervised Self-Organizing Maps (SOM)</p></li>
+<li><p><strong>aweSOM:</strong> offers a set of tools to explore and analyze datasets with SOM</p></li>
+<li><p><strong>ggplot2</strong>: create Elegant Data Visualizations Using the Grammar of Graphics</p></li>
+<li><p><strong>colorpatch</strong>: rendering methods (ggplot extensions)</p></li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">kohonen</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">aweSOM</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://sysbio.uni-ulm.de/?Software:colorpatch">colorpatch</a></span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/zpackages.html">.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="compute-som" class="section level3" number="5.4.2">
+<h3>
+<span class="header-section-number">5.4.2</span> Compute SOM<a class="anchor" aria-label="anchor" href="#compute-som"><i class="fas fa-link"></i></a>
+</h3>
+<p>The main idea with <strong>SOM</strong> is to map the input high-dimensional feature space in a lower-dimensional output space organized on a grid made up of regular units (i.e. the neurons).
+At the end of the process, each observation from the input space (<span class="math inline">\(X_{k,i}\)</span>) will be associated (i.e., mapped) to a unit in the SOM grid.
+Depending on the size of the grid, one unit can include several input observations.</p>
+<p>The first step consists in defining the size and geometry of the SOM grid.
+In this case we define a rectangular grid of 18 by 13 units, allowing to allocate, on average, about 15 input-items per units, and whose geometry reproduces the shape of the study area.
+(<strong>NB</strong>: several parameters and configurations of the SOM grid can be implemented and compared, seeking to minimize the <em>Quantization Error, QE</em>)</p>
+<p>Finally, you can run the SOM model.
+Note that <em>rlen</em> indicates the number of times the complete data set will be presented to the network, while for the other parameters we will keep the default values.</p>
+<p>The overall computation include the following steps:</p>
+<p><strong>1) The data frame has to be transformed to a matrix</strong></p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mxM2020</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">dfnorm2020</span><span class="op">)</span> <span class="co"># max-min</span></span></code></pre></div>
+<p><strong>2) Create the SOM-grid</strong></p>
+<p>Before running SOM, you have to create the grid of output units.</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Gird size 18x13 units</span></span>
+<span><span class="va">som_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/kohonen/man/unit.distances.html">somgrid</a></span><span class="op">(</span>xdim <span class="op">=</span> <span class="fl">18</span>, ydim<span class="op">=</span><span class="fl">13</span><span class="op">)</span> </span></code></pre></div>
+<p><strong>3) Run-SOM</strong></p>
+<p>The general R function is used for creating simulations of random objects that can be reproduced.</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Use max-min data transformation</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Run SOM</span></span>
+<span><span class="va">SOM2020M</span><span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/kohonen/man/supersom.html">som</a></span><span class="op">(</span><span class="va">mxM2020</span>,</span>
+<span>               grid<span class="op">=</span><span class="va">som_grid</span>, </span>
+<span>               rlen<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">SOM2020M</span><span class="op">)</span></span>
+<span><span class="co">#&gt; SOM of size 18x13 with a rectangular topology.</span></span>
+<span><span class="co">#&gt; Training data included.</span></span></code></pre></div>
+<p><strong>4) SOM-model evaluation</strong></p>
+<p>Finally, you can optimize the size of the grid by inspecting several quality measure and changing the parameters accordingly.
+In particular we will explore the following:</p>
+<ul>
+<li><p><em>Changes</em>: shows the mean distance to the closest codebook vector during the training.</p></li>
+<li><p><em>Quantization error</em>: average squared distance between the data points and the map’s codebook to which they are mapped.
+Lower is better.</p></li>
+<li><p><em>Percentage of explained variance</em>: similar to other clustering methods, the share of total variance that is explained by the clustering (equal to 1 minus the ratio of quantization error to total variance).
+Higher is better.</p></li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Evaluate rlen</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">SOM2020M</span>, type<span class="op">=</span><span class="st">"changes"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-SOM_files/figure-html/SOM-quality-1.png" width="672"></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Evaluate the results</span></span>
+<span><span class="va">QEM</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/aweSOM/man/somQuality.html">somQuality</a></span><span class="op">(</span><span class="va">SOM2020M</span>, <span class="va">dfnorm2020</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co">## Quality measures:</span></span>
+<span><span class="va">QEM</span><span class="op">$</span><span class="va">err.quant</span> <span class="co"># Quantization error</span></span>
+<span><span class="co">#&gt; [1] 0.04534672</span></span>
+<span><span class="va">QEM</span><span class="op">$</span><span class="va">err.varratio</span> <span class="co"># % explained variance</span></span>
+<span><span class="co">#&gt; [1] 82.06</span></span></code></pre></div>
+</div>
+</div>
+<div id="soms-main-outputs" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> SOM’s main outputs<a class="anchor" aria-label="anchor" href="#soms-main-outputs"><i class="fas fa-link"></i></a>
+</h2>
+<p>The main graphical outputs of SOM are the node counts, the neighborhood distances, and the heatmaps.</p>
+<ul>
+<li><p><strong>Node counts map</strong> informs about the number of input vectors falling inside each output unit.</p></li>
+<li><p><strong>Neighbourhood distance plot</strong> shows the distance between each unit and its neighborhoods.</p></li>
+<li><p><strong>Heatmaps</strong> show the distribution of each input variable, associated to each input vectors, across the SOM grid.</p></li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a color palette</span></span>
+<span><span class="va">coolBlueHotRed</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span>, <span class="va">alpha</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span><span class="op">(</span><span class="va">n</span>, end<span class="op">=</span><span class="fl">4</span><span class="op">/</span><span class="fl">6</span>, alpha<span class="op">=</span><span class="va">alpha</span><span class="op">)</span><span class="op">[</span><span class="va">n</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot node counts map</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">SOM2020M</span>, type<span class="op">=</span><span class="st">"count"</span>, main<span class="op">=</span><span class="st">"Node Counts"</span>, palette.name<span class="op">=</span><span class="va">coolBlueHotRed</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot SOM neighbourhood distance</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">SOM2020M</span>, type<span class="op">=</span><span class="st">"dist.neighbours"</span>, main <span class="op">=</span> <span class="st">"SOM neighbour distances"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-SOM_files/figure-html/outputs-SOM-maxmin-1.png" width="672"></div>
+<p>Visualized side by side, heatmaps provide a useful tool to explore the correlation between the input variables .</p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot heatmaps for selected variables</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">18</span><span class="op">)</span> </span>
+<span>  <span class="op">{</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">SOM2020M</span>, type <span class="op">=</span> <span class="st">"property"</span>, property <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/kohonen/man/getCodes.html">getCodes</a></span><span class="op">(</span><span class="va">SOM2020M</span><span class="op">)</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span>,</span>
+<span>     main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/kohonen/man/getCodes.html">getCodes</a></span><span class="op">(</span><span class="va">SOM2020M</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, palette.name<span class="op">=</span><span class="va">coolBlueHotRed</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span><span class="op">(</span><span class="st">"images/Heatmaps.jpg"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:jpg1"></span>
+<img src="images/Heatmaps.jpg" alt="Heatmaps \label{Heatmaps}" width="70%" height="70%"><p class="caption">
+Figure 5.3: Heatmaps
+</p>
+</div>
+</div>
+<div id="hierarchical-clustering" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Hierarchical clustering<a class="anchor" aria-label="anchor" href="#hierarchical-clustering"><i class="fas fa-link"></i></a>
+</h2>
+<p>Hierarchical clustering can finally be performed to isolate groups of input vectors characterized by a similar distribution of the input variables.
+This second step takes the SOM-units (i.e., the CodeBook vectors) as input and group them into the desired number of clusters (we choose 7 in this case).
+This allows to characterize main typologies of geo-demographic groups.</p>
+<ul>
+<li><strong>Apply hierarchical clustering:</strong></li>
+</ul>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">CB2020M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/kohonen/man/getCodes.html">getCodes</a></span><span class="op">(</span><span class="va">SOM2020M</span><span class="op">)</span> <span class="co"># Extract codebook vectors</span></span>
+<span></span>
+<span><span class="va">cls2020M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cutree.html">cutree</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">CB2020M</span><span class="op">)</span><span class="op">)</span>, <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li><strong>Display the SOM-grid with different colors for each cluster:</strong></li>
+</ul>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Colour palette definition, will use later too.</span></span>
+<span><span class="co"># If you change the number of hierarchical clustering, remember change the number of color.</span></span>
+<span></span>
+<span><span class="va">map_palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"steelblue3"</span>,<span class="st">"darkgoldenrod4"</span>,<span class="st">"darkolivegreen"</span>, <span class="st">"springgreen3"</span>, <span class="st">"darkorange"</span>, <span class="st">"firebrick"</span>, <span class="st">"darkolivegreen1"</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">SOM2020M</span>, type<span class="op">=</span><span class="st">"mapping"</span>, pchs<span class="op">=</span><span class="st">""</span>, bgcol <span class="op">=</span> <span class="va">map_palette</span><span class="op">[</span><span class="va">cls2020M</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Clusters"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-SOM_files/figure-html/clustermap_maxmin-1.png" width="672"></div>
+<ul>
+<li><strong>Assign the cluster number (based on hierarchical clustering) to each unit:</strong></li>
+</ul>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clasgn</span> <span class="op">&lt;-</span> <span class="va">cls2020M</span><span class="op">[</span><span class="va">SOM2020M</span><span class="op">$</span><span class="va">unit.classif</span><span class="op">]</span></span>
+<span><span class="va">dfnorm2020</span><span class="op">$</span><span class="va">hc</span><span class="op">&lt;-</span><span class="va">clasgn</span></span>
+<span><span class="va">clsnorm</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">dfnorm2020</span>, <span class="va">subset2020</span><span class="op">$</span><span class="va">BFS_nummer</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Export the table with clusters </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span><span class="op">(</span><span class="va">clsnorm</span>, file<span class="op">=</span><span class="st">"hcM_7cls.csv"</span>, sep<span class="op">=</span><span class="st">","</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li><strong>Map the resulting clusters to the geographical space</strong></li>
+</ul>
+<p>You can import the final table with the values of the population census variable in a GIS and join the values to the administrative limits at municipality levels in Switzerland.
+This allows you to elaborate a map as in .</p>
+<p><strong>NB</strong>. You need only two columns: the code identifying each municipality (“BFS_nummer”) and the cluster number (hc).
+Open the table including the resulting clusters with a dedicated program (like Excel) to reorganize the header, as a new column for unique identifier has been created automatically (you can name it “ID”), and headers has to be shifted of one place on the right.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:jpg2"></span>
+<img src="images/Clusters_7.jpg" alt="Spatial pattern distribution of Swiss poputaion census \label{Clusters_7}" width="70%" height="70%"><p class="caption">
+Figure 5.4: Spatial pattern distribution of Swiss poputaion census
+</p>
+</div>
+<p>If you want to try the primary and automatic process in Rstudio, you can conduct the below codes and see the map.</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://strimmerlab.github.io/software/st/">st</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://paleolimbot.github.io/ggspatial/">ggspatial</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the shapefile data</span></span>
+<span><span class="va">CH_outline</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/Lab04/Municiplities.shp"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Quick check the shapefile data</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">CH_outline</span>, size <span class="op">=</span> <span class="fl">1.5</span>, color <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="st">"cyan1"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Swiss municiplities"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Rename the column</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">clsnorm</span><span class="op">)</span><span class="op">[</span><span class="fl">20</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"BFS_NUMMER"</span></span>
+<span></span>
+<span><span class="co"># Merge the dataframe and shapefile together by the column with the same name</span></span>
+<span><span class="va">z</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/merge.html">merge</a></span><span class="op">(</span><span class="va">CH_outline</span>, <span class="va">clsnorm</span>, by <span class="op">=</span> <span class="st">"BFS_NUMMER"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Rename the column with clustering results</span></span>
+<span><span class="va">z</span><span class="op">$</span><span class="va">cluster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">z</span><span class="op">$</span><span class="va">hc</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Mapping the clusters via ggplot like QGIS/ArcGIS Pro/Arcmap, similar package 'tmap'</span></span>
+<span><span class="va">CH_cluster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">z</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Original data</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">cluster</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Mapping the clusters</span></span>
+<span>    <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_scale.html">annotation_scale</a></span><span class="op">(</span>location <span class="op">=</span> <span class="st">"bl"</span>, width_hint <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>                     pad_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="st">"cm"</span><span class="op">)</span>, pad_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Mapping scales, which are calculated by project coordinates</span></span>
+<span>    <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_north_arrow.html">annotation_north_arrow</a></span><span class="op">(</span>location <span class="op">=</span> <span class="st">"tr"</span>, which_north <span class="op">=</span> <span class="st">"true"</span>, </span>
+<span>          pad_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.0</span>, <span class="st">"cm"</span><span class="op">)</span>, pad_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="st">"cm"</span><span class="op">)</span>,</span>
+<span>          style <span class="op">=</span> <span class="va">north_arrow_fancy_orienteering</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Mapping north arrow</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">map_palette</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Set up the our color palette</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Background color, if use, it means without color</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Spatial pattern distribution of Swiss poputaion census"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Insert title of the map</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_fill_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Clusters"</span>, </span>
+<span>                        labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1: Unproductive"</span>, <span class="st">"2: Forest/Peri-urban"</span>, <span class="st">"3: Peri-urban/Rural"</span>,</span>
+<span>                                 <span class="st">"4: Rural"</span>,<span class="st">"5: Suburban"</span>,<span class="st">"6: Urban centre"</span>,<span class="st">"7: Peri-urban fringe"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Legend labels</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span><span class="op">(</span>fill<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Clusters"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Legend name</span></span>
+<span></span>
+<span><span class="co"># Save the map as jpg</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"CH_cluster.jpg"</span><span class="op">)</span></span>
+<span>    </span>
+<span><span class="va">CH_cluster</span></span></code></pre></div>
+<div class="inline-figure"><img src="05-SOM_files/figure-html/mapping%20the%20clusters-1.png" width="672"></div>
+<div id="clusters-characterization" class="section level3" number="5.6.1">
+<h3>
+<span class="header-section-number">5.6.1</span> Clusters characterization<a class="anchor" aria-label="anchor" href="#clusters-characterization"><i class="fas fa-link"></i></a>
+</h3>
+<p>To interpret the final main clusters in therms of their geo-demographic characteristics, you can evaluate the distribution of each variable within the clusters by using <strong>box plots</strong> (also known as <em>whisker plot</em>).</p>
+<p>Box-plot is a standardized way to display a dataset based on the five-number summary statistics: the minimum, the maximum, the sample median, and the first and third quartiles (i.e., the median of the lower half (25%) and the median of the upper half (75%) of the dataset).</p>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Creates an empty list object that will be filled by the loop</span></span>
+<span><span class="va">cls20M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Split the single clusters</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">cls20M</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/modeltools/man/ModelEnv-class.html">subset</a></span><span class="op">(</span><span class="va">clsnorm</span>, <span class="va">clsnorm</span><span class="op">$</span><span class="va">hc</span><span class="op">==</span><span class="va">i</span><span class="op">)</span> </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">clsvar20M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">cls20M</span>, <span class="st">"["</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">18</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Box-plots for the single clusters</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span> <span class="op">(</span><span class="op">(</span><span class="va">clsvar20M</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Cluster"</span>, <span class="va">i</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, cex.axis<span class="op">=</span><span class="fl">0.5</span>,  las<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<p>To better investigate the values assumed by each class of variables withing the different clusters, you can group them by category.</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Box plot by categories: "Physical space"</span></span>
+<span></span>
+<span><span class="va">clsvar20M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">cls20M</span>, <span class="st">"["</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, cex.axis<span class="op">=</span><span class="fl">0.7</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span> <span class="op">(</span><span class="op">(</span><span class="va">clsvar20M</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Cluster"</span>, <span class="va">i</span><span class="op">)</span>,  las<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:boxplot-clsM-PhisicalSpace"></span>
+<img src="05-SOM_files/figure-html/boxplot-clsM-PhisicalSpace-1.png" alt="Physical space" width="672"><p class="caption">
+Figure 5.5: Physical space
+</p>
+</div>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Box plot by categories: "Demographics"</span></span>
+<span></span>
+<span><span class="va">clsvar20M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">cls20M</span>, <span class="st">"["</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span><span class="op">:</span><span class="fl">13</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, cex.axis<span class="op">=</span><span class="fl">0.7</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span> <span class="op">(</span><span class="op">(</span><span class="va">clsvar20M</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Cluster"</span>, <span class="va">i</span><span class="op">)</span>,  las<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:boxplot-clsM-Deographic"></span>
+<img src="05-SOM_files/figure-html/boxplot-clsM-Deographic-1.png" alt="Demographics" width="672"><p class="caption">
+Figure 5.6: Demographics
+</p>
+</div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Box plot by categories: "Socio-economics"</span></span>
+<span></span>
+<span><span class="va">clsvar20M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">cls20M</span>, <span class="st">"["</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">14</span><span class="op">:</span><span class="fl">18</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span>, mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, cex.axis<span class="op">=</span><span class="fl">0.7</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span> <span class="op">(</span><span class="op">(</span><span class="va">clsvar20M</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, main<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Cluster"</span>, <span class="va">i</span><span class="op">)</span>,  las<span class="op">=</span><span class="fl">2</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:boxplot-clsM-SocioEconomic"></span>
+<img src="05-SOM_files/figure-html/boxplot-clsM-SocioEconomic-1.png" alt="Socio-economics" width="672"><p class="caption">
+Figure 5.7: Socio-economics
+</p>
+</div>
+</div>
+</div>
+<div id="conclusions" class="section level2" number="5.7">
+<h2>
+<span class="header-section-number">5.7</span> Conclusions<a class="anchor" aria-label="anchor" href="#conclusions"><i class="fas fa-link"></i></a>
+</h2>
+<p>Results of the present study reveal the main patterns of the population in Switzerland based on the surveyed land-use, socio-economic, and demographic indicators.
+To characterize the final main clusters, the distribution of each variable within them have been assessed by using <strong>box plots</strong>.
+We could thus identify main clusters including the most developed and active cities with higher income, the peri-urban areas mostly devoted to the agricultural activity, or the areas with higher levels of migration.</p>
+<p><strong>SOM heatmaps</strong> allow to display the pattern distribution of each input variable over the SOM-grid and how values change in space.
+Visualized side by side, heatmaps show a picture of the different areas and their characteristics.
+In this way it is possible to explore the level of complementarity that links one or more variables among them.</p>
+<p>In conclusion, in the present study we proposed a performant data-driven approach based on unsupervised learning allowing to extract useful information from a huge volume of multivariate population census data.
+This approach led to represent and interpret the main patterns characterizing the dynamic of population in Switzerland in the recent period.</p>
+</div>
+<div id="further-analyses" class="section level2" number="5.8">
+<h2>
+<span class="header-section-number">5.8</span> Further analyses<a class="anchor" aria-label="anchor" href="#further-analyses"><i class="fas fa-link"></i></a>
+</h2>
+<p>To be sure that everything is perfectly clear for you, we propose you to <strong>answer the following questions</strong> and to discuss your answers with the other participants to the course or directly with the teacher.</p>
+<ol style="list-style-type: decimal">
+<li>Change the size of the gridmap and check if you get better results for SOM. <strong>N.B.</strong> Better results are achieved when the quantisation error decreases, the explained variance increases, and there are no empty observations revealed by the Node Counts map.</li>
+</ol>
+<p>2.1) Focusing on Cluster 6: which variable characterize it the most?
+Based on these variables, which class of land use can be associated to this cluster?
+2.2) And in the case of Cluster 4?</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Describe the distribution of the clusters in the geographical space.
+In more details, describe to which kind of land use the different clusters can be referred and specify why.</p></li>
+<li><p>From the visual inspection of the heatmaps, describe the correlation you can observe between the following variables: a) “p_transport” and “p_infrastructure”; b) “p_agriculture” and “p_improductible”.</p></li>
+</ol>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="density-based-clustering-algorithm.html"><span class="header-section-number">4</span> Density-based Clustering Algorithm</a></div>
+<div class="next"><a href="random-forest.html"><span class="header-section-number">6</span> Random Forest</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#self-organizing-map"><span class="header-section-number">5</span> Self-organizing Map</a></li>
+<li><a class="nav-link" href="#introduction-3"><span class="header-section-number">5.1</span> Introduction</a></li>
+<li>
+<a class="nav-link" href="#material-and-method"><span class="header-section-number">5.2</span> Material and method</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-geo-demographic-context"><span class="header-section-number">5.2.1</span> The geo-demographic context</a></li>
+<li><a class="nav-link" href="#som"><span class="header-section-number">5.2.2</span> SOM</a></li>
+<li><a class="nav-link" href="#swiss-census-data"><span class="header-section-number">5.2.3</span> Swiss census data</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#variables-inspection"><span class="header-section-number">5.3</span> Variables inspection</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#import-the-data"><span class="header-section-number">5.3.1</span> Import the data</a></li>
+<li><a class="nav-link" href="#inspect-the-data"><span class="header-section-number">5.3.2</span> Inspect the data</a></li>
+<li><a class="nav-link" href="#data-transformation"><span class="header-section-number">5.3.3</span> Data transformation</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#running-som"><span class="header-section-number">5.4</span> Running SOM</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#load-the-libraries-3"><span class="header-section-number">5.4.1</span> Load the libraries</a></li>
+<li><a class="nav-link" href="#compute-som"><span class="header-section-number">5.4.2</span> Compute SOM</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#soms-main-outputs"><span class="header-section-number">5.5</span> SOM’s main outputs</a></li>
+<li>
+<a class="nav-link" href="#hierarchical-clustering"><span class="header-section-number">5.6</span> Hierarchical clustering</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#clusters-characterization"><span class="header-section-number">5.6.1</span> Clusters characterization</a></li></ul>
+</li>
+<li><a class="nav-link" href="#conclusions"><span class="header-section-number">5.7</span> Conclusions</a></li>
+<li><a class="nav-link" href="#further-analyses"><span class="header-section-number">5.8</span> Further analyses</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/EugeneGIS/Rbook/blob/master/05-SOM.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/EugeneGIS/Rbook/edit/master/05-SOM.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Advanced Geospatial Data Analysis in R: Environmental Application</strong>" was written by Marj Tonini, Haokun Liu. It was last built on 2023-12-08.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

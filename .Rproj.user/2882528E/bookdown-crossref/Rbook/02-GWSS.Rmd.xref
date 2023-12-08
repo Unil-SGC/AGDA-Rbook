@@ -1,0 +1,13 @@
+h1:geographically-weighted-summary-statistics Geographically Weighted Summary Statistics
+h2:introduction Introduction
+h2:the-overall-methodology The overall methodology
+h2:forest-fires-dataset Forest fires dataset
+fig:jpg Total annual number of forest fire events, expressed in thousands of square metres \\label{Histo_FF}
+h3:load-the-libraries Load the libraries
+h3:import-the-portuguese-forest-fire-dataset Import the Portuguese forest fire dataset
+h3:forest-fires-spatial-distribution Forest fires spatial distribution
+h2:compute-the-geographically-whited-statistics Compute the geographically whited statistics
+h3:look-at-the-results Look at the results
+h3:gwss-maps GWSS maps
+h2:conclusions-and-further-analyses Conclusions and further analyses
+

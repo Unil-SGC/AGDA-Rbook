@@ -1,0 +1,20 @@
+h1:random-forest Random Forest
+h2:introduction Introduction
+h3:the-main-objective The main objective
+fig:gen-met Basic elements of the generic methodology \\label{Methodology}
+h3:load-the-libraries Load the libraries
+h2:import-the-data Import the data
+h3:landslides-dataset Landslides dataset
+h3:predictor-variables Predictor variables
+h4:the-use-of-categorical-variables-in-machine-learning The use of categorical variables in Machine Learning
+h2:create-the-input-dataset Create the input dataset
+h3:split-the-input-dataset-into-training-80-and-testing-20 Split the input dataset into training (80%) and testing (20%)
+h2:run-random-forest Run Random Forest
+h3:rf-main-outputs RF main outputs
+h3:model-evaluation Model evaluation
+h2:susceptibility-map Susceptibility map
+h3:class-intervals-for-decision-maker Class intervals for decision maker
+h2:variable-importance-plot Variable importance plot
+h3:partial-dependence-plot Partial dependence plot
+h2:conclusions-and-further-analyses Conclusions and further analyses
+

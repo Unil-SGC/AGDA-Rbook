@@ -1,0 +1,13 @@
+h1:density-based-clustering-algorithm Density-based Clustering Algorithm
+h2:introduction Introduction
+fig:jpg The Tsarmine rock glacier, Hérens Valley, in the Western Swiss Alps. Source: Micheletti et al, 2016 \\label{Tsarmine}
+h2:the-overall-methodology The overall methodology
+h3:dbscan-3-d-density-based-clustering-algorithm DBSCAN: 3-D density based clustering algorithm
+fig:fig2 Parameters in DBSCAN to form a cluster \\label{dbscan}
+h3:field-campaign Field campaign
+h2:dbscan-feature-detection-from-points-clouds DBSCAN: feature detection from points clouds
+h3:load-the-libraries Load the libraries
+h3:import-and-visualise-the-point-clouds-dataset Import and visualise the point clouds dataset
+h3:run-dbscan Run DBSCAN
+h2:conclusions-and-further-analyses Conclusions and further analyses
+
