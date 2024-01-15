@@ -92,7 +92,7 @@
 </h2>
 <p>R is a complete programming language and software environment for statistical computing and graphical representation.
 As part of the GNU Project (free software, mass collaboration project), the source code is free available.
-Its functionalists can be expanded by importing packages.
+Its functionalities can be expanded by importing packages.
 For more details on R see <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>.</p>
 <div id="r-packages" class="section level3" number="1.1.1">
 <h3>
@@ -100,8 +100,9 @@ For more details on R see <a href="https://www.r-project.org/" class="uri">https
 </h3>
 <p>A package is a file generally composed of R scripts (e.g., functions).
 On all operation systems the function “install.packages()” can be used to download and install a package automatically.
-Once a package has been installed, it can be loaded in a session by using the command .
-To check the list of the installed libraries, the function can be used.
+Otherwise, a package already installed in R can be loaded in a session by using the command .
+In R, the directories where the packages are stored are called “libraries”. The terms “package” and “library” are sometimes used synonymously.
+For example, to check the list of the installed packeges, the function can be used.
 When you open an <strong>R Markdown</strong> document (.Rmd) the program propose you automatically to install the libraries listed there.</p>
 </div>
 <div id="some-tips" class="section level3" number="1.1.2">
@@ -144,11 +145,11 @@ Here some useful links:</p>
 </h2>
 <p>This is an R Markdown document :-)</p>
 <p>Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents.
-It is a simple and easy to use <strong>plain text language</strong> used to combine R code, results from your data analysis (including plots and tables), and written commentary into a single nicely formatted and reproducible document (like a report, publication, thesis chapter or a web pages).</p>
-<p>Code lines are organized as code block, seeking to solve e specified task, and referred to as <strong>“code chunk”</strong>.
+It is a simple and easy to use <strong>plain text language</strong> allowing to combine R code, results from data analysis (including plots and tables), and comments into a single nicely formatted and <em>reproducible</em> document (like a report, publication, thesis chapter or web pages).</p>
+<p>Code lines are organized into code blocks, seeking to solve specified tasks, and referred to as <strong>“code chunk”</strong>.
 For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
 <p>All what you have to do during the computing labs is to read each explanatory paragraph before running each individual R code chunk, one by one, and to interpret the results.
-Finally, to create a personal document (usually PDF) from rmarkdown, you need to <strong>Knit</strong> the document.
+Finally, to create a personal document (usually a PDF) from rmarkdown, you need to <strong>Knit</strong> the document.
 Knitting a document simply means taking all the text and code and creating a nicely formatted document.</p>
 </div>
 <div id="data-type-in-computational-analysis" class="section level2" number="1.3">
@@ -166,7 +167,7 @@ Values can be numbers (real and complex), words (string), matrices, and even tab
 <li>
 <strong>integer</strong>: number without decimals</li>
 <li>
-<strong>numeric</strong>: number with decimals (float or double depending on the precision)</li>
+<strong>numeric</strong>: number with decimals (<em>float</em> or <em>double</em> depending on the precision)</li>
 <li>
 <strong>character</strong>: string, label</li>
 <li>
@@ -373,7 +374,7 @@ For numerical vectors the command can be used to plot the basic histogram of the
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advanced Geospatial Data Analysis in R: Environmental Application</strong>" was written by Marj Tonini, Haokun Liu. It was last built on 2023-12-08.</p>
+    <p>"<strong>Advanced Geospatial Data Analysis in R: Environmental Application</strong>" was written by Marj Tonini, Haokun Liu. It was last built on 2024-01-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

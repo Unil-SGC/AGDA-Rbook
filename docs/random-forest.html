@@ -397,11 +397,11 @@ This values is used the optimize the values of the hyperparameters, by a trial a
 <span><span class="co">#&gt;                      Number of trees: 200</span></span>
 <span><span class="co">#&gt; No. of variables tried at each split: 3</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;         OOB estimate of  error rate: 16.13%</span></span>
+<span><span class="co">#&gt;         OOB estimate of  error rate: 15.98%</span></span>
 <span><span class="co">#&gt; Confusion matrix:</span></span>
 <span><span class="co">#&gt;      0    1 class.error</span></span>
-<span><span class="co">#&gt; 0 1681  401   0.1926033</span></span>
-<span><span class="co">#&gt; 1  268 1798   0.1297193</span></span>
+<span><span class="co">#&gt; 0 1685  385   0.1859903</span></span>
+<span><span class="co">#&gt; 1  278 1800   0.1337825</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">RF_LS</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"topright"</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"perd 0"</span>, <span class="st">"pred 1"</span>, <span class="st">"OOB error"</span><span class="op">)</span>, </span>
@@ -411,13 +411,13 @@ This values is used the optimize the values of the hyperparameters, by a trial a
 <code class="sourceCode R"><span><span class="co"># Show the predicted probability values</span></span>
 <span><span class="va">RF.predict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">RF_LS</span>,type<span class="op">=</span><span class="st">"prob"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">RF.predict</span><span class="op">)</span> <span class="co"># 0==abstece ; 1== presence</span></span>
-<span><span class="co">#&gt;              0          1</span></span>
-<span><span class="co">#&gt; 2463 0.9857143 0.01428571</span></span>
-<span><span class="co">#&gt; 2511 0.8987342 0.10126582</span></span>
-<span><span class="co">#&gt; 2227 0.3188406 0.68115942</span></span>
-<span><span class="co">#&gt; 526  1.0000000 0.00000000</span></span>
-<span><span class="co">#&gt; 4293 0.1621622 0.83783784</span></span>
-<span><span class="co">#&gt; 2986 0.1636364 0.83636364</span></span></code></pre></div>
+<span><span class="co">#&gt;               0          1</span></span>
+<span><span class="co">#&gt; 2465 0.96428571 0.03571429</span></span>
+<span><span class="co">#&gt; 2513 0.67073171 0.32926829</span></span>
+<span><span class="co">#&gt; 2229 0.02739726 0.97260274</span></span>
+<span><span class="co">#&gt; 527  0.03896104 0.96103896</span></span>
+<span><span class="co">#&gt; 4294 0.53623188 0.46376812</span></span>
+<span><span class="co">#&gt; 2988 0.52307692 0.47692308</span></span></code></pre></div>
 </div>
 <div id="model-evaluation" class="section level3" number="6.4.2">
 <h3>
@@ -655,7 +655,7 @@ The reading of the paper @tonini_evolution_2017, which inspired this lab, can he
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Advanced Geospatial Data Analysis in R: Environmental Application</strong>" was written by Marj Tonini, Haokun Liu. It was last built on 2023-12-08.</p>
+    <p>"<strong>Advanced Geospatial Data Analysis in R: Environmental Application</strong>" was written by Marj Tonini, Haokun Liu. It was last built on 2024-01-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

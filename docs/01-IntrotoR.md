@@ -4,15 +4,16 @@
 
 R is a complete programming language and software environment for statistical computing and graphical representation.
 As part of the GNU Project (free software, mass collaboration project), the source code is free available.
-Its functionalists can be expanded by importing packages.
+Its functionalities can be expanded by importing packages.
 For more details on R see <https://www.r-project.org/>.
 
 ### R Packages
 
 A package is a file generally composed of R scripts (e.g., functions).
 On all operation systems the function "install.packages()" can be used to download and install a package automatically.
-Once a package has been installed, it can be loaded in a session by using the command \textcolor{red}{library(package)}.
-To check the list of the installed libraries, the function \textcolor{red}{library()} can be used.
+Otherwise, a package already installed in R can be loaded in a session by using the command \textcolor{red}{library(package_name)}.
+In R, the directories where the packages are stored are called "libraries". The terms "package" and "library" are sometimes used synonymously.
+For example, to check the list of the installed packeges, the function \textcolor{red}{library()} can be used.
 When you open an **R Markdown** document (.Rmd) the program propose you automatically to install the libraries listed there.
 
 ### Some tips
@@ -42,13 +43,13 @@ Here some useful links:
 This is an R Markdown document :-)
 
 Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents.
-It is a simple and easy to use **plain text language** used to combine R code, results from your data analysis (including plots and tables), and written commentary into a single nicely formatted and reproducible document (like a report, publication, thesis chapter or a web pages).
+It is a simple and easy to use **plain text language** allowing to combine R code, results from data analysis (including plots and tables), and comments  into a single nicely formatted and *reproducible* document (like a report, publication, thesis chapter or web pages).
 
-Code lines are organized as code block, seeking to solve e specified task, and referred to as **"code chunk"**.
+Code lines are organized into code blocks, seeking to solve specified tasks, and referred to as **"code chunk"**.
 For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
 All what you have to do during the computing labs is to read each explanatory paragraph before running each individual R code chunk, one by one, and to interpret the results.
-Finally, to create a personal document (usually PDF) from rmarkdown, you need to **Knit** the document.
+Finally, to create a personal document (usually a PDF) from rmarkdown, you need to **Knit** the document.
 Knitting a document simply means taking all the text and code and creating a nicely formatted document.
 
 ## Data type in computational analysis
@@ -61,7 +62,7 @@ Values can be numbers (real and complex), words (string), matrices, and even tab
 The fundamental or atomic data in R Programming can be:
 
 -   **integer**: number without decimals
--   **numeric**: number with decimals (float or double depending on the precision)
+-   **numeric**: number with decimals (*float* or *double* depending on the precision)
 -   **character**: string, label
 -   **factors**: a label with a limited number of categories
 -   **logical**: true/false
