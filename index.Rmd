@@ -46,8 +46,9 @@ If you have some very basic knowledge in these fields, we encourage you to explo
 -   A good understanding of main practical concepts and applied aspects in GDA;
 -   Advanced tools designed to proficiently navigate various techniques for analysing spatial datasets in geosciences.
 
-Specifically, the methodologies outlined will equip readers with expertise in various algorithms tailored for analyzing complex geo-environmental datasets. This knowledge will empower them to extract valuable insights and translate them into actionable decisions.
- 
+Specifically, the methodologies outlined will equip readers with expertise in various algorithms tailored for analyzing complex geo-environmental datasets.
+This knowledge will empower them to extract valuable insights and translate them into actionable decisions.
+
 Explored algorithms include:
 
 -   *Geographically Weighted Summary Statistics* for exploratory data analyses and visualization of geographical variations in the statistical data distribution;
@@ -67,8 +68,13 @@ The case study presented in each chapter came from different projects carried ou
 All the produced scientific papers are duly cited in the bibliography.
 
 We would like to thank the following collaborators:
+
 -   Mário Gonzalez Pereira and Joana Parente, for the extensive and fruitful collaboration we have had in investigating the spatio-temporal distribution of wildfires in Portugal; one of our studies seeking to investigate the evolution of forest fires, from spatio-temporal point events to smoothed density maps, is an integral part of Chapters 2 and 3.
+
 -   Stuart Lane and Natan Micheletti, for introducing me to the fascinating world of rock glacier research; notably, the 3D-points clouds dataset analysed in Chapter 4 was acquired and processed by Natan during his PhD studies.
+
 -   Axelle Bersier, for the meticulous work she did in acquiring and pre-processing the Swiss national population census dataset, which have been used for the exercise about unsupervised learning in Chapter 5.
--   Julien Riese, for producing the input dataset and collaborating with me in developing the code allowing to assess the landslides susceptibility in canton Vaud, that is the main topic of Chapter 6.\
-    Both Julien and Axelle serve as a shining example of a highly successful master's students whom I had the pleasure of supervising.
+
+-   Julien Riese, for producing the input dataset and collaborating with me in developing the code allowing to assess the landslides susceptibility in canton Vaud, that is the main topic of Chapter 6.
+
+-   Both Julien and Axelle serve as a shining example of a highly successful master's students whom I had the pleasure of supervising.

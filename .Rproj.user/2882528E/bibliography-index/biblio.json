@@ -1,5 +1,845 @@
 {
-    "sources": [],
+    "sources": [
+        {
+            "DOI": "10.1023/A:1010933404324",
+            "ISSN": "08856125",
+            "URL": "http://link.springer.com/10.1023/A:1010933404324",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2019,
+                        12,
+                        2
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Breiman",
+                    "given": "Leo"
+                }
+            ],
+            "container-title": "Machine Learning",
+            "id": "breiman_random_2001",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2001
+                    ]
+                ]
+            },
+            "page": "5-32",
+            "title": "Random forest",
+            "type": "article-journal",
+            "volume": "45"
+        },
+        {
+            "DOI": "10.1016/s0198-9715(01)00009-6",
+            "ISSN": "0198-9715",
+            "URL": "http://dx.doi.org/10.1016/S0198-9715(01)00009-6",
+            "author": [
+                {
+                    "family": "Brunsdon",
+                    "given": "C."
+                },
+                {
+                    "family": "Fotheringham",
+                    "given": "A. S."
+                },
+                {
+                    "family": "Charlton",
+                    "given": "M."
+                }
+            ],
+            "container-title": "Computers, Environment and Urban Systems",
+            "id": "brunsdon_geographically_2002",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002,
+                        11
+                    ]
+                ]
+            },
+            "page": "501-524",
+            "title": "Geographically weighted summary statistics - a framework for localised exploratory data analysis",
+            "type": "article-journal",
+            "volume": "26"
+        },
+        {
+            "DOI": "10.1016/0098-3004(95)00020-9",
+            "ISSN": "0098-3004",
+            "URL": "http://dx.doi.org/10.1016/0098-3004(95)00020-9",
+            "author": [
+                {
+                    "family": "Brunsdon",
+                    "given": "Chris"
+                }
+            ],
+            "container-title": "Computers & Geosciences",
+            "id": "brunsdon_estimating_1995",
+            "issue": "7",
+            "issued": {
+                "date-parts": [
+                    [
+                        1995,
+                        8
+                    ]
+                ]
+            },
+            "page": "877-894",
+            "title": "Estimating probability surfaces for geographical point data: An adaptive kernel algorithm",
+            "title-short": "Estimating probability surfaces for geographical point data",
+            "type": "article-journal",
+            "volume": "21"
+        },
+        {
+            "URL": "https://rpubs.com/chrisbrunsdon/503649",
+            "author": [
+                {
+                    "family": "Brunsdon",
+                    "given": "Chris"
+                }
+            ],
+            "id": "brunsdon_rpubs_2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019,
+                        7
+                    ]
+                ]
+            },
+            "title": "RPubs - GWSS - (7th channel network conference)",
+            "type": "webpage"
+        },
+        {
+            "DOI": "10.1007/BF00337288",
+            "ISSN": "1432-0770",
+            "URL": "https://doi.org/10.1007/BF00337288",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        9,
+                        11
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Kohonen",
+                    "given": "Teuvo"
+                }
+            ],
+            "container-title": "Biological Cybernetics",
+            "container-title-short": "Biol. Cybern.",
+            "id": "kohonen_self-organized_1982",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        1982,
+                        1,
+                        1
+                    ]
+                ]
+            },
+            "keyword": "Computer Simulation, Observable Event, Output Response, Primary Event, Signal Representation",
+            "language": "en-US",
+            "page": "59-69",
+            "title": "Self-organized formation of topologically correct feature maps",
+            "type": "article-journal",
+            "volume": "43"
+        },
+        {
+            "DOI": "10.1080/10095020.2014.917453",
+            "ISSN": "1009-5020",
+            "URL": "https://doi.org/10.1080/10095020.2014.917453",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        7,
+                        27
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Lu",
+                    "given": "Binbin"
+                },
+                {
+                    "family": "Harris",
+                    "given": "Paul"
+                },
+                {
+                    "family": "Charlton",
+                    "given": "Martin"
+                },
+                {
+                    "family": "Brunsdon",
+                    "given": "Chris"
+                }
+            ],
+            "container-title": "Geo-spatial Information Science",
+            "id": "lu_gwmodel_2014",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014,
+                        4,
+                        3
+                    ]
+                ]
+            },
+            "keyword": "discriminant analysis, election data, Monte Carlo tests, principal components analysis, semi-parametric GW regression",
+            "note": "Publisher: Taylor & Francis _eprint: https://doi.org/10.1080/10095020.2014.917453",
+            "page": "85-101",
+            "title": "The GWmodel r package: Further topics for exploring spatial heterogeneity using geographically weighted models",
+            "title-short": "The GWmodel r package",
+            "type": "article-journal",
+            "volume": "17"
+        },
+        {
+            "URL": "https://ucpages.uc.pt/site/assets/files/1249198/ectqg_2023_proceedings_final.pdf",
+            "author": [
+                {
+                    "literal": "Marj Tonini"
+                },
+                {
+                    "literal": "Axelle Bersier"
+                },
+                {
+                    "literal": "Jingyan Yu"
+                },
+                {
+                    "literal": "Francois Bavaud"
+                }
+            ],
+            "container-title": "ECTQG 2023 proceedings",
+            "event": "23rd european colloquium on theoretical and quantitative geography",
+            "id": "marj_tonini_unsupervised_2023",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        9
+                    ]
+                ]
+            },
+            "publisher-place": "Braga, Portugal",
+            "title": "An unsupervised learning approach to explore geodemographic clusters in switzerland",
+            "type": "paper-conference"
+        },
+        {
+            "DOI": "10.1016/j.geomorph.2016.11.016",
+            "ISSN": "0169555X",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0169555X16305980",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        4,
+                        1
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Micheletti",
+                    "given": "Natan"
+                },
+                {
+                    "family": "Tonini",
+                    "given": "Marj"
+                },
+                {
+                    "family": "Lane",
+                    "given": "Stuart N."
+                }
+            ],
+            "container-title": "Geomorphology",
+            "container-title-short": "Geomorphology",
+            "id": "micheletti_geomorphological_2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017,
+                        2
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "287-297",
+            "title": "Geomorphological activity at a rock glacier front detected with a 3D density-based clustering algorithm",
+            "type": "article-journal",
+            "volume": "278"
+        },
+        {
+            "DOI": "10.1111/j.1467-9671.2010.01194.x",
+            "ISSN": "1467-9671",
+            "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9671.2010.01194.x",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        10,
+                        6
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Nakaya",
+                    "given": "Tomoki"
+                },
+                {
+                    "family": "Yano",
+                    "given": "Keiji"
+                }
+            ],
+            "container-title": "Transactions in GIS",
+            "id": "nakaya_visualising_2010",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "note": "_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1467-9671.2010.01194.x",
+            "page": "223-239",
+            "title": "Visualising crime clusters in a space-time cube: An exploratory data-analysis approach using space-time kernel density estimation and scan statistics",
+            "title-short": "Visualising crime clusters in a space-time cube",
+            "type": "article-journal",
+            "volume": "14"
+        },
+        {
+            "author": [
+                {
+                    "family": "Sherman",
+                    "given": "Gary"
+                }
+            ],
+            "id": "sherman_desktop_2008",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008
+                    ]
+                ]
+            },
+            "keyword": "#nosource",
+            "publisher": "Pragmatic Bookshelf",
+            "title": "Desktop GIS: Mapping the Planet with Open Source Tools",
+            "title-short": "Desktop GIS",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1016/j.compenvurbsys.2007.11.004",
+            "ISSN": "0198-9715",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S0198971507000907",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        9,
+                        11
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Spielman",
+                    "given": "Seth E."
+                },
+                {
+                    "family": "Thill",
+                    "given": "Jean-Claude"
+                }
+            ],
+            "container-title": "Computers, Environment and Urban Systems",
+            "container-title-short": "Computers, Environment and Urban Systems",
+            "id": "spielman_social_2008",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        3,
+                        1
+                    ]
+                ]
+            },
+            "keyword": "GIS, Data mining, Geodemographics, New York City, Self-Organizing Maps",
+            "page": "110-122",
+            "title": "Social area analysis, data mining, and GIS",
+            "type": "article-journal",
+            "volume": "32"
+        },
+        {
+            "DOI": "10.1007/s11069-016-2637-x",
+            "ISSN": "1573-0840",
+            "URL": "https://doi.org/10.1007/s11069-016-2637-x",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        9,
+                        28
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Tonini",
+                    "given": "Marj"
+                },
+                {
+                    "family": "Pereira",
+                    "given": "Mário Gonzalez"
+                },
+                {
+                    "family": "Parente",
+                    "given": "Joana"
+                },
+                {
+                    "family": "Vega Orozco",
+                    "given": "Carmen"
+                }
+            ],
+            "container-title": "Natural Hazards",
+            "container-title-short": "Nat Hazards",
+            "id": "tonini_evolution_2017",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017,
+                        2,
+                        1
+                    ]
+                ]
+            },
+            "keyword": "3D-Kernel density, Forest fires, Portugal, Ripley’s K-function, Spatio-temporal statistics",
+            "language": "en-US",
+            "page": "1489-1510",
+            "title": "Evolution of forest fires in portugal: From spatio-temporal point events to smoothed density maps",
+            "title-short": "Evolution of forest fires in portugal",
+            "type": "article-journal",
+            "volume": "85"
+        },
+        {
+            "DOI": "10.3390/geosciences10030105",
+            "ISSN": "2076-3263",
+            "URL": "https://www.mdpi.com/2076-3263/10/3/105",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        10,
+                        23
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Tonini",
+                    "given": "Marj"
+                },
+                {
+                    "family": "D’Andrea",
+                    "given": "Mirko"
+                },
+                {
+                    "family": "Biondi",
+                    "given": "Guido"
+                },
+                {
+                    "family": "Degli Esposti",
+                    "given": "Silvia"
+                },
+                {
+                    "family": "Trucchia",
+                    "given": "Andrea"
+                },
+                {
+                    "family": "Fiorucci",
+                    "given": "Paolo"
+                }
+            ],
+            "container-title": "Geosciences",
+            "id": "tonini_machine_2020",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020,
+                        3
+                    ]
+                ]
+            },
+            "keyword": "machine learning, random forest, spatial-cross validation, susceptibility mapping, wildfires",
+            "language": "en-US",
+            "note": "Number: 3 Publisher: Multidisciplinary Digital Publishing Institute",
+            "page": "105",
+            "title": "A machine learning-based approach for wildfire susceptibility mapping. The case study of the liguria region in italy",
+            "type": "article-journal",
+            "volume": "10"
+        },
+        {
+            "DOI": "10.3390/geosciences12110424",
+            "ISSN": "2076-3263",
+            "URL": "https://www.mdpi.com/2076-3263/12/11/424",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        10,
+                        23
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Trucchia",
+                    "given": "Andrea"
+                },
+                {
+                    "family": "Izadgoshasb",
+                    "given": "Hamed"
+                },
+                {
+                    "family": "Isnardi",
+                    "given": "Sara"
+                },
+                {
+                    "family": "Fiorucci",
+                    "given": "Paolo"
+                },
+                {
+                    "family": "Tonini",
+                    "given": "Marj"
+                }
+            ],
+            "container-title": "Geosciences",
+            "id": "trucchia_machine-learning_2022",
+            "issue": "11",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022,
+                        11
+                    ]
+                ]
+            },
+            "keyword": "Liguria, multi-layer perceptron, partial dependent plot, random forest, support vector machine, variable importance ranking, vegetation types",
+            "language": "en-US",
+            "note": "Number: 11 Publisher: Multidisciplinary Digital Publishing Institute",
+            "page": "424",
+            "title": "Machine-learning applications in geosciences: Comparison of different algorithms and vegetation classes’ importance ranking in wildfire susceptibility",
+            "title-short": "Machine-learning applications in geosciences",
+            "type": "article-journal",
+            "volume": "12"
+        },
+        {
+            "URL": "http://yihui.org/knitr/",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "edition": "2nd",
+            "id": "xie_dynamic_2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "note": "ISBN 978-1498716963",
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "Dynamic documents with R and knitr",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.R-project.org/",
+            "author": [
+                {
+                    "literal": "R Core Team"
+                }
+            ],
+            "id": "R-base",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "publisher": "R Foundation for Statistical Computing",
+            "publisher-place": "Vienna, Austria",
+            "title": "R: A language and environment for statistical computing",
+            "title-short": "R",
+            "type": "book"
+        },
+        {
+            "URL": "https://github.com/rstudio/bookdown",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "id": "R-bookdown",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "note": "R package version 0.36",
+            "title": "Bookdown: Authoring books and technical documents with r markdown",
+            "title-short": "Bookdown",
+            "type": "book"
+        },
+        {
+            "URL": "https://yihui.org/knitr/",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "id": "R-knitr",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "note": "R package version 1.45",
+            "title": "Knitr: A general-purpose package for dynamic report generation in r",
+            "title-short": "Knitr",
+            "type": "book"
+        },
+        {
+            "URL": "https://github.com/rstudio/rmarkdown",
+            "author": [
+                {
+                    "family": "Allaire",
+                    "given": "JJ"
+                },
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                },
+                {
+                    "family": "Dervieux",
+                    "given": "Christophe"
+                },
+                {
+                    "family": "McPherson",
+                    "given": "Jonathan"
+                },
+                {
+                    "family": "Luraschi",
+                    "given": "Javier"
+                },
+                {
+                    "family": "Ushey",
+                    "given": "Kevin"
+                },
+                {
+                    "family": "Atkins",
+                    "given": "Aron"
+                },
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                },
+                {
+                    "family": "Cheng",
+                    "given": "Joe"
+                },
+                {
+                    "family": "Chang",
+                    "given": "Winston"
+                },
+                {
+                    "family": "Iannone",
+                    "given": "Richard"
+                }
+            ],
+            "id": "R-rmarkdown",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "note": "R package version 2.25",
+            "title": "Rmarkdown: Dynamic documents for r",
+            "title-short": "Rmarkdown",
+            "type": "book"
+        },
+        {
+            "ISBN": "978-1138700109",
+            "URL": "https://bookdown.org/yihui/bookdown",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "id": "bookdown2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "Bookdown: Authoring books and technical documents with R markdown",
+            "title-short": "Bookdown",
+            "type": "book"
+        },
+        {
+            "URL": "https://yihui.org/knitr/",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "edition": "2nd",
+            "id": "knitr2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015
+                    ]
+                ]
+            },
+            "note": "ISBN 978-1498716963",
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "Dynamic documents with R and knitr",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "container-title": "Implementing reproducible computational research",
+            "editor": [
+                {
+                    "family": "Stodden",
+                    "given": "Victoria"
+                },
+                {
+                    "family": "Leisch",
+                    "given": "Friedrich"
+                },
+                {
+                    "family": "Peng",
+                    "given": "Roger D."
+                }
+            ],
+            "id": "knitr2014",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "note": "ISBN 978-1466561595",
+            "publisher": "Chapman; Hall/CRC",
+            "title": "Knitr: A comprehensive tool for reproducible research in R",
+            "title-short": "Knitr",
+            "type": "chapter"
+        },
+        {
+            "ISBN": "9781138359338",
+            "URL": "https://bookdown.org/yihui/rmarkdown",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                },
+                {
+                    "family": "Allaire",
+                    "given": "J. J."
+                },
+                {
+                    "family": "Grolemund",
+                    "given": "Garrett"
+                }
+            ],
+            "id": "rmarkdown2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "R markdown: The definitive guide",
+            "title-short": "R markdown",
+            "type": "book"
+        },
+        {
+            "ISBN": "9780367563837",
+            "URL": "https://bookdown.org/yihui/rmarkdown-cookbook",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                },
+                {
+                    "family": "Dervieux",
+                    "given": "Christophe"
+                },
+                {
+                    "family": "Riederer",
+                    "given": "Emily"
+                }
+            ],
+            "id": "rmarkdown2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "Chapman; Hall/CRC",
+            "publisher-place": "Boca Raton, Florida",
+            "title": "R markdown cookbook",
+            "type": "book"
+        }
+    ],
     "project_biblios": [
         "book.bib",
         "packages.bib"
