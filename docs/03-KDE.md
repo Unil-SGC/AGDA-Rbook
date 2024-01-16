@@ -159,7 +159,7 @@ SF=(subset(FF, Area_ha <=15)) #create a sub-set including only small fires.
 summary(SF)
 #>       Year         Area_ha             X         
 #>  Min.   :1990   Min.   : 5.000   Min.   : 82761  
-#>  1st Qu.:1997   1st Qu.: 6.624   1st Qu.:182972  
+#>  1st Qu.:1997   1st Qu.: 6.624   1st Qu.:182973  
 #>  Median :2001   Median : 8.569   Median :213159  
 #>  Mean   :2002   Mean   : 9.041   Mean   :219789  
 #>  3rd Qu.:2008   3rd Qu.:11.219   3rd Qu.:259054  
@@ -170,7 +170,7 @@ summary(SF)
 #>  Median :472892   +proj=tmer...:    0  
 #>  Mean   :440692                        
 #>  3rd Qu.:518384                        
-#>  Max.   :573192
+#>  Max.   :573193
 
 # This is to save the plot 
 pSF <- ggplot ()+
@@ -244,9 +244,10 @@ pLF <- ggplot ()+
 # Arrange the three spatial maps side by side
 
 install.packages('patchwork', repos = "http://cran.us.r-project.org") 
+#> package 'patchwork' successfully unpacked and MD5 sums checked
 #> 
 #> The downloaded binary packages are in
-#> 	/var/folders/hf/q_2qq0tn1dngf4r3nzfhj3xh0000gn/T//RtmpnQNp4e/downloaded_packages
+#> 	C:\Users\mtonini1\AppData\Local\Temp\Rtmpc5rdjj\downloaded_packages
 library(patchwork) # Allow to  combine separate ggplots into the same graphic
 
 pSF+pMF+pLF

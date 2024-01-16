@@ -7,7 +7,7 @@
 <title>Chapter 3 Kernel Density Estimator | Advanced Geospatial Data Analysis in R: Environmental Application</title>
 <meta name="author" content="Marj Tonini, Haokun Liu">
 <meta name="description" content="3.1 Introduction The configuration of forest fires across space and time presents a complex pattern which significantly affects the forest environment and adjacent human developments. Statistical...">
-<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
 <meta property="og:title" content="Chapter 3 Kernel Density Estimator | Advanced Geospatial Data Analysis in R: Environmental Application">
 <meta property="og:type" content="book">
 <meta property="og:image" content="/images/UNIL_logo.png">
@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="/images/UNIL_logo.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -230,7 +230,7 @@ As you have seen in the lab GWSS, based on the frequency distribution of the bur
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">SF</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       Year         Area_ha             X         </span></span>
 <span><span class="co">#&gt;  Min.   :1990   Min.   : 5.000   Min.   : 82761  </span></span>
-<span><span class="co">#&gt;  1st Qu.:1997   1st Qu.: 6.624   1st Qu.:182972  </span></span>
+<span><span class="co">#&gt;  1st Qu.:1997   1st Qu.: 6.624   1st Qu.:182973  </span></span>
 <span><span class="co">#&gt;  Median :2001   Median : 8.569   Median :213159  </span></span>
 <span><span class="co">#&gt;  Mean   :2002   Mean   : 9.041   Mean   :219789  </span></span>
 <span><span class="co">#&gt;  3rd Qu.:2008   3rd Qu.:11.219   3rd Qu.:259054  </span></span>
@@ -241,7 +241,7 @@ As you have seen in the lab GWSS, based on the frequency distribution of the bur
 <span><span class="co">#&gt;  Median :472892   +proj=tmer...:    0  </span></span>
 <span><span class="co">#&gt;  Mean   :440692                        </span></span>
 <span><span class="co">#&gt;  3rd Qu.:518384                        </span></span>
-<span><span class="co">#&gt;  Max.   :573192</span></span>
+<span><span class="co">#&gt;  Max.   :573193</span></span>
 <span></span>
 <span><span class="co"># This is to save the plot </span></span>
 <span><span class="va">pSF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span> <span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
@@ -306,9 +306,10 @@ As you have seen in the lab GWSS, based on the frequency distribution of the bur
 <span><span class="co"># Arrange the three spatial maps side by side</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'patchwork'</span>, repos <span class="op">=</span> <span class="st">"http://cran.us.r-project.org"</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; package 'patchwork' successfully unpacked and MD5 sums checked</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; The downloaded binary packages are in</span></span>
-<span><span class="co">#&gt;  /var/folders/hf/q_2qq0tn1dngf4r3nzfhj3xh0000gn/T//RtmpnQNp4e/downloaded_packages</span></span>
+<span><span class="co">#&gt;  C:\Users\mtonini1\AppData\Local\Temp\Rtmpc5rdjj\downloaded_packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span> <span class="co"># Allow to  combine separate ggplots into the same graphic</span></span>
 <span></span>
 <span><span class="va">pSF</span><span class="op">+</span><span class="va">pMF</span><span class="op">+</span><span class="va">pLF</span></span></code></pre></div>

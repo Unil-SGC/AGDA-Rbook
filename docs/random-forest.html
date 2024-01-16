@@ -7,7 +7,7 @@
 <title>Chapter 6 Random Forest | Advanced Geospatial Data Analysis in R: Environmental Application</title>
 <meta name="author" content="Marj Tonini, Haokun Liu">
 <meta name="description" content="6.1 Introduction In this application, we explore the capabilities of a stochastic approach based on a machine learning (ML) algorithm to elaborate landslides susceptibility mapping in Canton Vaud,...">
-<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
 <meta property="og:title" content="Chapter 6 Random Forest | Advanced Geospatial Data Analysis in R: Environmental Application">
 <meta property="og:type" content="book">
 <meta property="og:image" content="/images/UNIL_logo.png">
@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="/images/UNIL_logo.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -397,11 +397,11 @@ This values is used the optimize the values of the hyperparameters, by a trial a
 <span><span class="co">#&gt;                      Number of trees: 200</span></span>
 <span><span class="co">#&gt; No. of variables tried at each split: 3</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;         OOB estimate of  error rate: 16.66%</span></span>
+<span><span class="co">#&gt;         OOB estimate of  error rate: 16.27%</span></span>
 <span><span class="co">#&gt; Confusion matrix:</span></span>
 <span><span class="co">#&gt;      0    1 class.error</span></span>
-<span><span class="co">#&gt; 0 1658  414   0.1998069</span></span>
-<span><span class="co">#&gt; 1  277 1799   0.1334297</span></span>
+<span><span class="co">#&gt; 0 1668  399   0.1930334</span></span>
+<span><span class="co">#&gt; 1  276 1805   0.1326285</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">RF_LS</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"topright"</span>, legend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"perd 0"</span>, <span class="st">"pred 1"</span>, <span class="st">"OOB error"</span><span class="op">)</span>, </span>
@@ -411,13 +411,13 @@ This values is used the optimize the values of the hyperparameters, by a trial a
 <code class="sourceCode R"><span><span class="co"># Show the predicted probability values</span></span>
 <span><span class="va">RF.predict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">RF_LS</span>,type<span class="op">=</span><span class="st">"prob"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">RF.predict</span><span class="op">)</span> <span class="co"># 0==abstece ; 1== presence</span></span>
-<span><span class="co">#&gt;              0          1</span></span>
-<span><span class="co">#&gt; 2465 0.9620253 0.03797468</span></span>
-<span><span class="co">#&gt; 2513 0.9666667 0.03333333</span></span>
-<span><span class="co">#&gt; 2229 0.9764706 0.02352941</span></span>
-<span><span class="co">#&gt; 526  0.6800000 0.32000000</span></span>
-<span><span class="co">#&gt; 4294 0.7761194 0.22388060</span></span>
-<span><span class="co">#&gt; 2988 0.4677419 0.53225806</span></span></code></pre></div>
+<span><span class="co">#&gt;               0          1</span></span>
+<span><span class="co">#&gt; 2465 0.07894737 0.92105263</span></span>
+<span><span class="co">#&gt; 2513 0.60674157 0.39325843</span></span>
+<span><span class="co">#&gt; 2229 0.21250000 0.78750000</span></span>
+<span><span class="co">#&gt; 527  0.95890411 0.04109589</span></span>
+<span><span class="co">#&gt; 4294 0.91549296 0.08450704</span></span>
+<span><span class="co">#&gt; 2988 0.97183099 0.02816901</span></span></code></pre></div>
 </div>
 <div id="model-evaluation" class="section level3" number="6.4.2">
 <h3>
