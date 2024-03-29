@@ -1,5 +1,5 @@
 ---
-title: "Advanced Geospatial Data Analysis in R: Environmental Application"
+title: "Advanced Geospatial Data Analysis in R: Environmental Applications"
 author: "Marj Tonini, Haokun Liu"
 date: "2023-11-23"
 site: bookdown::bookdown_site
